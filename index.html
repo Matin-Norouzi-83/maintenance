@@ -1,1479 +1,1769 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>داشبورد برنامه‌ریزی نگهداری و تعمیرات | صنایع کشاورزی ۴.۰</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامه‌ریزی مهندسی نگهداری و تعمیرات در صنایع کشاورزی | چارچوب یکپارچه نسل چهارم صنعت</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* ===== RESET & BASE ===== */
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --bg-primary: #f4f7fc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-nav: #0a1628;
+            --bg-header: linear-gradient(135deg, #0a1628 0%, #1a2a4a 100%);
+            --text-primary: #1a2332;
+            --text-secondary: #2d3748;
+            --text-muted: #5a6a7e;
+            --text-light: #e8edf5;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --accent-dark: #1d4ed8;
+            --accent-glow: rgba(37, 99, 235, 0.25);
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 16px 60px rgba(0, 0, 0, 0.12);
+            --radius: 16px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Vazirmatn', sans-serif;
+            --kpi-green: #10b981;
+            --kpi-blue: #3b82f6;
+            --kpi-purple: #8b5cf6;
+            --kpi-orange: #f59e0b;
+            --kpi-red: #ef4444;
+            --table-header-bg: #f1f5f9;
+            --table-stripe: #f8fafc;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+        }
+
+        .dark-mode {
+            --bg-primary: #0b1120;
+            --bg-secondary: #111b2e;
+            --bg-card: #152238;
+            --bg-nav: #060d1a;
+            --bg-header: linear-gradient(135deg, #060d1a 0%, #0f1f3a 100%);
+            --text-primary: #e8edf5;
+            --text-secondary: #c8d0e0;
+            --text-muted: #8a9bb0;
+            --text-light: #e8edf5;
+            --border-color: #1e3050;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 16px 60px rgba(0, 0, 0, 0.5);
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-dark: #2563eb;
+            --table-header-bg: #1a2a4a;
+            --table-stripe: #0f1f3a;
+            --kpi-green: #34d399;
+            --kpi-blue: #60a5fa;
+            --kpi-purple: #a78bfa;
+            --kpi-orange: #fbbf24;
+            --kpi-red: #f87171;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        :root {
-            --bg-primary: #0b1219;
-            --bg-secondary: #141e2b;
-            --bg-card: #1a2a3a;
-            --bg-card-hover: #1f3145;
-            --border-glow: #2a4a6a;
-            --text-primary: #e8f0f8;
-            --text-secondary: #b0c8dd;
-            --text-muted: #7a96b0;
-            --accent-cyan: #3bc9db;
-            --accent-blue: #4d8fc5;
-            --accent-orange: #f59f4a;
-            --accent-gold: #f7c948;
-            --accent-green: #4ecdc4;
-            --accent-red: #ff6b6b;
-            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.5);
-            --radius: 12px;
-            --transition: 0.25s ease;
-        }
+
         html {
             scroll-behavior: smooth;
         }
+
         body {
-            font-family: 'Vazirmatn', sans-serif;
+            font-family: var(--font);
             background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.8;
-            padding: 0;
-            margin: 0;
-            min-height: 100vh;
-        }
-        a {
-            color: var(--accent-cyan);
-            text-decoration: none;
-        }
-        a:hover {
-            color: var(--accent-blue);
+            transition: var(--transition);
+            line-height: 1.7;
+            font-size: 15px;
         }
 
-        /* ===== SCROLLBAR ===== */
+        a {
+            text-decoration: none;
+            color: var(--accent);
+        }
+
+        /* ===== Scrollbar ===== */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
+            background: var(--bg-primary);
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--accent-cyan);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-blue);
+            background: var(--accent);
+            border-radius: 10px;
         }
 
-        /* ===== UTILITY ===== */
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* ===== Header ===== */
+        .app-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+            background: var(--bg-header);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px 0 20px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
-        .section-title {
-            font-family: 'Lalezar', sans-serif;
-            font-size: 2.2rem;
-            color: var(--accent-cyan);
-            margin: 2rem 0 1.2rem 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid var(--accent-cyan);
-            display: inline-block;
+
+        .app-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .app-header .logo i {
+            font-size: 28px;
+            color: var(--accent-light);
+            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4));
+        }
+
+        .app-header .logo .title {
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 0.3px;
+            line-height: 1.3;
+        }
+
+        .app-header .logo .title span {
+            display: block;
+            font-weight: 300;
+            font-size: 11px;
+            opacity: 0.7;
             letter-spacing: 0.5px;
         }
-        .section-title .num {
-            color: var(--accent-orange);
-            margin-left: 8px;
-        }
-        .subsection-title {
-            font-family: 'Lalezar', sans-serif;
-            font-size: 1.5rem;
-            color: var(--accent-blue);
-            margin: 1.8rem 0 1rem 0;
-        }
-        .subsubsection-title {
-            font-weight: 700;
-            font-size: 1.15rem;
-            color: var(--accent-gold);
-            margin: 1.2rem 0 0.6rem 0;
-        }
-        .card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 1.8rem 2rem;
-            margin-bottom: 1.8rem;
-            box-shadow: var(--shadow-card);
-            border: 1px solid rgba(59, 201, 219, 0.08);
-            transition: var(--transition);
-        }
-        .card:hover {
-            border-color: rgba(59, 201, 219, 0.2);
-            background: var(--bg-card-hover);
-        }
-        .text-muted {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .mt-1 {
-            margin-top: 1rem;
-        }
-        .mb-1 {
-            margin-bottom: 1rem;
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        /* ===== HEADER / PLAQUE ===== */
-        .header-plaque {
-            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-primary));
-            border-bottom: 3px solid var(--accent-cyan);
-            padding: 2rem 0 1.6rem 0;
+        .header-actions .badge-author {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: none;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: rotate(15deg);
+        }
+
+        .menu-toggle {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+            position: fixed;
+            top: var(--header-height);
+            right: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: var(--bg-nav);
+            overflow-y: auto;
+            padding: 20px 0 40px;
+            z-index: 999;
+            border-left: 1px solid rgba(255, 255, 255, 0.04);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 3px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--accent);
+        }
+
+        .sidebar .nav-section {
+            padding: 8px 20px 4px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            transition: var(--transition);
+            border-right: 3px solid transparent;
+            font-weight: 400;
+        }
+
+        .sidebar a i {
+            width: 18px;
+            font-size: 14px;
+            text-align: center;
+            opacity: 0.6;
+        }
+
+        .sidebar a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+            border-right-color: var(--accent);
+        }
+
+        .sidebar a.active {
+            color: #fff;
+            background: rgba(59, 130, 246, 0.12);
+            border-right-color: var(--accent);
+            font-weight: 500;
+        }
+
+        .sidebar a.active i {
+            opacity: 1;
+            color: var(--accent-light);
+        }
+
+        /* ===== Main Content ===== */
+        .main-content {
+            margin-right: var(--sidebar-width);
+            margin-top: var(--header-height);
+            padding: 28px 32px 60px;
+            min-height: 100vh;
+            transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== Hero / Intro ===== */
+        .hero-section {
+            background: var(--bg-header);
+            border-radius: var(--radius);
+            padding: 40px 40px 36px;
+            margin-bottom: 32px;
+            color: #fff;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-lg);
         }
-        .header-plaque::after {
+
+        .hero-section::after {
             content: '';
             position: absolute;
             top: -50%;
             right: -20%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(59, 201, 219, 0.04), transparent 70%);
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
             pointer-events: none;
         }
-        .plaque-inner {
-            display: flex;
-            flex-wrap: wrap;
+
+        .hero-section .hero-badge {
+            display: inline-flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 1.2rem;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 16px;
+        }
+
+        .hero-section .hero-badge i {
+            font-size: 12px;
+            color: var(--accent-light);
+        }
+
+        .hero-section h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.3;
             position: relative;
             z-index: 1;
         }
-        .plaque-title {
-            font-family: 'Lalezar', sans-serif;
-            font-size: 2.4rem;
-            color: var(--text-primary);
-            line-height: 1.3;
-            flex: 1 1 300px;
-        }
-        .plaque-title .highlight {
-            color: var(--accent-cyan);
-        }
-        .plaque-title .sub {
-            display: block;
-            font-family: 'Vazirmatn', sans-serif;
-            font-size: 0.95rem;
+
+        .hero-section .subtitle {
+            font-size: 16px;
+            opacity: 0.8;
             font-weight: 300;
-            color: var(--text-secondary);
-            margin-top: 0.2rem;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
         }
-        .plaque-meta {
+
+        .hero-section .meta-info {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.2rem 2.2rem;
-            font-size: 0.95rem;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.8rem 1.6rem;
+            gap: 20px 36px;
+            font-size: 13px;
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+            margin-top: 4px;
+        }
+
+        .hero-section .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-section .meta-info i {
+            font-size: 14px;
+            color: var(--accent-light);
+        }
+
+        /* ===== Section ===== */
+        .section {
+            margin-bottom: 40px;
+            background: var(--bg-card);
             border-radius: var(--radius);
-            border: 1px solid rgba(59, 201, 219, 0.15);
-            backdrop-filter: blur(4px);
+            padding: 28px 32px 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
         }
-        .plaque-meta span {
-            color: var(--text-secondary);
+
+        .section:hover {
+            box-shadow: var(--shadow-md);
         }
-        .plaque-meta strong {
+
+        .section .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section .section-header .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section .section-header h2 {
+            font-size: 20px;
+            font-weight: 700;
             color: var(--text-primary);
-            font-weight: 700;
         }
-        .plaque-meta .badge {
-            display: inline-block;
-            background: var(--accent-cyan);
-            color: #0b1219;
-            font-weight: 700;
-            padding: 0.1rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+
+        .section .section-header .section-icon {
+            margin-right: auto;
+            font-size: 20px;
+            color: var(--text-muted);
+            opacity: 0.4;
+        }
+
+        .section p,
+        .section li {
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 10px;
+        }
+
+        .section ul,
+        .section ol {
+            padding-right: 24px;
+            margin-bottom: 12px;
+        }
+
+        .section li {
+            margin-bottom: 4px;
+        }
+
+        .section strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .section .highlight-box {
+            background: var(--bg-primary);
+            border-right: 4px solid var(--accent);
+            padding: 16px 20px;
+            border-radius: var(--radius-sm);
+            margin: 12px 0;
+            font-size: 14px;
+        }
+
+        /* ===== Tables ===== */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 16px 0 8px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .table-responsive table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 600px;
+        }
+
+        .table-responsive table th {
+            background: var(--table-header-bg);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 12px 14px;
+            text-align: right;
+            border-bottom: 2px solid var(--border-color);
+            white-space: nowrap;
+            font-size: 12px;
             letter-spacing: 0.3px;
         }
 
-        /* ===== NAV ===== */
-        .nav-sticky {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(11, 18, 25, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(59, 201, 219, 0.15);
-            padding: 0.4rem 0;
-            transition: var(--transition);
-        }
-        .nav-sticky .nav-inner {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.3rem 0.8rem;
-            justify-content: center;
-        }
-        .nav-sticky a {
-            font-size: 0.78rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            transition: var(--transition);
-            white-space: nowrap;
-            letter-spacing: 0.2px;
-        }
-        .nav-sticky a:hover {
-            color: var(--text-primary);
-            background: rgba(59, 201, 219, 0.12);
-        }
-        .nav-sticky a.active {
-            color: var(--accent-cyan);
-            background: rgba(59, 201, 219, 0.15);
-        }
-        .nav-sticky .nav-mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.6rem;
-            cursor: pointer;
-            padding: 0.2rem 0.8rem;
-        }
-
-        /* ===== PROGRESS BAR ===== */
-        .progress-wrap {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            z-index: 1001;
-            background: transparent;
-        }
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
-            transition: width 0.15s ease;
-            border-radius: 0 2px 2px 0;
-        }
-
-        /* ===== BACK TO TOP ===== */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            z-index: 999;
-            background: var(--accent-cyan);
-            color: #0b1219;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: none;
-            font-size: 1.6rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(59, 201, 219, 0.3);
-            transition: var(--transition);
-            opacity: 0;
-            transform: scale(0.8);
-            pointer-events: none;
-            font-family: 'Vazirmatn', sans-serif;
-            font-weight: 700;
-        }
-        .back-to-top.visible {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
-        }
-        .back-to-top:hover {
-            background: var(--accent-blue);
-            transform: scale(1.05);
-            color: #fff;
-        }
-
-        /* ===== TABLES ===== */
-        .table-wrap {
-            overflow-x: auto;
-            margin: 1.2rem 0;
-            border-radius: var(--radius);
-            border: 1px solid rgba(59, 201, 219, 0.1);
-            background: rgba(0, 0, 0, 0.2);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-            min-width: 480px;
-        }
-        table th {
-            background: rgba(59, 201, 219, 0.12);
-            color: var(--accent-cyan);
-            font-weight: 700;
-            padding: 0.8rem 1rem;
-            text-align: right;
-            border-bottom: 2px solid var(--accent-cyan);
-            white-space: nowrap;
-        }
-        table td {
-            padding: 0.7rem 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .table-responsive table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
             color: var(--text-secondary);
             vertical-align: top;
         }
-        table tr:hover td {
-            background: rgba(59, 201, 219, 0.04);
+
+        .table-responsive table tr:nth-child(even) {
+            background: var(--table-stripe);
         }
-        table td:first-child,
-        table th:first-child {
-            padding-right: 1.2rem;
+
+        .table-responsive table tr:hover {
+            background: var(--bg-primary);
         }
+
         .table-caption {
-            font-size: 0.85rem;
+            font-size: 12px;
             color: var(--text-muted);
-            padding: 0.5rem 0.2rem 0.2rem 0.2rem;
-            text-align: center;
-            font-weight: 300;
-        }
-
-        /* ===== FIGURES (SVG) ===== */
-        .figure-box {
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: var(--radius);
-            padding: 1.8rem 1.2rem;
-            margin: 1.6rem 0;
-            border: 1px solid rgba(59, 201, 219, 0.08);
-            text-align: center;
-        }
-        .figure-box svg {
-            max-width: 100%;
-            height: auto;
-        }
-        .figure-caption {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 0.8rem;
-            font-weight: 300;
+            padding: 8px 4px 0;
             text-align: center;
         }
 
-        /* ===== LISTS ===== */
-        ul,
-        ol {
-            padding-right: 1.8rem;
-            margin: 0.6rem 0 0.8rem 0;
-            color: var(--text-secondary);
-        }
-        ul li,
-        ol li {
-            margin-bottom: 0.3rem;
-        }
-        .bullet-list {
-            list-style: none;
-            padding-right: 0;
-        }
-        .bullet-list li {
-            padding-right: 1.6rem;
-            position: relative;
-            margin-bottom: 0.5rem;
-        }
-        .bullet-list li::before {
-            content: '▹';
-            position: absolute;
-            right: 0;
-            color: var(--accent-cyan);
-            font-weight: 700;
-        }
-
-        /* ===== STAT CARDS ===== */
-        .stat-grid {
+        /* ===== KPI Cards ===== */
+        .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-            gap: 1.2rem;
-            margin: 1.2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin: 16px 0 8px;
         }
-        .stat-card {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: var(--radius);
-            padding: 1.2rem 1rem;
-            text-align: center;
-            border: 1px solid rgba(59, 201, 219, 0.08);
+
+        .kpi-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            padding: 16px 18px;
+            border: 1px solid var(--border-color);
             transition: var(--transition);
+            text-align: center;
         }
-        .stat-card:hover {
-            border-color: rgba(59, 201, 219, 0.25);
+
+        .kpi-card:hover {
             transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
         }
-        .stat-card .number {
-            font-family: 'Lalezar', sans-serif;
-            font-size: 2.4rem;
-            color: var(--accent-cyan);
+
+        .kpi-card .kpi-value {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .kpi-card .kpi-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .kpi-card .kpi-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
             display: block;
         }
-        .stat-card .label {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            font-weight: 300;
+
+        .kpi-card.green .kpi-icon {
+            color: var(--kpi-green);
+        }
+        .kpi-card.blue .kpi-icon {
+            color: var(--kpi-blue);
+        }
+        .kpi-card.purple .kpi-icon {
+            color: var(--kpi-purple);
+        }
+        .kpi-card.orange .kpi-icon {
+            color: var(--kpi-orange);
+        }
+        .kpi-card.red .kpi-icon {
+            color: var(--kpi-red);
         }
 
-        /* ===== GAUGE / METER ===== */
-        .gauge-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.8rem;
-            justify-content: center;
-            margin: 1.2rem 0;
+        .kpi-card .change {
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 6px;
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 12px;
         }
-        .gauge-item {
-            text-align: center;
-            background: rgba(0, 0, 0, 0.25);
-            padding: 1rem 1.6rem 1.2rem 1.6rem;
-            border-radius: var(--radius);
-            min-width: 140px;
-            border: 1px solid rgba(59, 201, 219, 0.06);
+
+        .kpi-card .change.positive {
+            color: var(--kpi-green);
+            background: rgba(16, 185, 129, 0.12);
         }
-        .gauge-item .gauge-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 0.4rem;
+
+        .kpi-card .change.negative {
+            color: var(--kpi-red);
+            background: rgba(239, 68, 68, 0.12);
         }
-        .gauge-item .gauge-value {
-            font-family: 'Lalezar', sans-serif;
-            font-size: 1.8rem;
+
+        /* ===== Two Column Layout ===== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* ===== Glossary / Abbreviations ===== */
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .glossary-item {
+            background: var(--bg-primary);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            border-right: 3px solid var(--accent);
+            font-size: 13px;
+        }
+
+        .glossary-item .term {
+            font-weight: 600;
             color: var(--text-primary);
+            display: block;
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 900px) {
-            .plaque-inner {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-            .plaque-title {
-                font-size: 1.8rem;
-            }
-            .plaque-meta {
-                justify-content: center;
-                font-size: 0.85rem;
-                padding: 0.6rem 1rem;
-            }
-            .section-title {
-                font-size: 1.7rem;
-            }
-            .subsection-title {
-                font-size: 1.25rem;
-            }
-            .card {
-                padding: 1.2rem 1rem;
-            }
-            .nav-sticky .nav-inner {
-                gap: 0.2rem 0.4rem;
-            }
-            .nav-sticky a {
-                font-size: 0.7rem;
-                padding: 0.3rem 0.5rem;
-            }
-            .stat-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            table {
-                font-size: 0.78rem;
-                min-width: 360px;
-            }
-            table th,
-            table td {
-                padding: 0.5rem 0.6rem;
-            }
-            .header-plaque {
-                padding: 1.2rem 0;
-            }
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 0 12px;
-            }
-            .plaque-title {
-                font-size: 1.4rem;
-            }
-            .section-title {
-                font-size: 1.4rem;
-            }
-            .nav-sticky .nav-inner {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                justify-content: flex-start;
-                padding: 0.2rem 0;
-                gap: 0.1rem 0.3rem;
-                -webkit-overflow-scrolling: touch;
-            }
-            .nav-sticky a {
-                font-size: 0.6rem;
-                padding: 0.2rem 0.5rem;
-                flex-shrink: 0;
-            }
-            .stat-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.8rem;
-            }
-            .stat-card .number {
-                font-size: 1.8rem;
-            }
-            .gauge-wrap {
-                gap: 1rem;
-            }
-            .gauge-item {
-                min-width: 100px;
-                padding: 0.8rem 1rem;
-            }
-            .back-to-top {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-                bottom: 1rem;
-                left: 1rem;
-            }
-            table {
-                font-size: 0.7rem;
-                min-width: 280px;
-            }
-            table th,
-            table td {
-                padding: 0.4rem 0.5rem;
-            }
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid rgba(59, 201, 219, 0.1);
-            padding: 1.8rem 0 2.2rem 0;
-            margin-top: 3rem;
-            text-align: center;
-            font-size: 0.85rem;
+        .glossary-item .def {
             color: var(--text-muted);
+            font-size: 12px;
+            display: block;
+            margin-top: 2px;
         }
-        .footer strong {
-            color: var(--text-secondary);
-        }
-        .footer .badge-footer {
-            display: inline-block;
-            background: var(--accent-cyan);
-            color: #0b1219;
-            font-weight: 700;
-            padding: 0.1rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
+
+        /* ===== Formula Box ===== */
+        .formula-box {
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            padding: 18px 24px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            margin: 12px 0;
+            font-family: 'Vazirmatn', sans-serif;
             letter-spacing: 0.5px;
-            margin: 0 0.3rem;
         }
 
-        /* ===== GLOSSARY ===== */
-        .glossary-term {
-            font-weight: 700;
-            color: var(--accent-gold);
+        .formula-box .label {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 4px;
         }
 
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .card {
-            animation: fadeUp 0.5s ease both;
-        }
-        .card:nth-child(2) {
-            animation-delay: 0.08s;
-        }
-        .card:nth-child(3) {
-            animation-delay: 0.15s;
-        }
-        .card:nth-child(4) {
-            animation-delay: 0.22s;
+        /* ===== TOC ===== */
+        .toc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 20px;
+            margin: 8px 0;
         }
 
-        /* ===== MISC ===== */
-        .badge-critical {
-            display: inline-block;
-            background: var(--accent-red);
-            color: #fff;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.1rem 0.8rem;
-            border-radius: 12px;
-            margin-right: 0.4rem;
-        }
-        .badge-ok {
-            display: inline-block;
-            background: var(--accent-green);
-            color: #0b1219;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.1rem 0.8rem;
-            border-radius: 12px;
-            margin-right: 0.4rem;
-        }
-        .badge-warn {
-            display: inline-block;
-            background: var(--accent-orange);
-            color: #0b1219;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.1rem 0.8rem;
-            border-radius: 12px;
-            margin-right: 0.4rem;
-        }
-        .rtl-fix {
-            direction: rtl;
-            unicode-bidi: embed;
+        .toc-grid a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 4px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid transparent;
         }
 
-        /* ===== LIVE CLOCK ===== */
-        .live-clock {
-            font-size: 0.85rem;
+        .toc-grid a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .toc-grid a .toc-num {
             color: var(--text-muted);
             font-weight: 300;
-            letter-spacing: 0.5px;
-            direction: ltr;
+            font-size: 12px;
+            min-width: 28px;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+            .glossary-grid {
+                grid-template-columns: 1fr;
+            }
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-header .logo .title {
+                font-size: 13px;
+            }
+            .app-header .logo .title span {
+                font-size: 10px;
+            }
+            .app-header {
+                padding: 0 16px;
+            }
+            .header-actions .badge-author {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .sidebar {
+                transform: translateX(100%);
+                width: 280px;
+                box-shadow: -4px 0 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: 16px 14px 40px;
+            }
+
+            .hero-section {
+                padding: 24px 20px;
+            }
+            .hero-section h1 {
+                font-size: 20px;
+            }
+            .hero-section .subtitle {
+                font-size: 14px;
+            }
+            .hero-section .meta-info {
+                gap: 12px 20px;
+                font-size: 12px;
+            }
+
+            .section {
+                padding: 18px 16px 20px;
+            }
+            .section .section-header h2 {
+                font-size: 17px;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .kpi-card .kpi-value {
+                font-size: 20px;
+            }
+
+            .table-responsive table {
+                font-size: 12px;
+                min-width: 480px;
+            }
+            .table-responsive table th,
+            .table-responsive table td {
+                padding: 8px 10px;
+            }
+
+            .formula-box {
+                font-size: 15px;
+                padding: 14px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .kpi-card {
+                padding: 12px 10px;
+            }
+            .kpi-card .kpi-value {
+                font-size: 17px;
+            }
+            .hero-section h1 {
+                font-size: 17px;
+            }
+            .section .section-header .num {
+                width: 26px;
+                height: 26px;
+                font-size: 11px;
+            }
+            .section .section-header h2 {
+                font-size: 15px;
+            }
+            .app-header .logo i {
+                font-size: 20px;
+            }
+            .theme-toggle {
+                width: 34px;
+                height: 34px;
+                font-size: 15px;
+            }
+            .menu-toggle {
+                width: 34px;
+                height: 34px;
+                font-size: 15px;
+            }
+        }
+
+        /* ===== Print ===== */
+        @media print {
+            .sidebar,
+            .menu-toggle,
+            .theme-toggle,
+            .app-header {
+                display: none !important;
+            }
+            .main-content {
+                margin-right: 0 !important;
+                margin-top: 0 !important;
+                padding: 20px !important;
+            }
+            .section {
+                break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            .hero-section {
+                background: #0a1628 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        /* ===== Utility ===== */
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .mb-16 {
+            margin-bottom: 16px;
+        }
+        .text-center {
             text-align: center;
+        }
+        .text-muted {
+            color: var(--text-muted);
+        }
+        .text-sm {
+            font-size: 13px;
+        }
+        .fw-600 {
+            font-weight: 600;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .flex {
+            display: flex;
+        }
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== PROGRESS BAR ===== -->
-    <div class="progress-wrap">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-
     <!-- ===== HEADER ===== -->
-    <header class="header-plaque">
-        <div class="container plaque-inner">
-            <div class="plaque-title">
-                <span class="highlight">برنامه‌ریزی نگهداری و تعمیرات</span>
-                <span style="color:var(--text-secondary);">در صنایع کشاورزی</span>
-                <span class="sub">چارچوب یکپارچه نسل چهارم صنعت</span>
+    <header class="app-header">
+        <div class="logo">
+            <i class="fas fa-industry"></i>
+            <div class="title">
+                نگهداری و تعمیرات صنایع کشاورزی
+                <span>چارچوب یکپارچه نسل چهارم صنعت</span>
             </div>
-            <div class="plaque-meta">
-                <span><strong>نگارنده:</strong> متین نوروزی</span>
-                <span><strong>شماره دانشجویی:</strong> ۸۱۰۹۰۲۰۸۲</span>
-                <span><strong>استاد:</strong> دکتر زینب سازور</span>
-                <span><strong>نیمسال:</strong> دوم ۱۴۰۴-۱۴۰۵</span>
-                <span><span class="badge">گزارش فنی و مهندسی</span></span>
-            </div>
+        </div>
+        <div class="header-actions">
+            <span class="badge-author"><i class="fas fa-user-graduate"></i> متین نوروزی</span>
+            <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="menu-toggle" id="menuToggle" aria-label="منو">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <!-- ===== STICKY NAV ===== -->
-    <nav class="nav-sticky" id="mainNav">
-        <div class="container nav-inner" id="navInner">
-            <a href="#sec-intro" class="active">معرفی</a>
-            <a href="#sec-process">فرآیندها</a>
-            <a href="#sec-machines">ماشین‌آلات</a>
-            <a href="#sec-failure">خرابی‌ها</a>
-            <a href="#sec-strategy">استراتژی‌ها</a>
-            <a href="#sec-classify">طبقه‌بندی</a>
-            <a href="#sec-industry40">فناوری‌ها</a>
-            <a href="#sec-data">داده‌ها</a>
-            <a href="#sec-sensors">سنسورها</a>
-            <a href="#sec-inspection">بازرسی</a>
-            <a href="#sec-ml">یادگیری ماشین</a>
-            <a href="#sec-kpi">شاخص‌ها</a>
-            <a href="#sec-econ">اقتصاد</a>
-            <a href="#sec-program">برنامه</a>
-            <a href="#sec-limits">محدودیت‌ها</a>
-        </div>
+    <!-- ===== SIDEBAR ===== -->
+    <nav class="sidebar" id="sidebar">
+        <div class="nav-section">فهرست مطالب</div>
+        <a href="#intro" class="active"><i class="fas fa-home"></i> معرفی</a>
+        <a href="#process"><i class="fas fa-route"></i> فرآیندهای تولید</a>
+        <a href="#machines"><i class="fas fa-tractor"></i> ماشین‌آلات</a>
+        <a href="#failures"><i class="fas fa-exclamation-triangle"></i> تحلیل خرابی</a>
+        <a href="#strategies"><i class="fas fa-chess-queen"></i> استراتژی‌ها</a>
+        <a href="#classification"><i class="fas fa-layer-group"></i> طبقه‌بندی تجهیزات</a>
+        <a href="#tech"><i class="fas fa-microchip"></i> فناوری Industry 4.0</a>
+        <a href="#data"><i class="fas fa-database"></i> داده‌های پایش</a>
+        <a href="#sensors"><i class="fas fa-microphone"></i> سنسورها</a>
+        <a href="#inspection"><i class="fas fa-search"></i> بازرسی‌ها</a>
+        <a href="#ml"><i class="fas fa-brain"></i> الگوریتم‌های ML</a>
+        <a href="#kpis"><i class="fas fa-chart-line"></i> شاخص‌های عملکرد</a>
+        <a href="#economy"><i class="fas fa-coins"></i> تحلیل اقتصادی</a>
+        <a href="#program"><i class="fas fa-calendar-check"></i> برنامه پیشنهادی</a>
+        <a href="#limitations"><i class="fas fa-flask"></i> محدودیت‌ها</a>
+        <a href="#conclusion"><i class="fas fa-flag-checkered"></i> نتیجه‌گیری</a>
+        <a href="#glossary"><i class="fas fa-book-open"></i> واژه‌نامه</a>
     </nav>
 
     <!-- ===== MAIN CONTENT ===== -->
-    <main class="container" style="padding-top:1.2rem;">
+    <main class="main-content" id="mainContent">
 
-        <!-- ====== SECTION 1 ====== -->
-        <section id="sec-intro">
-            <h2 class="section-title"><span class="num">۱.</span> معرفی صنعت کشاورزی از منظر مهندسی صنایع</h2>
-            <div class="card">
-                <p>صنایع کشاورزی، به عنوان مجموعه‌ای از فرآیندهای تبدیل نهاده‌های زیستی به محصولات قابل مصرف یا قابل توزیع، از منظر مهندسی صنایع یک سیستم تولیدی با ویژگی‌های ساختاری متمایز از صنایع گسسته یا فرآیندی متعارف محسوب می‌شود. تفاوت اصلی این سیستم با یک خط تولید صنعتی کلاسیک در آن است که ورودی‌های آن (محصولات کشاورزی خام) دارای تغییرپذیری زیستی بالا، فسادپذیری و وابستگی فصلی هستند؛ این ویژگی‌ها به طور مستقیم بر طراحی زیرساخت نگهداری و تعمیرات اثر می‌گذارند، زیرا برنامه‌ریزی تعمیرات دیگر نمی‌تواند صرفاً بر مبنای ساعات کارکرد تجهیز تنظیم شود و باید با فصل برداشت، دمای محیط و بار متغیر تولید هماهنگ گردد.</p>
-            </div>
-
-            <h3 class="subsection-title">۱.۱ اهمیت اقتصادی</h3>
-            <div class="card">
-                <p>زنجیره ارزش کشاورزی و صنایع تبدیلی وابسته به آن، سهم قابل توجهی از تولید ناخالص داخلی بسیاری از اقتصادها را تشکیل می‌دهد و به طور هم‌زمان اشتغال بخش قابل توجهی از نیروی کار روستایی و صنعتی را تأمین می‌کند (Khodabakhshian, 2013a). از دید مهندسی صنایع، این اهمیت اقتصادی پیامد مستقیمی دارد: هر ساعت توقف غیربرنامه‌ریزی‌شده در یک خط فرآوری کشاورزی، برخلاف بسیاری از صنایع دیگر، صرفاً به معنای از دست رفتن ظرفیت تولید نیست، بلکه به دلیل فسادپذیری مواد اولیه، می‌تواند به از دست رفتن کامل ارزش محموله منجر شود. این ویژگی هزینه فرصت خرابی تجهیزات را در صنایع کشاورزی به طور قابل توجهی بالاتر از میانگین صنایع گسسته قرار می‌دهد و توجیه اقتصادی سرمایه‌گذاری در نگهداری پیشگیرانه و پیش‌بینانه را تقویت می‌کند.</p>
-            </div>
-
-            <h3 class="subsection-title">۱.۲ نقش در امنیت غذایی</h3>
-            <div class="card">
-                <p>امنیت غذایی، به عنوان تضمین دسترسی پایدار به مواد غذایی کافی و ایمن، مستقیماً به قابلیت اطمینان زیرساخت‌های برداشت، فرآوری، انبارداری و توزیع وابسته است. توقف یک خط بسته‌بندی یا واحد سردخانه در بازه زمانی حساس پس از برداشت، نه یک رویداد صرفاً عملیاتی بلکه یک ریسک در سطح زنجیره تأمین غذایی محسوب می‌شود. از این رو، برنامه نگهداری و تعمیرات در این صنعت باید با سطح در دسترس بودن (Availability) بسیار بالاتر از حد معمول طراحی شود، به ویژه برای تجهیزاتی که در گلوگاه زنجیره ارزش قرار دارند (مانند خطوط خشک‌کن، سردخانه و سورتینگ) (Hobbs, 2021a).</p>
-            </div>
-
-            <h3 class="subsection-title">۱.۳ ویژگی‌های ساختاری صنایع کشاورزی</h3>
-            <div class="card">
-                <p>چند ویژگی ساختاری، صنایع کشاورزی را از سایر صنایع تولیدی متمایز می‌کند و باید در طراحی سیستم نگهداری لحاظ شود. نخست، فصلی بودن بار کاری است؛ بسیاری از تجهیزات برداشت و فرآوری اولیه در بخشی از سال با ظرفیت کامل و در بخش دیگر سال به صورت نیمه‌استفاده یا با بار جزئی کار می‌کنند، که الگوی خرابی ناشی از خوردگی و توقف طولانی (نظیر گیرپاژ یاتاقان‌ها یا خشک‌شدن آب‌بندها) را در کنار خرابی ناشی از سایش پرکاربرد قرار می‌دهد. دوم، محیط عملیاتی خورنده و ساینده است؛ حضور گرد و غبار، رطوبت، بقایای گیاهی و مواد شیمیایی، سرعت سایش و خوردگی تجهیزات را افزایش می‌دهد.</p>
-            </div>
-
-            <h3 class="subsection-title">۱.۴ چالش‌های عملیاتی</h3>
-            <div class="card">
-                <p>چالش‌های عملیاتی نگهداری و تعمیرات در این صنعت را می‌توان در چهار سطح دسته‌بندی کرد. در سطح تجهیز، ترکیب بارهای مکانیکی ضربه‌ای (ناشی از ورود اجسام خارجی به داخل کمپاین یا آسیاب) با سایش ناشی از مواد ذره‌ای، الگوی خرابی را از الگوهای کلاسیک فرسودگی تدریجی دور می‌کند. در سطح فرآیند، وابستگی متقابل ایستگاه‌های خط فرآوری (Serial Line Dependency) به این معناست که خرابی یک ایستگاه، کل جریان پایین‌دستی را متوقف می‌کند. در سطح داده، بسیاری از خرابی‌ها به صورت پراکنده و کاغذی ثبت می‌شوند که امکان تحلیل روند خرابی را محدود می‌کند. در سطح نیروی انسانی، کمبود تکنسین متخصص با دانش هم‌زمان مکانیک، الکترونیک و اتوماسیون در مناطق روستایی، اجرای استراتژی‌های پیشرفته نگهداری را با محدودیت اجرایی مواجه می‌سازد. این چهار چالش در بخش‌های بعدی این گزارش، در طراحی سیستم نگهداری هوشمند به طور مستقیم لحاظ شده‌اند (Dong, 2021).</p>
-            </div>
-
-            <!-- Figure 1 -->
-            <div class="figure-box">
-                <svg viewBox="0 0 700 160" style="max-width:100%;">
-                    <defs>
-                        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#3bc9db" />
-                            <stop offset="100%" stop-color="#4d8fc5" />
-                        </linearGradient>
-                    </defs>
-                    <rect x="10" y="20" width="680" height="120" rx="16" fill="rgba(59,201,219,0.04)" stroke="rgba(59,201,219,0.15)" stroke-width="1" />
-                    <text x="350" y="48" text-anchor="middle" fill="#b0c8dd" font-size="13" font-weight="500">زنجیره ارزش صنایع کشاورزی</text>
-                    <rect x="40" y="62" width="72" height="40" rx="8" fill="rgba(59,201,219,0.15)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="76" y="88" text-anchor="middle" fill="#e8f0f8" font-size="10" font-weight="700">تدارک</text>
-                    <text x="76" y="102" text-anchor="middle" fill="#7a96b0" font-size="8">نهاده</text>
-                    <line x1="114" y1="82" x2="134" y2="82" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="134,78 144,82 134,86" fill="#4d8fc5" />
-                    <rect x="146" y="62" width="72" height="40" rx="8" fill="rgba(59,201,219,0.08)" stroke="#4d8fc5" stroke-width="1.5" />
-                    <text x="182" y="88" text-anchor="middle" fill="#e8f0f8" font-size="10" font-weight="700">تولید</text>
-                    <text x="182" y="102" text-anchor="middle" fill="#7a96b0" font-size="8">مزرعه‌ای</text>
-                    <line x1="220" y1="82" x2="240" y2="82" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="240,78 250,82 240,86" fill="#4d8fc5" />
-                    <rect x="252" y="62" width="72" height="40" rx="8" fill="rgba(59,201,219,0.08)" stroke="#4d8fc5" stroke-width="1.5" />
-                    <text x="288" y="88" text-anchor="middle" fill="#e8f0f8" font-size="10" font-weight="700">برداشت</text>
-                    <text x="288" y="102" text-anchor="middle" fill="#7a96b0" font-size="8">مکانیزه</text>
-                    <line x1="326" y1="82" x2="346" y2="82" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="346,78 356,82 346,86" fill="#4d8fc5" />
-                    <rect x="358" y="62" width="72" height="40" rx="8" fill="rgba(59,201,219,0.08)" stroke="#4d8fc5" stroke-width="1.5" />
-                    <text x="394" y="88" text-anchor="middle" fill="#e8f0f8" font-size="10" font-weight="700">فرآوری</text>
-                    <text x="394" y="102" text-anchor="middle" fill="#7a96b0" font-size="8">اولیه/ثانویه</text>
-                    <line x1="432" y1="82" x2="452" y2="82" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="452,78 462,82 452,86" fill="#4d8fc5" />
-                    <rect x="464" y="62" width="72" height="40" rx="8" fill="rgba(59,201,219,0.08)" stroke="#4d8fc5" stroke-width="1.5" />
-                    <text x="500" y="88" text-anchor="middle" fill="#e8f0f8" font-size="10" font-weight="700">بسته‌بندی</text>
-                    <text x="500" y="102" text-anchor="middle" fill="#7a96b0" font-size="8">و انبارداری</text>
-                    <line x1="538" y1="82" x2="558" y2="82" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="558,78 568,82 558,86" fill="#4d8fc5" />
-                    <rect x="570" y="62" width="72" height="40" rx="8" fill="rgba(59,201,219,0.15)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="606" y="88" text-anchor="middle" fill="#e8f0f8" font-size="10" font-weight="700">توزیع</text>
-                    <text x="606" y="102" text-anchor="middle" fill="#7a96b0" font-size="8">و لجستیک</text>
-                    <rect x="40" y="112" width="680" height="10" rx="4" fill="rgba(59,201,219,0.06)" />
-                    <text x="350" y="122" text-anchor="middle" fill="#3bc9db" font-size="9" font-weight="500">⏺ جایگاه نگهداری و تعمیرات در تمام حلقه‌های زنجیره</text>
-                </svg>
-                <div class="figure-caption">شکل ۱- جایگاه نگهداری و تعمیرات در زنجیره ارزش صنایع کشاورزی</div>
+        <!-- ===== HERO ===== -->
+        <section class="hero-section" id="intro">
+            <div class="hero-badge"><i class="fas fa-graduation-cap"></i> گزارش فنی و مهندسی</div>
+            <h1>برنامه‌ریزی مهندسی نگهداری و تعمیرات در صنایع کشاورزی؛ چارچوب یکپارچه نسل چهارم صنعت</h1>
+            <div class="subtitle">طراحی سیستم نگهداری هوشمند مبتنی بر تحلیل زنجیره ارزش، داده‌کاوی و یادگیری ماشین</div>
+            <div class="meta-info">
+                <span><i class="fas fa-user"></i> نگارنده: متین نوروزی</span>
+                <span><i class="fas fa-id-card"></i> شماره دانشجویی: ۸۱۰۹۰۲۸۲</span>
+                <span><i class="fas fa-chalkboard-teacher"></i> نام استاد: دکتر زینب سازور</span>
             </div>
         </section>
 
-        <!-- ====== SECTION 2 ====== -->
-        <section id="sec-process">
-            <h2 class="section-title"><span class="num">۲.</span> شناخت فرآیندهای تولید در صنایع کشاورزی</h2>
-            <div class="card">
-                <p>پیش از طراحی هر استراتژی نگهداری، شناخت دقیق زنجیره ارزش و جریان ماده در واحد کشاورزی ضروری است، زیرا نوع خرابی، شدت پیامد آن و اولویت تعمیر مستقیماً از جایگاه هر تجهیز در این زنجیره تعیین می‌شود. در ادامه هر حلقه از زنجیره ارزش به‌طور مجزا از منظر مهندسی فرآیند تحلیل می‌شود.</p>
+        <!-- ===== 1. معرفی ===== -->
+        <section class="section" id="process">
+            <div class="section-header">
+                <span class="num">۱</span>
+                <h2>معرفی صنعت کشاورزی از منظر مهندسی صنایع</h2>
+                <i class="fas fa-seedling section-icon"></i>
             </div>
+            <p>صنایع کشاورزی، به عنوان مجموعه‌ای از فرآیندهای تبدیل نهاده‌های زیستی به محصولات قابل مصرف یا قابل توزیع، از منظر مهندسی صنایع یک سیستم تولیدی با ویژگی‌های ساختاری متمایز از صنایع گسسته یا فرآیندی متعارف محسوب می‌شود. تفاوت اصلی این سیستم با یک خط تولید صنعتی کلاسیک در آن است که ورودی‌های آن (محصولات کشاورزی خام) دارای تغییرپذیری زیستی بالا، فسادپذیری و وابستگی فصلی هستند؛ این ویژگی‌ها به طور مستقیم بر طراحی زیرساخت نگهداری و تعمیرات اثر می‌گذارند، زیرا برنامه‌ریزی تعمیرات دیگر نمی‌تواند صرفاً بر مبنای ساعات کارکرد تجهیز تنظیم شود و باید با فصل برداشت، دمای محیط و بار متغیر تولید هماهنگ گردد.</p>
 
-            <h3 class="subsection-title">۲.۱ زنجیره ارزش و جریان مواد</h3>
-            <div class="card">
-                <p>زنجیره ارزش صنایع کشاورزی را می‌توان به شش حلقه اصلی تقسیم کرد: تدارک نهاده (بذر، کود، سوخت)، تولید مزرعه‌ای، برداشت، فرآوری اولیه و ثانویه، بسته‌بندی و انبارداری، و در نهایت توزیع و لجستیک. جریان ماده در این زنجیره، برخلاف صنایع مونتاژ که جریان آن عمدتاً از قطعه به محصول نهایی است، یک جریان کاهشی-تبدیلی است؛ یعنی حجم و وزن ماده از ابتدای زنجیره (محصول خام با ناخالصی و رطوبت بالا) به سمت انتهای آن (محصول خالص و بسته‌بندی‌شده) کاهش می‌یابد (Hobbs, 2021b).</p>
-            </div>
-
-            <h3 class="subsection-title">۲.۲ عملیات برداشت</h3>
-            <div class="card">
-                <p>برداشت مکانیزه، نخستین نقطه تماس فیزیکی گسترده تجهیز با محصول زیستی است و از نظر بار وارده بر ماشین‌آلات، پرتنش‌ترین مرحله زنجیره محسوب می‌شود. عملیات برداشت شامل سه زیرفرآیند هم‌زمان است: جداسازی محصول از بستر (برش یا کندن)، انتقال محصول به داخل واحد پردازش سیار (نظیر مکانیزم دروگر-خردکن در کمباین)، و جداسازی اولیه ناخالصی از محصول اصلی. هم‌زمانی این سه زیرفرآیند در یک ماشین متحرک روی زمین ناهموار، باعث می‌شود بار دینامیکی وارد بر اجزای مکانیکی به طور پیوسته در حال نوسان باشد؛ این نوسان بار، بر خلاف بار ثابت در خطوط فرآوری ثابت، تحلیل خستگی قطعات را پیچیده‌تر می‌کند و طراحی برنامه نگهداری را به سمت بازرسی دوره‌ای کوتاه‌تر در فصل برداشت سوق می‌دهد (Ivanov & Dolgui, 2021).</p>
-            </div>
-
-            <h3 class="subsection-title">۲.۳ فرآوری اولیه و ثانویه</h3>
-            <div class="card">
-                <p>فرآوری اولیه شامل عملیاتی است که ماهیت فیزیکی اولیه محصول را حفظ می‌کند اما ناخالصی، رطوبت یا اجزای غیرقابل مصرف را حذف می‌کند؛ نمونه آن خشک کردن غلات، پوست‌گیری یا شست‌وشوی اولیه است. فرآوری ثانویه در مقابل، ماهیت فیزیکی محصول را از طریق آسیاب کردن، استخراج، تخمیر یا حرارت دهی تغییر می‌دهد (Packel et al., 2023). تمایز این دو سطح از منظر نگهداری اهمیت دارد، زیرا تجهیزات فرآوری اولیه عمدتاً با بار مکانیکی و سایشی مواجه‌اند، در حالی که تجهیزات فرآوری ثانویه علاوه بر بار مکانیکی، با بار حرارتی، شیمیایی و در برخی موارد فشار بالا نیز درگیرند و بنابراین طیف گسترده‌تری از مکانیزم‌های خرابی (خوردگی حرارتی، رسوب‌گذاری، خستگی حرارتی) را تجربه می‌کنند.</p>
-            </div>
-
-            <h3 class="subsection-title">۲.۴ خطوط بسته‌بندی</h3>
-            <div class="card">
-                <p>خطوط بسته‌بندی از نظر ساختار مکانیکی به صنایع مونتاژ گسسته نزدیک‌تر هستند و شامل زیرسیستم‌های وزن‌کشی، پرکنی، درزبندی حرارتی یا مکانیکی، برچسب‌زنی و چیدمان است. ویژگی متمایز این خطوط، سرعت چرخه بسیار بالا (اغلب ده‌ها تا صدها سیکل در دقیقه) است که حساسیت آن‌ها را به کوچک‌ترین انحراف تنظیم مکانیکی (نظیر ناهم‌ترازی غلتک یا فرسودگی سنسور تشخیص بسته) به شدت افزایش می‌دهد. به همین دلیل، خرابی‌های غالب در این بخش از جنس خرابی‌های ناگهانی کامل نیستند بلکه بیشتر به صورت افت تدریجی کیفیت عملکرد (Degradation) نظیر افزایش نرخ رد بسته یا کاهش دقت وزن‌کشی بروز می‌کنند؛ این ویژگی، خطوط بسته‌بندی را کاندیدای مناسبی برای پایش وضعیت پیوسته (Condition Monitoring) می‌سازد (Schmidt & Piotter, 2020).</p>
-            </div>
-
-            <h3 class="subsection-title">۲.۵ انبارداری</h3>
-            <div class="card">
-                <p>انبارداری در صنایع کشاورزی، به ویژه در قالب سیلوها و سردخانه‌ها، یک فرآیند پویا و مستمر است که به صورت ۲۴ ساعته انجام می‌شود. تجهیزات این بخش عمدتاً شامل سیستم‌های تهویه و انتقال هوا، واحدهای برودتی و سنسورهای اندازه‌گیری دما در نقاط مختلف انبار است. ویژگی متمایز این بخش از منظر نگهداری، ماهیت مستمر آن به گونه‌ای است که هر گونه توقف در واحد برودتی می‌تواند در بازه زمانی کوتاه به از دست رفتن کیفیت کل محموله ذخیره‌شده منجر شود؛ از این رو، نگهداری پیش‌بینانه در این بخش نسبت به نگهداری اصلاحی اولویت بسیار بیشتری دارد.</p>
-            </div>
-
-            <h3 class="subsection-title">۲.۶ توزیع و لجستیک</h3>
-            <div class="card">
-                <p>حلقه توزیع شامل ناوگان حمل‌ونقل جاده‌ای، تجهیزات بارگیری و تخلیه، و در برخی موارد زنجیره سرد حمل و نقل است. تفاوت اصلی این بخش با بخش‌های ثابت خط تولید، پراکندگی مکانیکی تجهیز و عدم دسترسی مستقیم تیم فنی مرکزی است؛ این ویژگی، ضرورت پایش از راه دور مبتنی بر ارتباطات سلولی و GPS را برای این بخش، برخلاف بخش‌های ثابت که می‌توانند از شبکه صنعتی محلی بهره ببرند، به یک الزام فنی تبدیل می‌کند (Faille et al., 2018).</p>
-            </div>
-
-            <h3 class="subsection-title">۲.۷ تفاوت زیرشاخه‌های صنایع کشاورزی</h3>
-            <div class="card">
-                <p>الزامات نگهداری میان زیرشاخه‌های مختلف صنایع کشاورزی به طور قابل توجهی متفاوت است. جدول ۱ سه زیرشاخه غالب (فرآوری غلات و دانه‌های روغنی، صنایع لبنی و دامی، و فرآوری میوه و سبزیجات) را از نظر ویژگی فرآیندی و پیامد آن بر طراحی نگهداری مقایسه می‌کند.</p>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>زیرشاخه</th><th>ویژگی فرآیندی غالب</th><th>پیامد بر طراحی نگهداری</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>غلات و دانه‌های روغنی</td><td>بار ذره‌ای و گردوغبار بالا، خطر انفجار گرد قابل اشتعال در سیلو</td><td>اولویت بر پایش ارتعاش و دما در یاتاقان‌ها، کنترل الکتریسیته ساکن و رعایت الزامات ATEX</td></tr>
-                            <tr><td>لبنی و دامی</td><td>فرآیند حرارتی (پاستوریاسیون)، محیط با رطوبت و آمونیاک بالا، الزامات بهداشتی سخت‌گیرانه (CIP)</td><td>اولویت بر پایش خوردگی، کنترل نشتی مبدل‌های حرارتی و صحت‌سنجی چرخه شست‌وشوی خودکار</td></tr>
-                            <tr><td>میوه و سبزیجات</td><td>حساسیت بالای محصول به آسیب فیزیکی، نیاز به سورتینگ اپتیکال سریع و زنجیره سرد</td><td>اولویت بر کالیبراسیون سنسورهای بینایی ماشین و پایش پیوسته زنجیره برودتی</td></tr>
-                        </tbody>
-                    </table>
-                    <div class="table-caption">جدول ۱- تفاوت زیرشاخه‌های صنایع کشاورزی</div>
+            <div class="two-col mt-16">
+                <div style="background:var(--bg-primary);padding:16px 20px;border-radius:var(--radius-sm);border:1px solid var(--border-color);">
+                    <h4 style="font-size:14px;font-weight:700;margin-bottom:6px;"><i class="fas fa-chart-pie" style="color:var(--accent);margin-left:8px;"></i>اهمیت اقتصادی</h4>
+                    <p style="font-size:13px;margin:0;">زنجیره ارزش کشاورزی و صنایع تبدیلی وابسته به آن، سهم قابل توجهی از تولید ناخالص داخلی بسیاری از اقتصادها را تشکیل می‌دهد و به طور هم‌زمان اشتغال بخش قابل توجهی از نیروی کار روستایی و صنعتی را تأمین می‌کند. هر ساعت توقف غیربرنامه‌ریزی‌شده در یک خط فرآوری کشاورزی، به دلیل فسادپذیری مواد اولیه، می‌تواند به از دست رفتن کامل ارزش محموله منجر شود.</p>
+                </div>
+                <div style="background:var(--bg-primary);padding:16px 20px;border-radius:var(--radius-sm);border:1px solid var(--border-color);">
+                    <h4 style="font-size:14px;font-weight:700;margin-bottom:6px;"><i class="fas fa-utensils" style="color:var(--accent);margin-left:8px;"></i>نقش در امنیت غذایی</h4>
+                    <p style="font-size:13px;margin:0;">امنیت غذایی، به عنوان تضمین دسترسی پایدار به مواد غذایی کافی و ایمن، مستقیماً به قابلیت اطمینان زیرساخت‌های برداشت، فرآوری، انبارداری و توزیع وابسته است. توقف یک خط بسته‌بندی یا واحد سردخانه در بازه زمانی حساس پس از برداشت، یک ریسک در سطح زنجیره تأمین غذایی محسوب می‌شود.</p>
                 </div>
             </div>
 
-            <!-- Figure 2 -->
-            <div class="figure-box">
-                <svg viewBox="0 0 700 110" style="max-width:100%;">
-                    <text x="350" y="28" text-anchor="middle" fill="#b0c8dd" font-size="14" font-weight="500">نقشه جریان فرآیند از برداشت تا توزیع</text>
-                    <rect x="20" y="44" width="100" height="46" rx="10" fill="rgba(59,201,219,0.12)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="70" y="70" text-anchor="middle" fill="#e8f0f8" font-size="11" font-weight="700">برداشت</text>
-                    <text x="70" y="84" text-anchor="middle" fill="#7a96b0" font-size="8">کمباین / دروگر</text>
-                    <line x1="122" y1="67" x2="152" y2="67" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="152,63 162,67 152,71" fill="#4d8fc5" />
-                    <rect x="164" y="44" width="100" height="46" rx="10" fill="rgba(59,201,219,0.12)" stroke="#4d8fc5" stroke-width="1.5" />
-                    <text x="214" y="70" text-anchor="middle" fill="#e8f0f8" font-size="11" font-weight="700">فرآوری</text>
-                    <text x="214" y="84" text-anchor="middle" fill="#7a96b0" font-size="8">آسیاب / خشک‌کن</text>
-                    <line x1="266" y1="67" x2="296" y2="67" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="296,63 306,67 296,71" fill="#4d8fc5" />
-                    <rect x="308" y="44" width="100" height="46" rx="10" fill="rgba(59,201,219,0.12)" stroke="#4d8fc5" stroke-width="1.5" />
-                    <text x="358" y="70" text-anchor="middle" fill="#e8f0f8" font-size="11" font-weight="700">بسته‌بندی</text>
-                    <text x="358" y="84" text-anchor="middle" fill="#7a96b0" font-size="8">پرکن / درزند</text>
-                    <line x1="410" y1="67" x2="440" y2="67" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="440,63 450,67 440,71" fill="#4d8fc5" />
-                    <rect x="452" y="44" width="100" height="46" rx="10" fill="rgba(59,201,219,0.12)" stroke="#4d8fc5" stroke-width="1.5" />
-                    <text x="502" y="70" text-anchor="middle" fill="#e8f0f8" font-size="11" font-weight="700">انبارداری</text>
-                    <text x="502" y="84" text-anchor="middle" fill="#7a96b0" font-size="8">سیلو / سردخانه</text>
-                    <line x1="554" y1="67" x2="584" y2="67" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="584,63 594,67 584,71" fill="#4d8fc5" />
-                    <rect x="596" y="44" width="90" height="46" rx="10" fill="rgba(59,201,219,0.18)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="641" y="70" text-anchor="middle" fill="#e8f0f8" font-size="11" font-weight="700">توزیع</text>
-                    <text x="641" y="84" text-anchor="middle" fill="#7a96b0" font-size="8">ناوگان / لجستیک</text>
-                </svg>
-                <div class="figure-caption">شکل ۲- نقشه جریان فرآیند از برداشت تا توزیع در یک واحد نمونه فرآوری کشاورزی</div>
+            <div class="highlight-box mt-16">
+                <strong><i class="fas fa-cogs" style="margin-left:8px;"></i>ویژگی‌های ساختاری صنایع کشاورزی:</strong>
+                <ul style="margin-top:6px;font-size:14px;">
+                    <li><strong>فصلی بودن بار کاری</strong> – بسیاری از تجهیزات برداشت و فرآوری اولیه در بخشی از سال با ظرفیت کامل و در بخش دیگر با بار جزئی کار می‌کنند.</li>
+                    <li><strong>محیط عملیاتی خورنده و ساینده</strong> – حضور گرد و غبار، رطوبت، بقایای گیاهی اسیدی و گاه آمونیاک نرخ خوردگی و سایش را افزایش می‌دهد.</li>
+                    <li><strong>تنوع بالای محصول و تغییر مکرر پیکربندی خط</strong> – فرسودگی ناشی از راه‌اندازی و توقف مکرر را به عامل خرابی غالب تبدیل می‌کند.</li>
+                    <li><strong>پراکندگی جغرافیایی تجهیزات</strong> – دسترسی تیم تعمیرات را با محدودیت زمانی و مکانی مواجه می‌سازد و ضرورت پایش از راه دور را افزایش می‌دهد.</li>
+                </ul>
+            </div>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:16px;"><i class="fas fa-tasks" style="color:var(--accent);margin-left:8px;"></i>چالش‌های عملیاتی</h4>
+            <p>چالش‌های عملیاتی نگهداری و تعمیرات در این صنعت را می‌توان در چهار سطح دسته‌بندی کرد: در سطح تجهیز، ترکیب بارهای مکانیکی ضربه‌ای با سایش ناشی از مواد ذره‌ای، الگوی خرابی را از الگوهای کلاسیک فرسودگی تدریجی دور می‌کند. در سطح فرآیند، وابستگی متقابل ایستگاه‌های خط فرآوری به گونه‌ای است که خرابی یک واحد کوچک می‌تواند کل خط را متوقف کند. در سطح داده، بسیاری از واحدهای کشاورزی فاقد زیرساخت دیجیتال یکپارچه هستند. در سطح نیروی انسانی، کمبود تکنسین متخصص در مناطق روستایی اجرای استراتژی‌های پیشرفته را با محدودیت مواجه می‌سازد.</p>
+
+        </section>
+
+        <!-- ===== 2. شناخت فرآیندهای تولید ===== -->
+        <section class="section" id="machines">
+            <div class="section-header">
+                <span class="num">۲</span>
+                <h2>شناخت فرآیندهای تولید در صنایع کشاورزی</h2>
+                <i class="fas fa-arrows-spin section-icon"></i>
+            </div>
+            <p>پیش از طراحی هر استراتژی نگهداری، شناخت دقیق زنجیره ارزش و جریان ماده در واحد کشاورزی ضروری است، زیرا نوع خرابی، شدت پیامد آن و اولویت تعمیر مستقیماً از جایگاه هر تجهیز در این زنجیره تعیین می‌شود.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۲.۱ زنجیره ارزش و جریان مواد</h4>
+            <p>زنجیره ارزش صنایع کشاورزی را می‌توان به شش حلقه اصلی تقسیم کرد: تدارک نهاده، تولید مزرعه‌ای، برداشت، فرآوری اولیه و ثانویه، بسته‌بندی و انبارداری، و در نهایت توزیع و لجستیک. جریان ماده در این زنجیره، برخلاف صنایع مونتاژ، یک جریان کاهشی-تبدیلی است.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۲.۲ عملیات برداشت</h4>
+            <p>برداشت مکانیزه، نخستین نقطه تماس فیزیکی گسترده تجهیز با محصول زیستی است. عملیات برداشت شامل سه زیرفرآیند هم‌زمان است: جداسازی محصول از بستر، انتقال محصول به داخل واحد پردازش سیار، و جداسازی اولیه ناخالصی. هم‌زمانی این سه زیرفرآیند در یک ماشین متحرک روی زمین ناهموار، بار دینامیکی وارد بر اجزای مکانیکی را به طور پیوسته در حال نوسان نگه می‌دارد.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۲.۳ فرآوری اولیه و ثانویه</h4>
+            <p>فرآوری اولیه شامل عملیاتی است که ماهیت فیزیکی اولیه محصول را حفظ می‌کند اما ناخالصی، رطوبت یا اجزای غیرقابل مصرف را حذف می‌کند. فرآوری ثانویه ماهیت فیزیکی محصول را از طریق آسیاب کردن، استخراج، تخمیر یا حرارت‌دهی تغییر می‌دهد. تجهیزات فرآوری اولیه عمدتاً با بار مکانیکی و سایشی مواجه‌اند، در حالی که تجهیزات فرآوری ثانویه با بار حرارتی، شیمیایی و فشار بالا نیز درگیرند.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۲.۴ خطوط بسته‌بندی</h4>
+            <p>خطوط بسته‌بندی از نظر ساختار مکانیکی به صنایع مونتاژ گسسته نزدیک‌تر هستند و شامل زیرسیستم‌های وزن‌کشی، پرکنی، درزبندی، برچسب‌زنی و چیدمان هستند. سرعت چرخه بسیار بالا (ده‌ها تا صدها سیکل در دقیقه) حساسیت آن‌ها را به کوچک‌ترین انحراف تنظیم مکانیکی افزایش می‌دهد. خرابی‌های غالب در این بخش به صورت افت تدریجی کیفیت عملکرد بروز می‌کنند.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۲.۵ انبارداری</h4>
+            <p>انبارداری در صنایع کشاورزی به‌ویژه در قالب سیلوها و انبارهای پویا، یک محیط حفظ‌کننده و نه یک ایستگاه فرآوری محسوب می‌شود. ویژگی ممتاز این بخش از نظر نگهداری، تداوم عملیات بدون وقفه ۲۴ ساعته است؛ خرابی در این بخش می‌تواند در بازه زمانی کوتاه به از دست رفتن کل کیفیت محموله ذخیره‌شده منجر شود.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۲.۶ توزیع و لجستیک</h4>
+            <p>حلقه توزیع شامل ناوگان حمل‌ونقل جاده‌ای، تجهیزات بارگیری و تخلیه، و در برخی موارد زنجیره سرد حمل و نقل است. تفاوت اصلی این بخش با بخش‌های ثابت خط تولید، پراکندگی مکانیکی تجهیز و عدم دسترسی مستقیم تیم فنی مرکزی است؛ این ویژگی ضرورت پایش از راه دور مبتنی بر ارتباطات سلولی و GPS را به یک الزام فنی تبدیل می‌کند.</p>
+
+            <!-- Table 1 -->
+            <div class="table-responsive mt-16">
+                <table>
+                    <thead>
+                        <tr><th>زیرشاخه</th><th>ویژگی فرآیندی غالب</th><th>پیامد بر طراحی نگهداری</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>غلات و دانه‌های روغنی</strong></td><td>بار ذره‌ای و گردوغبار بالا، خطر انفجار گرد قابل اشتعال در سیلو</td><td>اولویت بر پایش ارتعاش و دما در یاتاقان‌ها، کنترل الکتریسیته ساکن و رعایت الزامات ATEX</td></tr>
+                        <tr><td><strong>لبنی و دامی</strong></td><td>فرآیند حرارتی (پاستوریاسیون)، محیط با رطوبت و آمونیاک بالا، الزامات بهداشتی سخت‌گیرانه (CIP)</td><td>اولویت بر پایش خوردگی، کنترل نشتی مبدل‌های حرارتی و صحت‌سنجی چرخه شست‌وشوی خودکار</td></tr>
+                        <tr><td><strong>میوه و سبزیجات</strong></td><td>حساسیت بالای محصول به آسیب فیزیکی، نیاز به سورتینگ اپتیکال سریع و زنجیره سرد</td><td>اولویت بر کالیبراسیون سنسورهای بینایی ماشین و پایش پیوسته زنجیره برودتی</td></tr>
+                    </tbody>
+                </table>
+                <div class="table-caption">جدول ۱ – تفاوت زیرشاخه‌های صنایع کشاورزی</div>
+            </div>
+
+        </section>
+
+        <!-- ===== 3. تحلیل ماشین‌آلات ===== -->
+        <section class="section" id="failures">
+            <div class="section-header">
+                <span class="num">۳</span>
+                <h2>تحلیل ماشین‌آلات صنایع کشاورزی</h2>
+                <i class="fas fa-tools section-icon"></i>
+            </div>
+            <p>ماشین‌آلات صنایع کشاورزی را می‌توان بر اساس نقش آن‌ها در زنجیره ارزش به هفت دسته اصلی تقسیم کرد. تحلیل زیر برای هر دسته، وظیفه، اهمیت راهبردی، اجزای بحرانی، قطعات مستعد خرابی، نوع خرابی غالب و اثر آن بر تولید را بررسی می‌کند.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۳.۱ ماشین‌آلات برداشت (کمباین و ادوات یدک‌کش)</h4>
+            <ul>
+                <li><strong>وظیفه:</strong> جداسازی، برش و پیش‌پردازش اولیه محصول از مزرعه</li>
+                <li><strong>اهمیت:</strong> بسیار بالا؛ توقف در فصل برداشت به طور مستقیم بر کمیت و کیفیت محصول اثر می‌گذارد و قابل جبران با سرعت بیشتر در روزهای بعد نیست</li>
+                <li><strong>اجزای بحرانی:</strong> موتور اصلی، سیستم انتقال قدرت، کوبنده و دمنده</li>
+                <li><strong>قطعات مستعد خرابی:</strong> یاتاقان‌های کوبنده، تسمه‌های انتقال، شانه‌های برش</li>
+                <li><strong>نوع خرابی‌های رایج:</strong> سایش یاتاقان، شکستگی تسمه، گیرپاژ کوبنده</li>
+                <li><strong>اثر خرابی بر تولید:</strong> توقف کامل عملیات برداشت در بخشی از مزرعه</li>
+            </ul>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۳.۲ سیستم‌های انتقال مواد (نوار نقاله، الواتور و اسکرو کانوایر)</h4>
+            <ul>
+                <li><strong>وظیفه:</strong> انتقال پیوسته محصول میان ایستگاه‌های فرآوری، انبارداری و بسته‌بندی</li>
+                <li><strong>اهمیت:</strong> بسیار بالا از نظر وابستگی سریالی؛ خرابی یک قطعه انتقال کل جریان پایین‌دستی را متوقف می‌کند</li>
+                <li><strong>اجزای بحرانی:</strong> موتور و گیربکس محرکه، غلتک‌ها و پولی‌ها، تسمه یا زنجیره انتقال</li>
+                <li><strong>قطعات مستعد خرابی:</strong> یاتاقان غلتک‌ها، تسمه‌های نقاله، زنجیرهای الواتور</li>
+                <li><strong>نوع خرابی‌های رایج:</strong> ناهم‌ترازی محور غلتک‌ها، فرسودگی سطحی تسمه، خستگی زنجیر</li>
+                <li><strong>اثر خرابی بر تولید:</strong> توقف زنجیره‌ای در تمام ایستگاه‌های پایین‌دستی خط</li>
+            </ul>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۳.۳ پمپ‌ها، کمپرسورها و مبدل‌های حرارتی</h4>
+            <ul>
+                <li><strong>وظیفه:</strong> انتقال سیال فرآیندی و تبادل حرارت میان جریان‌های گرم و سرد</li>
+                <li><strong>اهمیت:</strong> بالا؛ نوسان دبی یا دمای خروجی مستقیماً بر کیفیت میکروبیولوژیک و ایمنی محصول اثر می‌گذارد</li>
+                <li><strong>اجزای بحرانی:</strong> پروانه و آب‌بند مکانیکی پمپ، صفحات یا لوله‌های مبدل حرارتی، شیرهای کنترل</li>
+                <li><strong>قطعات مستعد خرابی:</strong> آب‌بندهای مکانیکی، یاتاقان محور پمپ، صفحات مبدل (رسوب و خوردگی حرارتی)</li>
+                <li><strong>نوع خرابی‌های رایج:</strong> کاویتاسیون، رسوب‌گذاری کاهنده راندمان حرارتی، نشتی از آب‌بند فرسوده</li>
+                <li><strong>اثر خرابی بر تولید:</strong> افت راندمان انرژی به صورت تدریجی و نامحسوس، ریسک آلودگی متقابل</li>
+            </ul>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۳.۴ خطوط بسته‌بندی و واحدهای رباتیک</h4>
+            <ul>
+                <li><strong>وظیفه:</strong> اندازه‌گیری، پرکردن، بسته‌بندی و چیدمان نهایی محصول</li>
+                <li><strong>اهمیت:</strong> بالا از نظر کیفیت محصول نهایی؛ اما معمولاً دارای ظرفیت موازی بیشتری نسبت به بخش‌های ابتدایی خط است</li>
+                <li><strong>اجزای بحرانی:</strong> سلول‌های وزنی، نازل‌های پرکن، هد درزبند، بازوهای رباتیک</li>
+                <li><strong>قطعات مستعد خرابی:</strong> سنسورهای تشخیص بسته، شیرهای کنترل دبی، تسمه‌های نقاله موازی</li>
+                <li><strong>نوع خرابی‌های رایج:</strong> کالیبراسیون خارج از محدوده، خرابی سنسور نوری، چسبندگی مکانیزم برش</li>
+                <li><strong>اثر خرابی بر تولید:</strong> افزایش نرخ بسته‌های رد شده، کاهش سرعت خط</li>
+            </ul>
+
+        </section>
+
+        <!-- ===== 4. تحلیل خرابی‌های غالب ===== -->
+        <section class="section" id="strategies">
+            <div class="section-header">
+                <span class="num">۴</span>
+                <h2>تحلیل خرابی‌های غالب در تجهیزات صنایع کشاورزی</h2>
+                <i class="fas fa-exclamation-circle section-icon"></i>
+            </div>
+            <p>برخلاف رویکرد فهرست‌وار تعریف انواع خرابی، تحلیل زیر بر مکانیزم‌های خرابی متمرکز است که در دسته‌های تجهیزاتی معرفی‌شده در بخش قبل به‌طور مکرر مشاهده می‌شوند.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۴.۱ سایش و فرسودگی یاتاقان‌ها</h4>
+            <ul>
+                <li><strong>علت:</strong> ورود ذرات ساینده به داخل محفظه یاتاقان، روان‌کاری ناکافی یا تخریب‌شده، بار شعاعی بیش از حد طراحی</li>
+                <li><strong>علائم:</strong> افزایش دمای پوسته یاتاقان، افزایش سطح ارتعاش در باندهای فرکانسی مشخصه، صدای غیرعادی با فرکانس بالا</li>
+                <li><strong>پیامدها:</strong> گیرپاژ ناگهانی محور و توقف کامل تجهیز، آسیب ثانویه به محور و پوسته</li>
+            </ul>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۴.۲ خستگی و شکستگی تسمه‌ها و زنجیرها</h4>
+            <ul>
+                <li><strong>علت:</strong> کشش بیش از حد، ناهم‌ترازی پولی‌ها، بار ضربه‌ای ناگهانی، پیری ماده</li>
+                <li><strong>علائم:</strong> لرزش غیرعادی در مسیر تسمه، کاهش سرعت انتقال، صدای تق‌تق در زنجیر</li>
+                <li><strong>پیامدها:</strong> توقف کامل انتقال مواد در خط، خطر گیر کردن مواد و آسیب به تجهیزات پایین‌دستی</li>
+            </ul>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۴.۳ خرابی موتورهای الکتریکی</h4>
+            <ul>
+                <li><strong>علت:</strong> اضافه‌بار مکانیکی، نوسان ولتاژ، گرمای محیطی بالا، نشتی رطوبت به سیم‌پیچی</li>
+                <li><strong>علائم:</strong> افزایش جریان مصرفی، گرمای بیش از حد بدنه، صدای زوزه یا لرزش</li>
+                <li><strong>پیامدها:</strong> سوختن سیم‌پیچی و توقف طولانی‌مدت، نیاز به تعویض اساسی</li>
+            </ul>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۴.۴ رسوب‌گذاری در مبدل‌های حرارتی</h4>
+            <ul>
+                <li><strong>علت:</strong> رسوب مواد معدنی یا آلی روی سطوح تبادل حرارت، دبی پایین سیال</li>
+                <li><strong>علائم:</strong> افزایش فشار دیفرانسیل، کاهش دمای خروجی، افزایش مصرف انرژی</li>
+                <li><strong>پیامدها:</strong> افت راندمان انرژی و در موارد پیشرفته، کاهش کیفیت محصول به دلیل عدم دستیابی به دمای پاستوریزاسیون</li>
+            </ul>
+
+            <!-- Table 2 - FMEA -->
+            <div class="table-responsive mt-16">
+                <table>
+                    <thead>
+                        <tr><th>تجهیز</th><th>حالت خرابی</th><th>اثر خرابی</th><th>علت</th><th>S</th><th>O</th><th>D</th><th>RPN</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>یاتاقان</td><td>آسیب سایشی</td><td>توقف کامل خط</td><td>روان‌کاری نامناسب</td><td>9</td><td>3</td><td>5</td><td>135</td></tr>
+                        <tr><td>موتور</td><td>افزایش دما</td><td>سوختن موتور</td><td>اضافه بار</td><td>4</td><td>4</td><td>8</td><td>128</td></tr>
+                        <tr><td>تسمه</td><td>پارگی</td><td>توقف انتقال</td><td>کشش زیاد</td><td>5</td><td>4</td><td>7</td><td>140</td></tr>
+                        <tr><td>پمپ</td><td>نشتی آب‌بند</td><td>کاهش دبی</td><td>کاویتاسیون</td><td>6</td><td>4</td><td>5</td><td>120</td></tr>
+                    </tbody>
+                </table>
+                <div class="table-caption">جدول ۳ – تحلیل حالات خرابی و اثرات آن (FMEA) برای آسیب اصلی خط فرآوری</div>
+            </div>
+
+            <div class="highlight-box">
+                <strong><i class="fas fa-arrow-up" style="color:var(--kpi-red);margin-left:8px;"></i>نتیجه تحلیل FMEA:</strong> بیشترین مقدار RPN مربوط به خرابی تسمه انتقال است؛ بنابراین این تجهیز باید در اولویت اجرای برنامه نگهداری پیشگیرانه و پایش وضعیت قرار گیرد. استفاده از سنسورهای ارتعاش و دما می‌تواند احتمال وقوع خرابی‌های ثانویه را کاهش دهد.
+            </div>
+
+        </section>
+
+        <!-- ===== 5. استراتژی‌های نگهداری ===== -->
+        <section class="section" id="classification">
+            <div class="section-header">
+                <span class="num">۵</span>
+                <h2>استراتژی‌های نگهداری و تعمیرات</h2>
+                <i class="fas fa-chess-queen section-icon"></i>
+            </div>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:4px;">۵.۱ نگهداری اصلاحی (Reactive)</h4>
+            <p><strong>مزایا:</strong> بدون هزینه پیش‌گیرانه، مناسب برای تجهیزات کم‌اهمیت با پیامد خرابی محدود. <strong>محدودیت‌ها:</strong> توقف غیربرنامه‌ریزی‌شده و هزینه تعمیر فوری بالا. <strong>کاربرد در صنایع کشاورزی:</strong> تجهیزات جانبی غیربحرانی نظیر فن‌های تهویه ساده.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۵.۲ نگهداری پیشگیرانه (Preventive)</h4>
+            <p>بر اساس زمان یا ساعت کارکرد ثابت انجام می‌شود. <strong>مزایا:</strong> ساده‌ترین برنامه‌ریزی، کاهش خرابی‌های ناگهانی. <strong>محدودیت‌ها:</strong> تعویض زودهنگام قطعات سالم، هزینه‌های نیروی کار اضافی. <strong>کاربرد:</strong> مناسب برای اقلام مصرفی نظیر فیلترها و روان‌کارها، و نیز تجهیزات فصلی مانند کمباین پیش از فصل برداشت.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۵.۳ نگهداری مبتنی بر وضعیت (CBM)</h4>
+            <p>اقدامات نگهداری تنها زمانی انجام می‌شود که شاخص‌های عملکردی از حد مجاز عبور کنند. <strong>مزایا:</strong> حذف تعویض زودهنگام، تشخیص دقیق‌تر. <strong>محدودیت‌ها:</strong> نیاز به سنسور و زیرساخت پایش. <strong>کاربرد:</strong> یاتاقان‌های اصلی، موتورهای محرکه و خطوط بسته‌بندی.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۵.۴ نگهداری پیش‌بینانه (Predictive – PdM)</h4>
+            <p>استراتژی پیش‌بینی زمان وقوع خرابی بر اساس تحلیل الگوی داده‌های سنسوری. <strong>مزایا:</strong> برنامه‌ریزی دقیق تعمیرات، کاهش توقف غیرمنتظره. <strong>محدودیت‌ها:</strong> هزینه پیاده‌سازی بالا، نیاز به مدل‌سازی داده. <strong>کاربرد:</strong> کمپرسورهای برودتی، خشک‌کن‌های غلات، آسیاب‌های اصلی.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۵.۵ نگهداری بهره‌ور فراگیر (TPM)</h4>
+            <p>مسئولیت نگهداری پایه را از تیم تعمیرات به اپراتور خط منتقل می‌کند. <strong>مزایا:</strong> افزایش حس مالکیت، شناسایی زودهنگام ناهنجاری‌ها. <strong>محدودیت‌ها:</strong> نیازمند فرهنگ‌سازی و آموزش گسترده. <strong>کاربرد:</strong> واحدهای فرآوری با نیروی کار ثابت و آموزش‌پذیر.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۵.۶ نگهداری خودمختار (Autonomous)</h4>
+            <p>وظایف پایه نظیر بازرسی بصری، تمیزکاری و روان‌کاری سبک مستقیماً به اپراتور واگذار می‌شود. <strong>مزایا:</strong> کاهش بار کاری تیم تعمیرات، افزایش تناوب بازرسی. <strong>محدودیت‌ها:</strong> محدود به وظایف ساده و غیرتخصصی. <strong>کاربرد:</strong> بازرسی روزانه ماشین‌آلات برداشت پیش و پس از هر شیفت کاری.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۵.۷ نگهداری تجویزی (Prescriptive)</h4>
+            <p>بالاترین سطح بلوغ، فراتر از پیش‌بینی زمان خرابی، اقدام بهینه توصیه‌شده را ارائه می‌دهد. <strong>مزایا:</strong> پشتیبانی مستقیم تصمیم‌گیری عملیاتی، بهینه‌سازی هم‌زمان قابلیت اطمینان و بهره‌وری. <strong>محدودیت‌ها:</strong> نیازمند بلوغ بالای زیرساخت داده و مدل‌سازی. <strong>کاربرد:</strong> در افق میان‌مدت برای واحدهای بزرگ فرآوری با زیرساخت دیجیتال یکپارچه.</p>
+
+        </section>
+
+        <!-- ===== 6. طبقه‌بندی تجهیزات ===== -->
+        <section class="section" id="tech">
+            <div class="section-header">
+                <span class="num">۶</span>
+                <h2>طبقه‌بندی تجهیزات از نظر استراتژی نگهداری مناسب</h2>
+                <i class="fas fa-layer-group section-icon"></i>
+            </div>
+            <p>با ترکیب تحلیل بحرانیت هر تجهیز، الگوی خرابی غالب آن و ویژگی هر استراتژی، می‌توان تجهیزات اصلی صنایع کشاورزی را به چهار گروه استراتژیک تقسیم کرد. معیار اصلی این طبقه‌بندی، ترکیب دو عامل است: شدت پیامد خرابی بر تولید و قابلیت پایش فنی-اقتصادی پارامتر خرابی.</p>
+
+            <!-- Table 3 - Classification -->
+            <div class="table-responsive mt-8">
+                <table>
+                    <thead>
+                        <tr><th>تجهیز</th><th>استراتژی پیشنهادی</th><th>دلیل فنی انتخاب</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>کمپرسور سیستم برودتی</td><td>نگهداری پیش‌بینانه (PdM)</td><td>بحرانیت بسیار بالا و عملکرد پیوسته ۲۴ ساعته؛ الگوی خرابی تدریجی و قابل پایش از طریق ارتعاش، جریان و فشار مبرد</td></tr>
+                        <tr><td>یاتاقان محور اصلی آسیاب/خردکن</td><td>نگهداری مبتنی بر وضعیت (CBM)</td><td>گلوگاه بودن تجهیز و نبود ظرفیت موازی؛ دمای پوسته و دامنه ارتعاش شاخص مستقیم و قابل اتکایی برای تصمیم تعمیر فراهم می‌کند</td></tr>
+                        <tr><td>موتورهای محرکه نوار نقاله اصلی</td><td>نگهداری مبتنی بر وضعیت (CBM)</td><td>وابستگی سریالی بالا در جریان مواد؛ پایش جریان موتور (MCSA) هزینه پایینی دارد و هشدار زودهنگام از لغزش یا اضافه‌بار می‌دهد</td></tr>
+                        <tr><td>مبدل‌های حرارتی و پاستوریزاتور</td><td>نگهداری پیش‌بینانه (PdM)</td><td>پیامد خرابی شامل ریسک ایمنی غذایی است نه فقط توقف تولید؛ روند افت راندمان حرارتی قابل مدل‌سازی و پیش‌بینی است</td></tr>
+                        <tr><td>ماشین‌آلات برداشت (کمباین و ادوات)</td><td>ترکیب PM فصلی و بازرسی خودمختار</td><td>بار فصلی متمرکز باعث می‌شود ساعت کارکرد معیار مناسبی برای PM پیش از فصل برداشت باشد؛ بازرسی روزانه اپراتور خرابی حاد را در طول فصل پوشش می‌دهد</td></tr>
+                        <tr><td>خطوط بسته‌بندی (پرکن و درزند)</td><td>نگهداری مبتنی بر وضعیت (CBM)</td><td>خرابی غالب از نوع افت تدریجی دقت است نه توقف ناگهانی؛ پایش نرخ رد بسته و دقت وزن‌کشی شاخص مستقیم وضعیت است</td></tr>
+                        <tr><td>پمپ‌های کمکی غیربحرانی</td><td>اجرا تا خرابی (Run To Failure)</td><td>هزینه پایین تعویض، وجود واحد پشتیبان موازی و پیامد محدود خرابی بر تولید، سرمایه‌گذاری در پایش را غیراقتصادی می‌سازد</td></tr>
+                        <tr><td>فیلترها و اقلام مصرفی روان‌کار</td><td>نگهداری پیش‌گیرانه (PM)</td><td>عمر مفید این اقلام عمدتاً تابع ساعت کارکرد یا زمان است، نه یک متغیر قابل پایش پیوسته با توجیه اقتصادی مثبت</td></tr>
+                        <tr><td>سیستم‌های تهویه و کنترل دمای سیلو</td><td>نگهداری پیش‌بینانه (PdM)</td><td>توقف پنهان این سیستم قابل مشاهده فوری نیست و می‌تواند به خودگرمایش زیستی محصول منجر شود؛ پایش پیوسته دما تنها راه تشخیص زودهنگام است</td></tr>
+                        <tr><td>تجهیزات جانبی و ادوات</td><td>اجرا تا خرابی (Run To Failure)</td><td>فراوانی پایین استفاده و در دسترس بودن سریع جایگزین، هزینه پایش را نسبت به منفعت آن توجیه‌ناپذیر می‌کند</td></tr>
+                    </tbody>
+                </table>
+                <div class="table-caption">جدول ۲ – طبقه‌بندی تجهیزات از نظر استراتژی نگهداری مناسب</div>
+            </div>
+
+            <div class="highlight-box">
+                <strong><i class="fas fa-sync-alt" style="margin-left:8px;"></i>توجه:</strong> این طبقه‌بندی ایستا نیست و باید به صورت دوره‌ای، به‌ویژه پس از هر رویداد خرابی عمده، بازبینی شود.
+            </div>
+
+        </section>
+
+        <!-- ===== 7. فناوری Industry 4.0 ===== -->
+        <section class="section" id="data">
+            <div class="section-header">
+                <span class="num">۷</span>
+                <h2>فناوری‌های انقلاب صنعتی چهارم در نگهداری و تعمیرات</h2>
+                <i class="fas fa-microchip section-icon"></i>
+            </div>
+            <p>استقرار فناوری‌های انقلاب صنعتی چهارم در نگهداری و تعمیرات صنایع کشاورزی نباید به‌صورت مجزا برای هر فناوری بررسی شود، بلکه این فناوری‌ها یک پشته یکپارچه را تشکیل می‌دهند که از حسگر فیزیکی در پایین‌ترین لایه تا تصمیم‌یار هوشمند در بالاترین لایه امتداد می‌یابد.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۷.۱ اینترنت اشیا (IoT)</h4>
+            <p>زیرساخت اتصال حسگرهای پراکنده روی تجهیزات متحرک و ثابت را به شبکه ارتباطی فراهم می‌کند. در ماشین‌آلات برداشت که در محیط باز و بدون دسترسی به شبکه صنعتی سیمی فعالیت می‌کنند، گره‌های IoT مبتنی بر ارتباط بی‌سیم کم‌مصرف (نظیر LoRaWAN) امکان ارسال داده دما، ارتعاش و موقعیت را فراهم می‌کنند.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۷.۲ اینترنت اشیای صنعتی (IIoT)</h4>
+            <p>زیرمجموعه‌ای از IoT که با الزامات سخت‌گیرانه‌تر قابلیت اطمینان، تأخیر پایین و یکپارچگی با سامانه‌های کنترل صنعتی طراحی شده است. در خطوط ثابت فرآوری و بسته‌بندی، حسگرهای IIoT مستقیماً به شبکه PLC و SCADA واحد متصل می‌شوند.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۷.۳ دوقلوی دیجیتال (Digital Twin)</h4>
+            <p>یک مدل مجازی به‌روزشونده از تجهیز فیزیکی که با داده پایش پیوسته همگام می‌شود. کاربرد اصلی در نگهداری کشاورزی، شبیه‌سازی اثر تغییر بار فصلی بر عمر باقی‌مانده اجزای بحرانی پیش از وقوع خرابی واقعی است.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۷.۴ سیستم‌های سایبر-فیزیکی (CPS)</h4>
+            <p>لایه یکپارچه‌سازی محاسبات، شبکه و فرآیند فیزیکی که در آن تصمیم محاسباتی مستقیماً بر رفتار تجهیز فیزیکی اثر می‌گذارد. نمونه کاربرد آن در نگهداری کشاورزی، تنظیم خودکار سرعت تغذیه آسیاب بر مبنای بازخورد لحظه‌ای سطح ارتعاش است.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۷.۵ رایانش ابری (Cloud Computing)</h4>
+            <p>زیرساخت ذخیره‌سازی و پردازش داده‌های حجیم سنسوری در بستر ابری، امکان تحلیل پیش‌بینی‌کننده با الگوریتم‌های پیچیده را فراهم می‌کند و برای واحدهایی با چندین سایت پراکنده، یکپارچگی داده را تسهیل می‌نماید.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۷.۶ هوش مصنوعی و یادگیری ماشین</h4>
+            <p>الگوریتم‌های یادگیری ماشین الگوهای پنهان در داده‌های سنسوری را کشف کرده و زمان باقی‌مانده تا خرابی را با دقت بیشتری نسبت به آستانه‌گذاری ثابت تخمین می‌زنند.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۷.۷ شبکه‌های ۵G</h4>
+            <p>پهنای باند بالا و تأخیر بسیار کم، امکان ارسال داده‌های حجیم نظیر تصاویر بینایی ماشین و داده‌های ارتعاشی خام را در زمان واقعی فراهم می‌کند.</p>
+
+        </section>
+
+        <!-- ===== 8. داده‌های موردنیاز ===== -->
+        <section class="section" id="sensors">
+            <div class="section-header">
+                <span class="num">۸</span>
+                <h2>داده‌های موردنیاز برای پایش وضعیت تجهیزات</h2>
+                <i class="fas fa-database section-icon"></i>
+            </div>
+            <p>انتخاب پارامتر داده برای پایش نباید بر مبنای در دسترس بودن سنسور بلکه بر مبنای پیوند مستقیم آن پارامتر با مکانیزم خرابی هدف صورت گیرد.</p>
+
+            <!-- Table 5 -->
+            <div class="table-responsive mt-8">
+                <table>
+                    <thead>
+                        <tr><th>پارامتر داده</th><th>تجهیز هدف</th><th>کاربرد در تشخیص خرابی</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>ارتعاش</td><td>یاتاقان‌ها، روتور آسیاب و فن‌ها</td><td>تشخیص عدم توازن، ناهم‌ترازی و فرسودگی یاتاقان از طریق آنالیز طیفی</td></tr>
+                        <tr><td>دما</td><td>یاتاقان، موتور، مبدل حرارتی</td><td>شناسایی اصطکاک غیرعادی، اضافه‌بار الکتریکی و افت راندمان حرارتی</td></tr>
+                        <tr><td>فشار</td><td>پمپ‌ها، خطوط هیدرولیک، فیلترها</td><td>تشخیص کاویتاسیون، نشتی و انسداد فیلتر از طریق افت فشار دیفرانسیل</td></tr>
+                        <tr><td>جریان الکتریکی</td><td>موتورهای محرکه</td><td>آنالیز امضای جریان موتور برای تشخیص لغزش، اضافه‌بار و خرابی سیم‌پیچی</td></tr>
+                        <tr><td>ولتاژ</td><td>تابلوهای برق و موتورها</td><td>شناسایی نوسان و عدم تقارن فاز که به سیم‌پیچی موتور آسیب می‌زند</td></tr>
+                        <tr><td>رطوبت</td><td>خشک‌کن‌ها و انبار سیلو</td><td>کنترل رطوبت محصول خروجی و تشخیص انحراف عملکرد سیستم خشک‌کن</td></tr>
+                        <tr><td>سرعت دورانی</td><td>موتورها، الواتور، آسیاب</td><td>پایش لغزش تسمه و انطباق سرعت واقعی با سرعت فرمان کنترلی</td></tr>
+                        <tr><td>گشتاور</td><td>جعبه دنده و محورهای انتقال قدرت</td><td>شناسایی اضافه‌بار مکانیکی ناشی از گرفتگی یا خستگی دنده</td></tr>
+                        <tr><td>کیفیت روغن</td><td>گیربکس‌ها و یاتاقان‌های روغن‌کاری‌شده</td><td>پایش افت خواص روان‌کاری و آلودگی رطوبتی روغن</td></tr>
+                        <tr><td>ذرات فلزی در روغن</td><td>گیربکس‌ها و یاتاقان‌های بحرانی</td><td>شناسایی زودهنگام سایش داخلی پیش از قابل مشاهده شدن علائم بیرونی</td></tr>
+                        <tr><td>صدا</td><td>آسیاب‌ها، کمپرسورها، فن‌ها</td><td>تشخیص ناهنجاری آکوستیک ناشی از سایش یا برخورد اجسام خارجی</td></tr>
+                        <tr><td>مصرف سوخت</td><td>ماشین‌آلات برداشت دیزلی</td><td>شناسایی افت راندمان احتراق و نیاز به سرویس موتور احتراق داخلی</td></tr>
+                        <tr><td>موقعیت مکانی (GPS)</td><td>ماشین‌آلات متحرک برداشت</td><td>ردیابی الگوی مسیر و همبستگی آن با شرایط زمین در تحلیل بار مکانیکی</td></tr>
+                        <tr><td>داده گذرگاه CAN Bus</td><td>تراکتور و کمباین‌های مدرن</td><td>استخراج کدهای خطای داخلی واحد کنترل موتور و انتقال قدرت</td></tr>
+                    </tbody>
+                </table>
+                <div class="table-caption">جدول ۵ – داده‌های موردنیاز برای پایش وضعیت تجهیزات</div>
+            </div>
+
+            <div class="highlight-box">
+                <strong><i class="fas fa-clock" style="margin-left:8px;"></i>نکته مهم:</strong> انتخاب نرخ نمونه‌برداری باید متناسب با نوع خرابی هدف باشد. تشخیص ضربه ناگهانی نیازمند نمونه‌برداری با فرکانس چند کیلوهرتز است، در حالی که پایش رطوبت انبار با نمونه‌برداری هر چند دقیقه کاملاً کافی است.
             </div>
         </section>
 
-        <!-- ====== SECTION 3 ====== -->
-        <section id="sec-machines">
-            <h2 class="section-title"><span class="num">۳.</span> تحلیل ماشین‌آلات صنایع کشاورزی</h2>
-            <div class="card">
-                <p>ماشین‌آلات صنایع کشاورزی را می‌توان بر اساس نقش آن‌ها در زنجیره ارزش به هفت دسته اصلی تقسیم کرد. تحلیل زیر برای هر دسته، وظیفه، اهمیت راهبردی، اجزای بحرانی، قطعات مستعد خرابی، نوع خرابی غالب و اثر آن بر تولید را بررسی می‌کند تا مبنای طراحی استراتژی نگهداری در بخش‌های بعدی فراهم شود.</p>
+        <!-- ===== 9. سیستم‌های جمع‌آوری داده ===== -->
+        <section class="section" id="inspection">
+            <div class="section-header">
+                <span class="num">۹</span>
+                <h2>سیستم‌های جمع‌آوری و مدیریت داده</h2>
+                <i class="fas fa-server section-icon"></i>
+            </div>
+            <p>سیستم‌های نرم‌افزاری درگیر در نگهداری هوشمند را می‌توان در قالب هرم اتوماسیون سنتی، از لایه کنترل میدانی تا لایه مدیریت کسب‌وکار، مرتب کرد.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:8px;">۹.۱ سامانه‌های کنترل و نظارت</h4>
+            <ul>
+                <li><strong>PLC (کنترل‌کننده منطقی برنامه‌پذیر):</strong> در پایین‌ترین لایه، منطق کنترل بلادرنگ تجهیز را اجرا می‌کند. منبع اولیه سیگنال‌های دیجیتال وضعیت برای تشخیص خرابی‌های الکتریکی است.</li>
+                <li><strong>SCADA (سامانه کنترل نظارتی و کسب داده):</strong> داده چندین PLC را در سطح واحد یا کارخانه تجمیع کرده و امکان نمایش و هشداردهی متمرکز فراهم می‌کند.</li>
+            </ul>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۹.۲ سامانه‌های مدیریت سطح کارخانه و سازمان</h4>
+            <ul>
+                <li><strong>MES (سامانه اجرای تولید):</strong> رویدادهای تولید را ثبت و با دستورات تولید تطبیق می‌دهد. امکان محاسبه خودکار OEE را فراهم می‌کند.</li>
+                <li><strong>ERP (برنامه‌ریزی منابع سازمانی):</strong> مدیریت مالی، تدارکات و منابع انسانی را پوشش می‌دهد.</li>
+                <li><strong>CMMS (سامانه مدیریت نگهداری و تعمیرات رایانه‌ای):</strong> هسته مرکزی اجرای عملیاتی استراتژی‌های نگهداری، مدیریت دستور کار تعمیرات، تاریخچه خرابی و موجودی قطعه یدکی.</li>
+                <li><strong>EAM (مدیریت دارایی‌های سازمانی):</strong> گسترش CMMS در سطح کل چرخه عمر دارایی، از خرید تا از رده خارج‌سازی.</li>
+                <li><strong>Data Historian:</strong> ذخیره‌سازی بلندمدت و با حجم بالای داده سری‌زمانی، منبع اصلی داده آموزشی برای مدل‌های یادگیری ماشین.</li>
+            </ul>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۹.۳ پروتکل‌های ارتباطی میان‌لایه‌ای</h4>
+            <ul>
+                <li><strong>OPC-UA:</strong> استاندارد صنعتی مستقل از پلتفرم برای ارتباط ایمن و ساختاریافته میان PLC، SCADA و MES.</li>
+                <li><strong>Modbus:</strong> پروتکل غالب برای ارتباط با تجهیزات قدیمی‌تر.</li>
+                <li><strong>MQTT:</strong> با سربار پایین و معماری انتشار-اشتراک، مناسب برای انتقال داده از گره‌های IoT با پهنای باند محدود.</li>
+            </ul>
+        </section>
+
+        <!-- ===== 10. سنسورها ===== -->
+        <section class="section" id="ml">
+            <div class="section-header">
+                <span class="num">۱۰</span>
+                <h2>سنسورهای مورد استفاده در پایش تجهیزات</h2>
+                <i class="fas fa-microphone section-icon"></i>
+            </div>
+            <p>انتخاب نوع سنسور برای هر تجهیز باید متناسب با مکانیزم خرابی هدف و در شرایط محیطی واقعی صنایع کشاورزی (گردوغبار، رطوبت و ارتعاش محیطی بالا) صورت گیرد.</p>
+
+            <!-- Table 6 -->
+            <div class="table-responsive mt-8">
+                <table>
+                    <thead>
+                        <tr><th>سنسور</th><th>تجهیز محل نصب</th><th>هدف اندازه‌گیری</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>شتاب‌سنج (Accelerometer)</td><td>پوسته یاتاقان موتور، آسیاب و فن</td><td>ثبت طیف ارتعاش برای تشخیص عدم توازن، ناهم‌ترازی و فرسودگی یاتاقان</td></tr>
+                        <tr><td>حسگر دما</td><td>بدنه موتور، یاتاقان، مبدل حرارتی</td><td>پایش گرمای غیرعادی ناشی از اصطکاک یا اضافه‌بار الکتریکی</td></tr>
+                        <tr><td>حسگر فشار</td><td>خطوط هیدرولیک، ورودی و خروجی پمپ</td><td>شناسایی افت فشار ناشی از نشتی یا انسداد مسیر</td></tr>
+                        <tr><td>حسگر جریان الکتریکی</td><td>تابلوی برق موتورهای محرکه</td><td>استخراج امضای جریان برای تشخیص لغزش و خرابی سیم‌پیچی</td></tr>
+                        <tr><td>انکودر (Encoder)</td><td>محور موتور و غلتک‌های نقاله</td><td>اندازه‌گیری دقیق سرعت و موقعیت زاویه‌ای برای تشخیص لغزش</td></tr>
+                        <tr><td>حسگر جریان سیال (Flow)</td><td>خطوط لوله سیستم برودتی و فرآوری</td><td>تشخیص کاهش دبی ناشی از انسداد یا خرابی پمپ</td></tr>
+                        <tr><td>حسگر کیفیت روغن</td><td>کارتر گیربکس‌های بحرانی</td><td>پایش ویسکوزیته، رطوبت و آلودگی ذره‌ای روغن روان‌کار</td></tr>
+                        <tr><td>دوربین مادون‌قرمز (حرارتی)</td><td>تابلو برق، یاتاقان، مبدل حرارتی</td><td>ترموگرافی برای شناسایی نقاط داغ غیرعادی بدون تماس فیزیکی</td></tr>
+                        <tr><td>حسگر آکوستیک</td><td>کمپرسور، آسیاب و واحدهای پرسروصدا</td><td>تشخیص ناهنجاری صوتی با فرکانس بالا پیش از قابل شنیدن شدن توسط گوش انسان</td></tr>
+                    </tbody>
+                </table>
+                <div class="table-caption">جدول ۶ – سنسورهای مورد استفاده در پایش تجهیزات</div>
             </div>
 
-            <h3 class="subsection-title">۳.۱ ماشین‌آلات برداشت (کمپاین و ادوات یدک‌کش)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>وظیفه:</strong> جداسازی، برش و پیش‌پردازش اولیه محصول از مزرعه</li>
-                    <li><strong>اهمیت در خط تولید:</strong> بسیار بالا؛ توقف در فصل برداشت به طور مستقیم بر کمیت و کیفیت محصول قابل جمع‌آوری اثر می‌گذارد و قابل جبران با سرعت بیشتر در روزهای بعد نیست (NOVITSKIY et al., 2021)</li>
-                    <li><strong>اجزای بحرانی:</strong> موتور دیزل، سیستم انتقال قدرت، کوبنده و تسمه‌های انتقال</li>
-                    <li><strong>قطعات مستعد خرابی:</strong> یاتاقان‌های کوبنده، تسمه‌های پروانه، سیستم هیدرولیک</li>
-                    <li><strong>نوع خرابی‌های رایج:</strong> سایش یاتاقان، پارگی تسمه، نشتی هیدرولیک، خستگی قطعات ناشی از بار ضربه‌ای</li>
-                    <li><strong>اثر خرابی بر تولید:</strong> توقف کامل برداشت در یک بازه زمانی حیاتی؛ کاهش سطح زیر کشت قابل برداشت</li>
-                </ul>
-            </div>
-
-            <h3 class="subsection-title">۳.۲ سیستم‌های انتقال مواد (نوار نقاله، الواتور و اسکرو کانوایر)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>وظیفه:</strong> انتقال پیوسته محصول میان ایستگاه‌های فرآوری، انبارداری و بسته‌بندی</li>
-                    <li><strong>اهمیت در خط تولید:</strong> بسیار بالا از نظر وابستگی سریالی؛ خرابی یک قطعه انتقال کل جریان پایین‌دستی را متوقف می‌کند (Khodabakhshian, 2013b)</li>
-                    <li><strong>اجزای بحرانی:</strong> موتور و گیربکس محرکه، غلتک‌ها و پولی‌ها، تسمه یا زنجیره انتقال</li>
-                    <li><strong>قطعات مستعد خرابی:</strong> یاتاقان غلتک‌ها، تسمه‌های نقاله (پارگی و ترک سطحی)، زنجیرهای الواتور</li>
-                    <li><strong>نوع خرابی‌های رایج:</strong> ناهم‌ترازی محور غلتک‌ها، فرسودگی سطحی تسمه، خستگی زنجیر ناشی از بار ضربه‌ای</li>
-                    <li><strong>اثر خرابی بر تولید:</strong> توقف زنجیره‌ای (Cascading Failure) در تمام ایستگاه‌های پایین‌دستی خط</li>
-                </ul>
-            </div>
-
-            <h3 class="subsection-title">۳.۳ پمپ‌ها، کمپرسورها و مبدل‌های حرارتی</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>وظیفه:</strong> انتقال سیال فرآیندی و تبادل حرارت میان جریان‌های گرم و سرد</li>
-                    <li><strong>اهمیت در خط تولید:</strong> بالا؛ نوسان دبی یا دمای خروجی مستقیماً بر کیفیت میکروبیولوژیک و ایمنی محصول اثر می‌گذارد</li>
-                    <li><strong>اجزای بحرانی:</strong> پروانه و آب‌بند مکانیکی پمپ، صفحات یا لوله‌های مبدل حرارتی، شیرهای کنترل</li>
-                    <li><strong>قطعات مستعد خرابی:</strong> آب‌بندهای مکانیکی، یاتاقان محور پمپ، صفحات مبدل (رسوب و خوردگی حرارتی)</li>
-                    <li><strong>نوع خرابی‌های رایج:</strong> کاویتاسیون، رسوب‌گذاری (Fouling) کاهنده راندمان حرارتی، نشتی از آب‌بند فرسوده</li>
-                    <li><strong>اثر خرابی بر تولید:</strong> افت راندمان انرژی به صورت تدریجی و نامحسوس، ریسک آلودگی متقابل جریان محصول در صورت نشتی</li>
-                </ul>
-            </div>
-
-            <h3 class="subsection-title">۳.۴ خطوط بسته‌بندی و واحدهای رباتیک</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>وظیفه:</strong> اندازه‌گیری، پرکردن، بسته‌بندی و چیدمان نهایی محصول</li>
-                    <li><strong>اهمیت در خط تولید:</strong> بالا از نظر کیفیت محصول نهایی؛ اما معمولاً دارای ظرفیت موازی بیشتری نسبت به بخش‌های ابتدایی خط است (Ji et al., 2026)</li>
-                    <li><strong>اجزای بحرانی:</strong> سیستم وزن‌کشی، نازل‌های پرکن، سیستم درزبندی حرارتی، بازوهای رباتیک</li>
-                    <li><strong>قطعات مستعد خرابی:</strong> سنسورهای تشخیص بسته، المنت‌های حرارتی، سروو موتورها</li>
-                    <li><strong>نوع خرابی‌های رایج:</strong> افت دقت وزن‌کشی، انحراف تنظیم درزبند، ناهم‌ترازی برچسب‌زن</li>
-                    <li><strong>اثر خرابی بر تولید:</strong> افزایش نرخ ضایعات بسته‌بندی، کاهش سرعت خط، رد محموله توسط کنترل کیفی</li>
-                </ul>
-            </div>
-
-            <!-- Figure 3 -->
-            <div class="figure-box">
-                <svg viewBox="0 0 700 140" style="max-width:100%;">
-                    <text x="350" y="24" text-anchor="middle" fill="#b0c8dd" font-size="14" font-weight="500">طبقه‌بندی ماشین‌آلات کلیدی بر اساس جایگاه در زنجیره ارزش</text>
-                    <rect x="20" y="40" width="130" height="84" rx="12" fill="rgba(59,201,219,0.08)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="85" y="64" text-anchor="middle" fill="#e8f0f8" font-size="11" font-weight="700">برداشت</text>
-                    <text x="85" y="80" text-anchor="middle" fill="#7a96b0" font-size="8">کمباین، دروگر</text>
-                    <text x="85" y="94" text-anchor="middle" fill="#7a96b0" font-size="8">ادوات یدک‌کش</text>
-                    <text x="85" y="112" text-anchor="middle" fill="#f59f4a" font-size="8">▸ بحرانی</text>
-
-                    <rect x="170" y="40" width="130" height="84" rx="12" fill="rgba(59,201,219,0.08)" stroke="#4d8fc5" stroke-width="1.5" />
-                    <text x="235" y="64" text-anchor="middle" fill="#e8f0f8" font-size="11" font-weight="700">انتقال مواد</text>
-                    <text x="235" y="80" text-anchor="middle" fill="#7a96b0" font-size="8">نوار نقاله، الواتور</text>
-                    <text x="235" y="94" text-anchor="middle" fill="#7a96b0" font-size="8">اسکرو کانوایر</text>
-                    <text x="235" y="112" text-anchor="middle" fill="#f59f4a" font-size="8">▸ بحرانی</text>
-
-                    <rect x="320" y="40" width="130" height="84" rx="12" fill="rgba(59,201,219,0.08)" stroke="#4d8fc5" stroke-width="1.5" />
-                    <text x="385" y="64" text-anchor="middle" fill="#e8f0f8" font-size="11" font-weight="700">سیالات</text>
-                    <text x="385" y="80" text-anchor="middle" fill="#7a96b0" font-size="8">پمپ، کمپرسور</text>
-                    <text x="385" y="94" text-anchor="middle" fill="#7a96b0" font-size="8">مبدل حرارتی</text>
-                    <text x="385" y="112" text-anchor="middle" fill="#f7c948" font-size="8">▸ متوسط</text>
-
-                    <rect x="470" y="40" width="130" height="84" rx="12" fill="rgba(59,201,219,0.08)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="535" y="64" text-anchor="middle" fill="#e8f0f8" font-size="11" font-weight="700">بسته‌بندی</text>
-                    <text x="535" y="80" text-anchor="middle" fill="#7a96b0" font-size="8">پرکن، درزند</text>
-                    <text x="535" y="94" text-anchor="middle" fill="#7a96b0" font-size="8">رباتیک</text>
-                    <text x="535" y="112" text-anchor="middle" fill="#f7c948" font-size="8">▸ متوسط</text>
-
-                    <rect x="620" y="40" width="70" height="84" rx="12" fill="rgba(59,201,219,0.12)" stroke="#4ecdc4" stroke-width="1.5" />
-                    <text x="655" y="70" text-anchor="middle" fill="#e8f0f8" font-size="10" font-weight="700">سایر</text>
-                    <text x="655" y="90" text-anchor="middle" fill="#7a96b0" font-size="7">جانبی</text>
-                    <text x="655" y="108" text-anchor="middle" fill="#4ecdc4" font-size="8">▸ کم</text>
-                </svg>
-                <div class="figure-caption">شکل ۳- طبقه‌بندی ماشین‌آلات کلیدی صنایع کشاورزی بر اساس جایگاه در زنجیره ارزش</div>
+            <div class="highlight-box">
+                <strong><i class="fas fa-shield-alt" style="margin-left:8px;"></i>توجه:</strong> در ماشین‌آلات متحرک برداشت، انتخاب سنسور باید مقاومت در برابر ضربه، گردوغبار و رطوبت (حداقل استاندارد حفاظتی IP65) را نیز پوشش دهد.
             </div>
         </section>
 
-        <!-- ====== SECTION 4 ====== -->
-        <section id="sec-failure">
-            <h2 class="section-title"><span class="num">۴.</span> تحلیل خرابی‌های غالب در تجهیزات صنایع کشاورزی</h2>
-            <div class="card">
-                <p>برخلاف رویکرد فهرست‌وار تعریف انواع خرابی، تحلیل زیر بر مکانیزم‌های خرابی متمرکز است که در دسته‌های تجهیزاتی معرفی‌شده در بخش قبل به‌طور مکرر مشاهده می‌شوند. هدف از این تحلیل، ایجاد پیوند مستقیم میان علت ریشه‌ای خرابی و روش تشخیص یا پیشگیری متناظر است تا مبنای انتخاب استراتژی نگهداری در بخش پنجم فراهم شود.</p>
+        <!-- ===== 11. بازرسی‌ها ===== -->
+        <section class="section" id="kpis">
+            <div class="section-header">
+                <span class="num">۱۱</span>
+                <h2>بازرسی‌های فنی و روش‌های ارزیابی وضعیت</h2>
+                <i class="fas fa-search-plus section-icon"></i>
+            </div>
+            <p>روش‌های بازرسی فنی زیر مکمل پایش پیوسته حسگری هستند و عمدتاً برای تجهیزاتی به کار می‌روند که پایش دائمی آن‌ها از نظر اقتصادی توجیه‌پذیر نیست یا نیازمند تحلیل تخصصی دوره‌ای است.</p>
+
+            <ul>
+                <li><strong>بازرسی بصری:</strong> روزانه یا در ابتدای هر شیفت کاری – شناسایی نشتی، ترک سطحی، صدای غیرعادی و اتصالات شل.</li>
+                <li><strong>ترموگرافی:</strong> ماهانه برای تجهیزات عمومی، هفتگی برای بحرانی – شناسایی نقاط داغ ناشی از اتصال شل یا اضافه‌بار.</li>
+                <li><strong>آنالیز ارتعاش:</strong> پیوسته برای بحرانی، ماهانه برای اولویت متوسط – تشخیص عدم توازن، ناهم‌ترازی و فرسودگی یاتاقان.</li>
+                <li><strong>آنالیز روغن:</strong> فصلی برای عمومی، ماهانه برای بحرانی – شناسایی سایش داخلی از طریق ذرات فلزی.</li>
+                <li><strong>آزمون فراصوت:</strong> سالانه – شناسایی کاهش ضخامت جداره ناشی از خوردگی یا نشتی گاز.</li>
+                <li><strong>آنالیز امضای جریان موتور (MCSA):</strong> فصلی – تشخیص خرابی روتور و ناهم‌ترازی مکانیکی بدون توقف تجهیز.</li>
+                <li><strong>ترازایابی لیزری:</strong> دوره‌ای – تنظیم دقیق محورها برای کاهش سایش یاتاقان و تسمه.</li>
+            </ul>
+
+        </section>
+
+        <!-- ===== 12. انتخاب الگوریتم ML ===== -->
+        <section class="section" id="economy">
+            <div class="section-header">
+                <span class="num">۱۲</span>
+                <h2>انتخاب الگوریتم یادگیری ماشین متناسب با نوع داده</h2>
+                <i class="fas fa-brain section-icon"></i>
+            </div>
+            <p>انتخاب الگوریتم یادگیری ماشین باید بر اساس ماهیت ساختار داده ورودی و ماهیت مسئله (طبقه‌بندی، تشخیص ناهنجاری، پیش‌بینی) صورت گیرد.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:8px;">۱۲.۱ داده جدولی ساختاریافته</h4>
+            <p>برای داده‌های جدولی با ویژگی‌های استخراج‌شده، الگوریتم‌های مبتنی بر درخت تصمیم تجمیعی نظیر <strong>Random Forest، XGBoost، LightGBM و CatBoost</strong> گزینه‌های برتر هستند.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۱۲.۲ تشخیص ناهنجاری بدون داده برچسب‌خورده</h4>
+            <p><strong>Isolation Forest</strong> برای جداسازی سریع نقاط پرت و <strong>AutoEncoder</strong> برای داده‌های با ابعاد بالا و روابط غیرخطی پیچیده مناسب هستند.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۱۲.۳ سیگنال‌های خام سری‌زمانی و طیفی</h4>
+            <p><strong>CNN</strong> بر مبنای طیف‌نگاشت برای یادگیری الگوهای فرکانسی-زمانی و <strong>LSTM/GRU</strong> برای مدل‌سازی وابستگی زمانی مناسب هستند.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۱۲.۴ پیش‌بینی روند بلندمدت و RUL</h4>
+            <p><strong>Transformer</strong> با مکانیزم توجه برای مدل‌سازی وابستگی بلندمدت میان چند منبع داده هم‌زمان مناسب است.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۱۲.۵ تصاویر بازرسی بصری و بینایی ماشین</h4>
+            <p><strong>YOLO</strong> برای تشخیص بلادرنگ اجسام/عیوب با سرعت بالا و <strong>Vision Transformer</strong> برای طبقه‌بندی دقیق تصویر با زمینه پیچیده.</p>
+
+            <!-- Table 7 -->
+            <div class="table-responsive mt-8">
+                <table>
+                    <thead>
+                        <tr><th>نوع داده / وظیفه</th><th>الگوریتم پیشنهادی</th><th>دلیل اصلی انتخاب</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>ویژگی جدولی از سیگنال حسگری</td><td>Random Forest / XGBoost / LightGBM / CatBoost</td><td>مقاومت به نویز، کارایی بالا روی داده جدولی و متغیرهای دسته‌ای</td></tr>
+                        <tr><td>داده بدون برچسب کافی</td><td>Isolation Forest / AutoEncoder</td><td>تشخیص ناهنجاری بدون نیاز به نمونه خرابی برچسب‌خورده</td></tr>
+                        <tr><td>سیگنال خام ارتعاشی/صوتی</td><td>CNN بر مبنای طیف‌نگاشت</td><td>یادگیری خودکار الگوی فرکانسی-زمانی بدون استخراج ویژگی دستی</td></tr>
+                        <tr><td>روند زمانی کوتاه تا میان‌مدت</td><td>LSTM / GRU</td><td>مدل‌سازی وابستگی زمانی با هزینه محاسباتی متعادل</td></tr>
+                        <tr><td>پیش‌بینی عمر باقیمانده بلندمدت</td><td>Transformer</td><td>مدل‌سازی وابستگی بلندمدت میان چند منبع داده هم‌زمان</td></tr>
+                        <tr><td>تشخیص بلادرنگ اجسام/عیوب</td><td>YOLO</td><td>سرعت پردازش بالا برای واکنش لحظه‌ای</td></tr>
+                        <tr><td>طبقه‌بندی دقیق تصویر با زمینه پیچیده</td><td>Vision Transformer</td><td>دقت بالاتر در تحلیل زمینه کلی تصویر با هزینه پردازش بیشتر</td></tr>
+                    </tbody>
+                </table>
+                <div class="table-caption">جدول ۷ – تصاویر بازرسی بصری و بینایی ماشین</div>
             </div>
 
-            <h3 class="subsection-title">۴.۱ سایش و فرسودگی یاتاقان‌ها</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>علت:</strong> ورود ذرات ساینده به داخل محفظه یاتاقان، روان‌کاری ناکافی یا تخریب‌شده، بار شعاعی بیش از حد طراحی</li>
-                    <li><strong>علائم:</strong> افزایش دمای پوسته یاتاقان، افزایش سطح ارتعاش در باندهای فرکانسی مشخصه یاتاقان، صدای غیرعادی با فرکانس بالا (Diaz-Bejarano et al., 2020)</li>
-                    <li><strong>پیامدها:</strong> گیرپاژ ناگهانی محور و توقف کامل تجهیز، آسیب ثانویه به محور و پوسته یاتاقان‌گیر</li>
-                </ul>
+            <!-- Table 8 -->
+            <div class="table-responsive mt-8">
+                <table>
+                    <thead>
+                        <tr><th>الگوریتم</th><th>دقت</th><th>سرعت داده کم</th><th>تفسیرپذیری</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Random Forest</td><td>بالا</td><td>خوب</td><td>بالا</td></tr>
+                        <tr><td>SVM</td><td>متوسط</td><td>متوسط</td><td>متوسط</td></tr>
+                        <tr><td>XGBoost</td><td>بسیار بالا</td><td>خوب</td><td>متوسط</td></tr>
+                        <tr><td>CNN</td><td>بسیار بالا</td><td>کم</td><td>پایین</td></tr>
+                        <tr><td>LSTM</td><td>بالا</td><td>کم</td><td>پایین</td></tr>
+                    </tbody>
+                </table>
+                <div class="table-caption">جدول ۸ – مقایسه کلی الگوریتم‌های یادگیری ماشین</div>
             </div>
+        </section>
 
-            <h3 class="subsection-title">۴.۲ خستگی و پارگی تسمه‌ها</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>علت:</strong> کشش بیش از حد، ناهم‌ترازی پولی‌ها، ورود مواد ساینده، پیری ماده تسمه</li>
-                    <li><strong>علائم:</strong> ترک‌های سطحی، لرزش نامنظم، افزایش لغزش و کاهش سرعت انتقال</li>
-                    <li><strong>پیامدها:</strong> پارگی ناگهانی و توقف خط انتقال، خطر آسیب به تجهیزات پایین‌دستی</li>
-                </ul>
+        <!-- ===== 13. شاخص‌های عملکرد ===== -->
+        <section class="section" id="program">
+            <div class="section-header">
+                <span class="num">۱۳</span>
+                <h2>شاخص‌های ارزیابی عملکرد نگهداری و تعمیرات</h2>
+                <i class="fas fa-chart-line section-icon"></i>
             </div>
+            <p>شاخص‌های عملکرد نگهداری در صنایع کشاورزی باید با احتیاط نسبت به تفسیر مستقیم مقادیر مرجع صنعتی متعارف به کار روند، زیرا بار فصلی متغیر محاسبه برخی شاخص‌ها را پیچیده‌تر می‌کند.</p>
 
-            <h3 class="subsection-title">۴.۳ رسوب‌گذاری در مبدل‌های حرارتی</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>علت:</strong> وجود املاح و مواد آلی در سیال فرآیندی، دما و سرعت جریان نامناسب</li>
-                    <li><strong>علائم:</strong> افزایش دمای خروجی، کاهش راندمان حرارتی، افزایش فشار دیفرانسیل</li>
-                    <li><strong>پیامدها:</strong> افزایش مصرف انرژی، کاهش کیفیت محصول، در نهایت خرابی کامل حرارتی</li>
-                </ul>
-            </div>
-
-            <h3 class="subsection-title">۴.۴ کاویتاسیون در پمپ‌ها</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>علت:</strong> فشار مکش پایین، دمای سیال بالا، سرعت دورانی زیاد</li>
-                    <li><strong>علائم:</strong> صدای شن‌مانند، کاهش دبی، ارتعاش لوله‌ها</li>
-                    <li><strong>پیامدها:</strong> فرسایش پروانه، کاهش راندمان، خرابی کامل پمپ</li>
-                </ul>
-            </div>
-
-            <!-- Figure 4 & Table 2 -->
-            <div class="figure-box">
-                <svg viewBox="0 0 700 120" style="max-width:100%;">
-                    <text x="350" y="24" text-anchor="middle" fill="#b0c8dd" font-size="14" font-weight="500">ماتریس علت-پیامد برای مکانیزم‌های خرابی غالب</text>
-                    <rect x="30" y="40" width="180" height="26" rx="6" fill="rgba(59,201,219,0.1)" stroke="#3bc9db" stroke-width="1" />
-                    <text x="120" y="58" text-anchor="middle" fill="#3bc9db" font-size="11" font-weight="700">علت ریشه‌ای</text>
-                    <rect x="230" y="40" width="180" height="26" rx="6" fill="rgba(59,201,219,0.1)" stroke="#4d8fc5" stroke-width="1" />
-                    <text x="320" y="58" text-anchor="middle" fill="#4d8fc5" font-size="11" font-weight="700">مکانیزم خرابی</text>
-                    <rect x="430" y="40" width="220" height="26" rx="6" fill="rgba(59,201,219,0.1)" stroke="#f59f4a" stroke-width="1" />
-                    <text x="540" y="58" text-anchor="middle" fill="#f59f4a" font-size="11" font-weight="700">پیامد / اثر</text>
-
-                    <rect x="30" y="72" width="180" height="36" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(59,201,219,0.08)" stroke-width="1" />
-                    <text x="120" y="90" text-anchor="middle" fill="#b0c8dd" font-size="9">روانکاری نامناسب</text>
-                    <text x="120" y="102" text-anchor="middle" fill="#7a96b0" font-size="8">+ بار اضافی</text>
-                    <rect x="230" y="72" width="180" height="36" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(59,201,219,0.08)" stroke-width="1" />
-                    <text x="320" y="90" text-anchor="middle" fill="#e8f0f8" font-size="9">سایش یاتاقان</text>
-                    <text x="320" y="102" text-anchor="middle" fill="#7a96b0" font-size="8">(فرسودگی پیش‌رونده)</text>
-                    <rect x="430" y="72" width="220" height="36" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(59,201,219,0.08)" stroke-width="1" />
-                    <text x="540" y="90" text-anchor="middle" fill="#ff6b6b" font-size="9">توقف کامل خط</text>
-                    <text x="540" y="102" text-anchor="middle" fill="#7a96b0" font-size="8">+ آسیب ثانویه</text>
-                </svg>
-                <div class="figure-caption">شکل ۴- ماتریس علت-پیامد برای مکانیزم‌های خرابی غالب در تجهیزات کشاورزی</div>
-            </div>
-
-            <div class="card">
-                <p><strong>جدول ۲- تحلیل حالات خرابی و اثرات آن (FMEA) برای آسیب اصلی خط فرآوری</strong></p>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>تجهیز</th><th>حالت خرابی</th><th>اثر خرابی</th><th>علت</th><th>S</th><th>R</th><th>P</th><th>N</th><th>D</th><th>O</th><th>RPN</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>یاتاقان</td><td>آسیب سایشی</td><td>توقف کامل خط</td><td>روانکاری نامناسب</td><td>۹</td><td>۳</td><td>۱</td><td>۳</td><td>۵</td><td>۴</td><td>۱۳۵</td></tr>
-                            <tr><td>موتور</td><td>افزایش دما</td><td>سوختن موتور</td><td>اضافه بار</td><td>۴</td><td>۴</td><td>۱</td><td>۲</td><td>۸</td><td>۳</td><td>۱۲۸</td></tr>
-                            <tr><td>تسمه</td><td>پارگی</td><td>توقف انتقال</td><td>کشش زیاد</td><td>۵</td><td>۴</td><td>۱</td><td>۴</td><td>۰</td><td>۴</td><td>۱۴۰</td></tr>
-                            <tr><td>پمپ</td><td>نشتی آب‌بند</td><td>کاهش دبی</td><td>کاویتاسیون</td><td>۶</td><td>۴</td><td>۱</td><td>۲</td><td>۰</td><td>۵</td><td>۱۲۰</td></tr>
-                        </tbody>
-                    </table>
-                    <div class="table-caption">جدول ۲- تحلیل حالات خرابی و اثرات آن (FMEA) برای آسیب اصلی خط فرآوری — بیشترین RPN مربوط به خرابی تسمه انتقال است؛ بنابراین این تجهیز باید در اولویت اجرای برنامه نگهداری پیشگیرانه و پایش وضعیت قرار گیرد.</div>
+            <div class="kpi-grid">
+                <div class="kpi-card blue">
+                    <span class="kpi-icon"><i class="fas fa-percent"></i></span>
+                    <div class="kpi-value">OEE</div>
+                    <div class="kpi-label">اثربخشی کلی تجهیزات</div>
+                </div>
+                <div class="kpi-card green">
+                    <span class="kpi-icon"><i class="fas fa-clock"></i></span>
+                    <div class="kpi-value">MTBF</div>
+                    <div class="kpi-label">میانگین زمان بین خرابی‌ها</div>
+                </div>
+                <div class="kpi-card orange">
+                    <span class="kpi-icon"><i class="fas fa-clock"></i></span>
+                    <div class="kpi-value">MTTR</div>
+                    <div class="kpi-label">میانگین زمان تعمیر</div>
+                </div>
+                <div class="kpi-card purple">
+                    <span class="kpi-icon"><i class="fas fa-check-circle"></i></span>
+                    <div class="kpi-value">Availability</div>
+                    <div class="kpi-label">در دسترس بودن</div>
+                </div>
+                <div class="kpi-card red">
+                    <span class="kpi-icon"><i class="fas fa-stopwatch"></i></span>
+                    <div class="kpi-value">Downtime</div>
+                    <div class="kpi-label">زمان توقف</div>
+                </div>
+                <div class="kpi-card blue">
+                    <span class="kpi-icon"><i class="fas fa-coins"></i></span>
+                    <div class="kpi-value">Cost</div>
+                    <div class="kpi-label">هزینه نگهداری</div>
                 </div>
             </div>
+
+            <ul>
+                <li><strong>OEE (اثربخشی کلی تجهیزات):</strong> حاصل‌ضرب در دسترس بودن، عملکرد و کیفیت. در تجهیزات فصلی باید صرفاً بر مبنای بازه فعال عملیاتی محاسبه شود.</li>
+                <li><strong>MTBF (میانگین زمان بین خرابی‌ها):</strong> میانگین بازه زمانی عملیاتی میان دو خرابی متوالی. برای تجهیزات فصلی بر مبنای ساعت کارکرد واقعی محاسبه شود.</li>
+                <li><strong>MTTR (میانگین زمان تعمیر):</strong> بازه زمانی میان وقوع خرابی و بازگشت تجهیز به سرویس. زمان رسیدن تکنسین باید به طور مجزا ثبت شود.</li>
+                <li><strong>Availability (در دسترس بودن):</strong> نسبت زمان عملیاتی واقعی به زمان عملیاتی برنامه‌ریزی‌شده.</li>
+                <li><strong>Downtime و نرخ خرابی:</strong> ثبت دقیق زمان توقف با تفکیک علت (مکانیکی، الکتریکی، کمبود مواد، برنامه‌ریزی‌شده).</li>
+                <li><strong>هزینه نگهداری:</strong> تفکیک به سه جزء: هزینه نیروی کار، هزینه قطعه یدکی و هزینه فرصت از دست رفته ناشی از توقف تولید.</li>
+                <li><strong>انطباق با برنامه زمان‌بندی:</strong> نسبت دستورکارهای نگهداری پیشگیرانه انجام‌شده در بازه برنامه‌ریزی‌شده به کل دستورکارها.</li>
+            </ul>
+
         </section>
 
-        <!-- ====== SECTION 5 ====== -->
-        <section id="sec-strategy">
-            <h2 class="section-title"><span class="num">۵.</span> استراتژی‌های نگهداری و تعمیرات</h2>
-
-            <h3 class="subsection-title">۵.۱ نگهداری اصلاحی (Corrective Maintenance)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>مزایا:</strong> حداقل سرمایه‌گذاری اولیه، مناسب برای تجهیزات کم‌اهمیت با پیامد خرابی محدود</li>
-                    <li><strong>محدودیت‌ها:</strong> توقف‌های غیربرنامه‌ریزی‌شده، ریسک بالای خرابی در تجهیزات بحرانی</li>
-                    <li><strong>کاربرد در صنایع کشاورزی:</strong> تجهیزات جانبی غیربحرانی نظیر پمپ‌های کمکی، فن‌های غیر اصلی</li>
-                </ul>
+        <!-- ===== 14. تحلیل اقتصادی ===== -->
+        <section class="section" id="limitations">
+            <div class="section-header">
+                <span class="num">۱۴</span>
+                <h2>تحلیل اقتصادی استقرار فناوری‌های انقلاب صنعتی چهارم</h2>
+                <i class="fas fa-coins section-icon"></i>
             </div>
+            <p>توجیه اقتصادی سرمایه‌گذاری در سیستم نگهداری هوشمند باید از طریق مقایسه صریح هزینه سرمایه‌گذاری اولیه با سه دسته صرفه‌جویی حاصل صورت گیرد: کاهش هزینه مستقیم نگهداری، کاهش هزینه توقف تولید و افزایش بهره‌وری انرژی و منابع.</p>
 
-            <h3 class="subsection-title">۵.۲ نگهداری پیشگیرانه (Preventive Maintenance)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>مزایا:</strong> کاهش خرابی‌های ناگهانی، برنامه‌ریزی‌پذیری بالا، مناسب برای تجهیزات با الگوی خرابی مبتنی بر زمان</li>
-                    <li><strong>محدودیت‌ها:</strong> تعویض زودهنگام قطعات، هزینه نگهداری بالا در صورت بازه‌های زمانی نامناسب</li>
-                    <li><strong>کاربرد در صنایع کشاورزی:</strong> تعویض فیلترها، روغن‌کاری دوره‌ای، بازرسی فصلی قبل از برداشت</li>
-                </ul>
-            </div>
+            <h4 style="font-size:15px;font-weight:600;margin-top:8px;">۱۴.۱ کاهش هزینه‌های مستقیم نگهداری</h4>
+            <p>گذار از نگهداری پیشگیرانه مبتنی بر زمان ثابت به نگهداری پیش‌بینانه و مبتنی بر وضعیت، تعویض زودهنگام قطعاتی را که هنوز عمر مفید باقی‌مانده دارند حذف می‌کند. این صرفه‌جویی به‌ویژه برای قطعات گران‌قیمت نظیر یاتاقان‌های پرسرعت آسیاب و کمپرسورهای برودتی قابل توجه است.</p>
 
-            <h3 class="subsection-title">۵.۳ نگهداری مبتنی بر وضعیت (Condition-Based Maintenance — CBM)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>مزایا:</strong> تصمیم تعمیر بر اساس وضعیت واقعی تجهیز، کاهش تعویض‌های زودهنگام، افزایش عمر مفید</li>
-                    <li><strong>محدودیت‌ها:</strong> نیاز به سیستم پایش و سنسور، هزینه راه‌اندازی، نیاز به تحلیل تخصصی</li>
-                    <li><strong>کاربرد در صنایع کشاورزی:</strong> پایش ارتعاش یاتاقان‌ها، دمای موتور، فشار هیدرولیک در تجهیزات بحرانی</li>
-                </ul>
-            </div>
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۱۴.۲ کاهش هزینه توقف تولید</h4>
+            <p>هزینه فرصت توقف در صنایع کشاورزی به دلیل فسادپذیری محصول بالاتر از میانگین صنایع دیگر است. کاهش زمان توقف غیربرنامه‌ریزی‌شده از طریق تشخیص زودهنگام خرابی، بزرگ‌ترین سهم را در بازگشت سرمایه سیستم نگهداری هوشمند دارد.</p>
 
-            <h3 class="subsection-title">۵.۴ نگهداری پیش‌بینانه (Predictive Maintenance — PdM)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>مزایا:</strong> پیش‌بینی زمان خرابی، برنامه‌ریزی بهینه تعمیرات، کاهش توقف‌های غیربرنامه‌ریزی‌شده</li>
-                    <li><strong>محدودیت‌ها:</strong> نیاز به داده‌های تاریخی، مدل‌های یادگیری ماشین، سرمایه‌گذاری اولیه بالا</li>
-                    <li><strong>کاربرد در صنایع کشاورزی:</strong> کمپرسورهای سردخانه، آسیاب‌های اصلی، خطوط بسته‌بندی پرسرعت</li>
-                </ul>
-            </div>
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۱۴.۳ افزایش بهره‌وری انرژی و منابع</h4>
+            <p>پایش پیوسته پارامترهایی نظیر راندمان حرارتی مبدل یا لغزش موتور امکان شناسایی افت تدریجی راندمان انرژی را پیش از آنکه به خرابی کامل منجر شود فراهم می‌کند.</p>
 
-            <h3 class="subsection-title">۵.۵ نگهداری مبتنی بر ریسک (Risk-Based Maintenance — RBM)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>مزایا:</strong> تمرکز منابع محدود نگهداری بر تجهیزاتی با بالاترین ریسک ترکیبی، ارتباط مستقیم با تصمیمات مدیریتی و مالی</li>
-                    <li><strong>محدودیت‌ها:</strong> نیاز به داده قابل اتکا برای برآورد احتمال خرابی، ذهنی بودن نسبی برآورد شدت پیامد در نبود سابقه کافی</li>
-                    <li><strong>کاربرد در صنایع کشاورزی:</strong> اولویت‌بندی سرمایه‌گذاری میان چند واحد فرآوری یا چند خط تولید موازی</li>
-                </ul>
-            </div>
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۱۴.۴ ملاحظات بازگشت سرمایه در واحدهای کوچک و متوسط</h4>
+            <p>رویکرد توصیه‌شده استقرار مرحله‌ای است: آغاز با پایش وضعیت محدود به تجهیزات با بالاترین امتیاز ریسک، و گسترش تدریجی زیرساخت پس از اثبات بازگشت سرمایه.</p>
 
-            <h3 class="subsection-title">۵.۶ نگهداری بهره‌ور فراگیر (Total Productive Maintenance — TPM)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>مزایا:</strong> افزایش حس مالکیت اپراتور نسبت به تجهیز، شناسایی زودهنگام ناهنجاری‌های ساده پیش از تشدید آن‌ها</li>
-                    <li><strong>محدودیت‌ها:</strong> نیازمند فرهنگ‌سازی و آموزش گسترده، زمان‌بر بودن استقرار کامل در سازمان</li>
-                    <li><strong>کاربرد در صنایع کشاورزی:</strong> مؤثر در واحدهای فرآوری با نیروی کار ثابت و آموزش‌پذیر، به ویژه برای وظایف ساده نظیر تمیزکاری و روانکاری روزانه</li>
-                </ul>
-            </div>
+            <h4 style="font-size:16px;font-weight:700;margin-top:20px;">۱۴.۵ مطالعه موردی عددی (Numerical Case Study)</h4>
+            <div style="background:var(--bg-primary);padding:18px 22px;border-radius:var(--radius-sm);border:1px solid var(--border-color);">
+                <p><strong>واحد مورد مطالعه:</strong> فرآوری سالانه حدود ۲۵۰۰۰ تن غلات + سردخانه ۵۰۰ تنی</p>
+                <p><strong>تجهیزات بحرانی تحت پوشش:</strong> آسیاب اصلی، خشک‌کن، نوار نقاله اصلی، کمپرسور برودتی و سیستم تهویه سیلو</p>
+                <p><strong>وضعیت فعلی:</strong> عمدتاً نگهداری اصلاحی محور + پیشگیرانه زمان‌محور</p>
 
-            <h3 class="subsection-title">۵.۷ نگهداری خودمختار (Autonomous Maintenance)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>مزایا:</strong> کاهش بار کاری تیم تعمیرات متمرکز برای رسیدگی به وظایف پیچیده‌تر، افزایش تناوب بازرسی به دلیل حضور دائمی اپراتور (Introna & Santolamazza, 2024a)</li>
-                    <li><strong>محدودیت‌ها:</strong> محدود به وظایف ساده و غیرتخصصی؛ نیازمند استانداردسازی دقیق دستورالعمل برای جلوگیری از خطای اپراتور</li>
-                    <li><strong>کاربرد در صنایع کشاورزی:</strong> بازرسی روزانه ماشین‌آلات برداشت پیش و پس از هر شیفت کاری در فصل برداشت</li>
-                </ul>
-            </div>
-
-            <h3 class="subsection-title">۵.۸ نگهداری تجویزی (Prescriptive Maintenance)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>مزایا:</strong> پشتیبانی مستقیم تصمیم‌گیری عملیاتی، امکان بهینه‌سازی هم‌زمان قابلیت اطمینان و بهره‌وری تولید (Shukla et al., 2022a)</li>
-                    <li><strong>محدودیت‌ها:</strong> نیازمند بلوغ بالای زیرساخت داده و مدل‌سازی، هزینه و پیچیدگی پیاده‌سازی بالاتر از سایر رویکردها</li>
-                    <li><strong>کاربرد در صنایع کشاورزی:</strong> در افق میان‌مدت برای واحدهای بزرگ فرآوری با زیرساخت دیجیتال یکپارچه توصیه می‌شود، نه به‌عنوان نقطه شروع</li>
-                </ul>
-            </div>
-
-            <!-- Figure 5 -->
-            <div class="figure-box">
-                <svg viewBox="0 0 700 100" style="max-width:100%;">
-                    <text x="350" y="22" text-anchor="middle" fill="#b0c8dd" font-size="14" font-weight="500">طیف بلوغ استراتژی‌های نگهداری</text>
-                    <rect x="30" y="36" width="90" height="48" rx="8" fill="rgba(255,107,107,0.15)" stroke="#ff6b6b" stroke-width="1.5" />
-                    <text x="75" y="56" text-anchor="middle" fill="#ff6b6b" font-size="10" font-weight="700">اصلاحی</text>
-                    <text x="75" y="72" text-anchor="middle" fill="#7a96b0" font-size="7">پاسخ به خرابی</text>
-                    <line x1="122" y1="60" x2="142" y2="60" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="142,56 152,60 142,64" fill="#4d8fc5" />
-                    <rect x="154" y="36" width="90" height="48" rx="8" fill="rgba(245,159,74,0.15)" stroke="#f59f4a" stroke-width="1.5" />
-                    <text x="199" y="56" text-anchor="middle" fill="#f59f4a" font-size="10" font-weight="700">پیشگیرانه</text>
-                    <text x="199" y="72" text-anchor="middle" fill="#7a96b0" font-size="7">زمان‌بندی‌شده</text>
-                    <line x1="246" y1="60" x2="266" y2="60" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="266,56 276,60 266,64" fill="#4d8fc5" />
-                    <rect x="278" y="36" width="90" height="48" rx="8" fill="rgba(78,205,196,0.15)" stroke="#4ecdc4" stroke-width="1.5" />
-                    <text x="323" y="56" text-anchor="middle" fill="#4ecdc4" font-size="10" font-weight="700">مبتنی بر وضعیت</text>
-                    <text x="323" y="72" text-anchor="middle" fill="#7a96b0" font-size="7">پایش پیوسته</text>
-                    <line x1="370" y1="60" x2="390" y2="60" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="390,56 400,60 390,64" fill="#4d8fc5" />
-                    <rect x="402" y="36" width="90" height="48" rx="8" fill="rgba(59,201,219,0.2)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="447" y="56" text-anchor="middle" fill="#3bc9db" font-size="10" font-weight="700">پیش‌بینانه</text>
-                    <text x="447" y="72" text-anchor="middle" fill="#7a96b0" font-size="7">تحلیل داده</text>
-                    <line x1="494" y1="60" x2="514" y2="60" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="514,56 524,60 514,64" fill="#4d8fc5" />
-                    <rect x="526" y="36" width="130" height="48" rx="8" fill="rgba(247,201,72,0.18)" stroke="#f7c948" stroke-width="1.5" />
-                    <text x="591" y="56" text-anchor="middle" fill="#f7c948" font-size="10" font-weight="700">تجویزی</text>
-                    <text x="591" y="72" text-anchor="middle" fill="#7a96b0" font-size="7">توصیه اقدام بهینه</text>
-                    <text x="350" y="94" text-anchor="middle" fill="#7a96b0" font-size="8">← افزایش بلوغ، کاهش خرابی ←</text>
-                </svg>
-                <div class="figure-caption">شکل ۵- طیف بلوغ استراتژی‌های نگهداری از اصلاحی تا تجویزی</div>
-            </div>
-        </section>
-
-        <!-- ====== SECTION 6 ====== -->
-        <section id="sec-classify">
-            <h2 class="section-title"><span class="num">۶.</span> طبقه‌بندی تجهیزات از نظر استراتژی نگهداری مناسب</h2>
-            <div class="card">
-                <p>با ترکیب تحلیل بحرانیت هر تجهیز (بخش ۳)، الگوی خرابی غالب آن (بخش ۴) و ویژگی هر استراتژی (بخش ۵)، می‌توان تجهیزات اصلی صنایع کشاورزی را به چهار گروه استراتژیک تقسیم کرد (Geisbush & Ariaratnam, 2023). معیار اصلی این طبقه‌بندی، ترکیب دو عامل است: شدت پیامد خرابی بر تولید و قابلیت پایش فنی-اقتصادی پارامتر خرابی. جدول ۳ این طبقه‌بندی را همراه با دلیل فنی هر انتخاب ارائه می‌دهد.</p>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>تجهیز</th><th>استراتژی پیشنهادی</th><th>دلیل فنی انتخاب</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>کمپرسور سیستم برودتی</td><td>نگهداری پیش‌بینانه (PdM)</td><td>بحرانیت بسیار بالا و عملکرد پیوسته ۲۴ ساعته؛ الگوی خرابی تدریجی و قابل پایش از طریق ارتعاش، جریان و فشار مبرد توجیه اقتصادی PdM را فراهم می‌کند</td></tr>
-                            <tr><td>یاتاقان محور اصلی آسیاب/خردکن</td><td>نگهداری مبتنی بر وضعیت (CBM)</td><td>گلوگاه بودن تجهیز و نبود ظرفیت موازی؛ دمای پوسته و دامنه ارتعاش شاخص مستقیم و قابل اتکایی برای تصمیم تعمیر فراهم می‌کند</td></tr>
-                            <tr><td>موتورهای محرکه نوار نقاله اصلی</td><td>نگهداری پیش‌بینانه (PdM)</td><td>وابستگی سریالی بالا در جریان مواد؛ پایش جریان موتور (MCSA) هزینه پایینی دارد و هشدار زودهنگام از لغزش یا اضافه‌بار می‌دهد</td></tr>
-                            <tr><td>مبدل‌های حرارتی و پاستوریزاتور</td><td>نگهداری پیش‌بینانه (PdM)</td><td>پیامد خرابی شامل ریسک ایمنی غذایی است نه فقط توقف تولید؛ روند افت راندمان حرارتی قابل مدل‌سازی و پیش‌بینی است</td></tr>
-                            <tr><td>ماشین‌آلات برداشت (کمباین و ادوات)</td><td>ترکیب PM فصلی و بازرسی خودمختار</td><td>بار فصلی متمرکز باعث می‌شود ساعت کارکرد معیار مناسبی برای PM پیش از فصل برداشت باشد؛ بازرسی روزانه اپراتور خرابی حاد را در طول فصل پوشش می‌دهد</td></tr>
-                            <tr><td>خطوط بسته‌بندی (پرکن و درزند)</td><td>نگهداری مبتنی بر وضعیت (CBM)</td><td>خرابی غالب از نوع افت تدریجی دقت است نه توقف ناگهانی؛ پایش نرخ رد بسته و دقت وزن‌کشی شاخص مستقیم وضعیت است</td></tr>
-                            <tr><td>پمپ‌های کمکی غیربحرانی</td><td>اجرا تا خرابی (Run To Failure)</td><td>هزینه پایین تعویض، وجود واحد پشتیبان موازی و پیامد محدود خرابی بر تولید، سرمایه‌گذاری در پایش را غیراقتصادی می‌سازد</td></tr>
-                            <tr><td>فیلترها و اقلام مصرفی روان‌کار</td><td>نگهداری پیشگیرانه (PM)</td><td>عمر مفید این اقلام عمدتاً تابع ساعت کارکرد یا زمان است، نه یک متغیر قابل پایش پیوسته با توجیه اقتصادی مثبت</td></tr>
-                            <tr><td>سیستم‌های تهویه و کنترل دمای سیلو</td><td>نگهداری پیش‌بینانه (PdM)</td><td>توقف پنهان این سیستم قابل مشاهده فوری نیست و می‌تواند به خودگرمایش زیستی محصول منجر شود؛ پایش پیوسته دما تنها راه تشخیص زودهنگام است</td></tr>
-                            <tr><td>تجهیزات جانبی و ادوات</td><td>اجرا تا خرابی (Run To Failure)</td><td>فراوانی پایین استفاده و در دسترس بودن سریع جایگزین، هزینه پایش را نسبت به منفعت آن توجیه‌ناپذیر می‌کند</td></tr>
-                        </tbody>
-                    </table>
-                    <div class="table-caption">جدول ۳- طبقه‌بندی تجهیزات از نظر استراتژی نگهداری مناسب</div>
+                <div style="margin-top:12px;font-size:14px;">
+                    <strong>فرض‌های پایه (وضعیت قبل از استقرار):</strong>
+                    <ul style="margin-top:4px;">
+                        <li>ساعات توقف غیربرنامه‌ریزی‌شده در سال: <strong>۱۸۰ ساعت</strong></li>
+                        <li>هزینه متوسط هر ساعت توقف (شامل از دست رفتن محصول، انرژی و نیروی کار): <strong>۱۲ میلیون تومان</strong></li>
+                        <li>هزینه سالانه نگهداری و تعمیرات مستقیم: <strong>۱/۸ میلیارد تومان</strong></li>
+                        <li>تعداد خرابی‌های اضطراری در سال: <strong>۲۲ مورد</strong></li>
+                        <li>OEE متوسط تجهیزات بحرانی: <strong>۶۸%</strong></li>
+                    </ul>
                 </div>
-                <p class="text-muted" style="margin-top:0.8rem;">این طبقه‌بندی ایستا نیست و باید به صورت دوره‌ای، به‌ویژه پس از هر رویداد خرابی عمده، بازبینی شود؛ چنین بازبینی دوره‌ای عمل معادل اجرای مستمر چرخه تحلیل RCM معرفی شده در بخش قبل است.</p>
-            </div>
 
-            <!-- Figure 6 -->
-            <div class="figure-box">
-                <svg viewBox="0 0 700 130" style="max-width:100%;">
-                    <text x="350" y="22" text-anchor="middle" fill="#b0c8dd" font-size="14" font-weight="500">ماتریس تصمیم انتخاب استراتژی نگهداری</text>
-                    <rect x="40" y="36" width="150" height="36" rx="8" fill="rgba(59,201,219,0.06)" stroke="rgba(59,201,219,0.2)" stroke-width="1" />
-                    <text x="115" y="54" text-anchor="middle" fill="#7a96b0" font-size="9">قابلیت پایش</text>
-                    <text x="115" y="66" text-anchor="middle" fill="#7a96b0" font-size="8">پارامتر خرابی</text>
-                    <rect x="40" y="78" width="150" height="36" rx="8" fill="rgba(59,201,219,0.06)" stroke="rgba(59,201,219,0.2)" stroke-width="1" />
-                    <text x="115" y="96" text-anchor="middle" fill="#7a96b0" font-size="9">شدت پیامد خرابی</text>
-                    <text x="115" y="108" text-anchor="middle" fill="#7a96b0" font-size="8">بر تولید</text>
+                <div style="margin-top:12px;font-size:14px;">
+                    <strong>هزینه سرمایه‌گذاری اولیه (CAPEX) برای استقرار مرحله‌ای:</strong>
+                    <ul style="margin-top:4px;">
+                        <li>خرید و نصب سنسورها + گیتوی IoT: <strong>۴۲۰ میلیون تومان</strong></li>
+                        <li>نرم‌افزار CMMS + پلتفرم تحلیل داده (اشتراک سال اول): <strong>۱۸۰ میلیون تومان</strong></li>
+                        <li>آموزش پرسنل و یکپارچه‌سازی اولیه: <strong>۱۲۰ میلیون تومان</strong></li>
+                        <li><strong>جمع CAPEX سال اول: ۷۲۰ میلیون تومان</strong></li>
+                    </ul>
+                </div>
 
-                    <line x1="192" y1="54" x2="210" y2="54" stroke="#4d8fc5" stroke-width="1.5" stroke-dasharray="4,3" />
-                    <line x1="192" y1="96" x2="210" y2="96" stroke="#4d8fc5" stroke-width="1.5" stroke-dasharray="4,3" />
+                <div style="margin-top:12px;font-size:14px;">
+                    <strong>نتایج مورد انتظار پس از استقرار کامل (سال اول):</strong>
+                    <div class="table-responsive mt-8">
+                        <table>
+                            <thead><tr><th>شاخص</th><th>قبل</th><th>بعد</th><th>تغییر</th></tr></thead>
+                            <tbody>
+                                <tr><td>ساعات توقف غیربرنامه‌ریزی‌شده</td><td>۱۸۰ ساعت</td><td>۹۵ ساعت</td><td>۴۷% کاهش</td></tr>
+                                <tr><td>هزینه فرصت توقف تولید</td><td>۲/۱۶ میلیارد</td><td>۱/۱۴ میلیارد</td><td>۱/۰۲ میلیارد</td></tr>
+                                <tr><td>هزینه مستقیم نگهداری</td><td>۱/۸ میلیارد</td><td>۱/۲۶ میلیارد</td><td>۵۴۰ (۳۰% کاهش)</td></tr>
+                                <tr><td>تعداد خرابی اضطراری</td><td>۲۲ مورد</td><td>۹ مورد</td><td>۵۹% کاهش</td></tr>
+                                <tr><td>OEE تجهیزات بحرانی</td><td>۶۸%</td><td>۷۹%</td><td>۱۱ واحد درصد</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-                    <rect x="212" y="36" width="100" height="36" rx="8" fill="rgba(78,205,196,0.12)" stroke="#4ecdc4" stroke-width="1.5" />
-                    <text x="262" y="52" text-anchor="middle" fill="#4ecdc4" font-size="10" font-weight="700">CBM</text>
-                    <text x="262" y="66" text-anchor="middle" fill="#7a96b0" font-size="7">پایش وضعیت</text>
-                    <rect x="212" y="78" width="100" height="36" rx="8" fill="rgba(78,205,196,0.12)" stroke="#4ecdc4" stroke-width="1.5" />
-                    <text x="262" y="94" text-anchor="middle" fill="#4ecdc4" font-size="10" font-weight="700">PdM</text>
-                    <text x="262" y="108" text-anchor="middle" fill="#7a96b0" font-size="7">پیش‌بینانه</text>
-
-                    <rect x="328" y="36" width="100" height="36" rx="8" fill="rgba(59,201,219,0.15)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="378" y="52" text-anchor="middle" fill="#3bc9db" font-size="10" font-weight="700">PdM</text>
-                    <text x="378" y="66" text-anchor="middle" fill="#7a96b0" font-size="7">پیش‌بینانه</text>
-                    <rect x="328" y="78" width="100" height="36" rx="8" fill="rgba(59,201,219,0.15)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="378" y="94" text-anchor="middle" fill="#3bc9db" font-size="10" font-weight="700">RBM</text>
-                    <text x="378" y="108" text-anchor="middle" fill="#7a96b0" font-size="7">مبتنی بر ریسک</text>
-
-                    <rect x="444" y="36" width="100" height="36" rx="8" fill="rgba(245,159,74,0.12)" stroke="#f59f4a" stroke-width="1.5" />
-                    <text x="494" y="52" text-anchor="middle" fill="#f59f4a" font-size="10" font-weight="700">PM</text>
-                    <text x="494" y="66" text-anchor="middle" fill="#7a96b0" font-size="7">پیشگیرانه</text>
-                    <rect x="444" y="78" width="100" height="36" rx="8" fill="rgba(245,159,74,0.12)" stroke="#f59f4a" stroke-width="1.5" />
-                    <text x="494" y="94" text-anchor="middle" fill="#f59f4a" font-size="10" font-weight="700">RCM</text>
-                    <text x="494" y="108" text-anchor="middle" fill="#7a96b0" font-size="7">تحلیل بحرانیت</text>
-
-                    <rect x="560" y="36" width="100" height="36" rx="8" fill="rgba(255,107,107,0.08)" stroke="#ff6b6b" stroke-width="1.5" />
-                    <text x="610" y="52" text-anchor="middle" fill="#ff6b6b" font-size="10" font-weight="700">RTF</text>
-                    <text x="610" y="66" text-anchor="middle" fill="#7a96b0" font-size="7">اجرا تا خرابی</text>
-                    <rect x="560" y="78" width="100" height="36" rx="8" fill="rgba(255,107,107,0.08)" stroke="#ff6b6b" stroke-width="1.5" />
-                    <text x="610" y="94" text-anchor="middle" fill="#ff6b6b" font-size="10" font-weight="700">RTF</text>
-                    <text x="610" y="108" text-anchor="middle" fill="#7a96b0" font-size="7">اجرا تا خرابی</text>
-                </svg>
-                <div class="figure-caption">شکل ۶- ماتریس تصمیم برای انتخاب استراتژی نگهداری بر مبنای بحرانیت و قابلیت پایش</div>
-            </div>
-        </section>
-
-        <!-- ====== SECTION 7 ====== -->
-        <section id="sec-industry40">
-            <h2 class="section-title"><span class="num">۷.</span> فناوری‌های انقلاب صنعتی چهارم در نگهداری و تعمیرات</h2>
-            <div class="card">
-                <p>استقرار فناوری‌های انقلاب صنعتی چهارم در نگهداری و تعمیرات صنایع کشاورزی نباید به‌صورت مجزا برای هر فناوری بررسی شود، بلکه این فناوری‌ها یک پشته یکپارچه (Stack) را تشکیل می‌دهند که از حسگر فیزیکی در پایین‌ترین لایه تا تصمیم‌یار هوشمند در بالاترین لایه امتداد می‌یابد (Kliestik et al., 2023a). در ادامه نقش مشخص هر فناوری در این پشته، با تمرکز بر کاربرد آن در نگهداری تجهیزات کشاورزی، تحلیل می‌شود.</p>
-            </div>
-
-            <h3 class="subsection-title">۷.۱ اینترنت اشیا (IoT)</h3>
-            <div class="card">
-                <p>اینترنت اشیا زیرساخت اتصال حسگرهای پراکنده روی تجهیزات متحرک و ثابت را به شبکه ارتباطی فراهم می‌کند. در ماشین‌آلات برداشت که در محیط باز و بدون دسترسی به شبکه صنعتی سیمی فعالیت می‌کنند، گره‌های IoT مبتنی بر ارتباط بی‌سیم کم‌مصرف (نظیر LoRaWAN) امکان ارسال داده دما، ارتعاش و موقعیت را بدون نیاز به کابل‌کشی فراهم می‌کنند؛ این ویژگی مستقیماً چالش پراکندگی جغرافیایی مطرح‌شده در بخش اول را پاسخ می‌دهد.</p>
-            </div>
-
-            <h3 class="subsection-title">۷.۲ اینترنت اشیای صنعتی (IIoT)</h3>
-            <div class="card">
-                <p>اینترنت اشیای صنعتی زیرمجموعه‌ای از IoT است که با الزامات سخت‌گیرانه‌تر قابلیت اطمینان، تأخیر پایین و یکپارچگی با سامانه‌های کنترل صنعتی طراحی شده است. در خطوط ثابت فرآوری و بسته‌بندی، حسگرهای IIoT مستقیماً به شبکه PLC و SCADA واحد متصل می‌شوند و امکان همبستگی داده وضعیت تجهیز با پارامترهای فرآیندی (نظیر سرعت خط یا دمای فرآیند) را فراهم می‌کنند که برای تشخیص دقیق علت ریشه‌ای خرابی ضروری است.</p>
-            </div>
-
-            <h3 class="subsection-title">۷.۳ دوقلوی دیجیتال (Digital Twin)</h3>
-            <div class="card">
-                <p>دوقلوی دیجیتال یک مدل مجازی به‌روزشونده از تجهیز فیزیکی است که با داده پایش پیوسته همگام می‌شود. در نگهداری صنایع کشاورزی، کاربرد اصلی دوقلوی دیجیتال شبیه‌سازی اثر تغییر بار فصلی بر عمر باقی‌مانده اجزای بحرانی (نظیر یاتاقان کوبنده کمباین) پیش از وقوع خرابی واقعی است؛ این امکان برنامه‌ریزی تعمیرات اساسی را پیش از آغاز فصل برداشت بعدی، بر مبنای شبیه‌سازی به جای حدس، فراهم می‌کند (H. Liu et al., 2022).</p>
-            </div>
-
-            <h3 class="subsection-title">۷.۴ سیستم‌های سایبر-فیزیکی (Cyber Physical Systems)</h3>
-            <div class="card">
-                <p>سیستم سایبر-فیزیکی، لایه یکپارچه‌سازی محاسبات، شبکه و فرآیند فیزیکی است که در آن تصمیم محاسباتی مستقیماً بر رفتار تجهیز فیزیکی اثر می‌گذارد. نمونه کاربرد آن در نگهداری کشاورزی، تنظیم خودکار سرعت تغذیه آسیاب بر مبنای بازخورد لحظه‌ای سطح ارتعاش است (Vermesan et al., 2022)؛ در این حالت سیستم نه تنها خرابی را پیش‌بینی می‌کند بلکه شرایط عملیاتی را برای کاهش نرخ فرسودگی به‌صورت خودکار تعدیل می‌کند.</p>
-            </div>
-
-            <h3 class="subsection-title">۷.۵ رایانش ابری (Cloud Computing)</h3>
-            <div class="card">
-                <p>رایانش ابری زیرساخت ذخیره‌سازی، پردازش و تحلیل داده‌های حجیم حسگری را بدون نیاز به سرمایه‌گذاری سنگین سخت‌افزاری فراهم می‌کند. در نگهداری صنایع کشاورزی، ابر امکان یکپارچه‌سازی داده‌های چندین واحد پراکنده جغرافیایی را فراهم می‌کند و بستری برای آموزش مدل‌های یادگیری ماشین با داده‌های تجمیعی ارائه می‌دهد.</p>
-            </div>
-
-            <h3 class="subsection-title">۷.۶ رایانش لبه (Edge Computing)</h3>
-            <div class="card">
-                <p>رایانش لبه، پردازش داده را به نزدیک‌ترین نقطه به منبع داده (یعنی خود تجهیز) منتقل می‌کند. این ویژگی در ماشین‌آلات برداشت که ارتباط پایدار با ابر در دسترس نیست، حیاتی است؛ تشخیص خرابی و هشداردهی به‌صورت محلی انجام شده و داده‌ها پس از اتصال مجدد همگام‌سازی می‌شوند (Lukens et al., 2024).</p>
-            </div>
-
-            <h3 class="subsection-title">۷.۷ هوش مصنوعی و یادگیری ماشین</h3>
-            <div class="card">
-                <p>الگوریتم‌های یادگیری ماشین لایه تحلیل داده و استخراج الگوی خرابی از داده‌های خام حسگری را تشکیل می‌دهند. این الگوریتم‌ها امکان طبقه‌بندی حالات خرابی، تشخیص ناهنجاری و پیش‌بینی عمر باقی‌مانده مفید (RUL) را بدون نیاز به تعریف آستانه‌های دستی فراهم می‌کنند. انتخاب الگوریتم مناسب در بخش ۱۲ به‌طور مفصل تحلیل شده است.</p>
-            </div>
-
-            <h3 class="subsection-title">۷.۸ مدل‌های زبانی بزرگ (LLM)</h3>
-            <div class="card">
-                <p>مدل‌های زبانی بزرگ قابلیت تحلیل متون فنی، تولید خودکار دستورالعمل‌های تعمیر و گزارش‌های تحلیل ریشه خرابی را فراهم می‌کنند. در صنایع کشاورزی که با کمبود تکنسین متخصص در مناطق روستایی مواجه است، LLM می‌تواند به عنوان دستیار هوشمند برای پشتیبانی از فرآیند تعمیر مورد استفاده قرار گیرد.</p>
-            </div>
-
-            <!-- Figure 7 -->
-            <div class="figure-box">
-                <svg viewBox="0 0 700 170" style="max-width:100%;">
-                    <text x="350" y="22" text-anchor="middle" fill="#b0c8dd" font-size="14" font-weight="500">معماری لایه‌ای پشته فناوری انقلاب صنعتی چهارم</text>
-                    <rect x="40" y="134" width="620" height="26" rx="6" fill="rgba(59,201,219,0.08)" stroke="rgba(59,201,219,0.15)" stroke-width="1" />
-                    <text x="350" y="151" text-anchor="middle" fill="#7a96b0" font-size="9">لایه ۱: حسگرها و عملگرها</text>
-
-                    <rect x="40" y="108" width="620" height="26" rx="6" fill="rgba(59,201,219,0.08)" stroke="rgba(59,201,219,0.15)" stroke-width="1" />
-                    <text x="350" y="125" text-anchor="middle" fill="#7a96b0" font-size="9">لایه ۲: IoT / IIoT &amp; ارتباطات (MQTT, OPC-UA, 5G)</text>
-
-                    <rect x="40" y="82" width="620" height="26" rx="6" fill="rgba(59,201,219,0.08)" stroke="rgba(59,201,219,0.15)" stroke-width="1" />
-                    <text x="350" y="99" text-anchor="middle" fill="#7a96b0" font-size="9">لایه ۳: رایانش لبه &amp; دوقلوی دیجیتال</text>
-
-                    <rect x="40" y="56" width="620" height="26" rx="6" fill="rgba(59,201,219,0.08)" stroke="rgba(59,201,219,0.15)" stroke-width="1" />
-                    <text x="350" y="73" text-anchor="middle" fill="#7a96b0" font-size="9">لایه ۴: رایانش ابری &amp; داده‌های بزرگ</text>
-
-                    <rect x="40" y="30" width="620" height="26" rx="6" fill="rgba(59,201,219,0.15)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="350" y="47" text-anchor="middle" fill="#3bc9db" font-size="9" font-weight="700">لایه ۵: هوش مصنوعی &amp; تحلیل پیش‌بینی‌کننده</text>
-                    <text x="350" y="166" text-anchor="middle" fill="#7a96b0" font-size="8">↑ سطوح بالاتر انتزاع و هوشمندی ↑</text>
-                </svg>
-                <div class="figure-caption">شکل ۷- معماری لایه‌ای پشته فناوری انقلاب صنعتی چهارم در نگهداری هوشمند</div>
-            </div>
-
-            <!-- Sensor selection table 4 -->
-            <div class="card">
-                <p><strong>جدول ۴- جدول انتخاب سنسور</strong></p>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>خرابی سنسور</th><th>یاتاقان</th><th>موتور</th><th>گیربکس</th><th>نوار نقاله</th><th>سیلو</th><th>کمپرسور</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>ارتعاش</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td>✓</td></tr>
-                            <tr><td>دما</td><td>✓</td><td>✓</td><td>✓</td><td></td><td>✓</td><td>✓</td></tr>
-                            <tr><td>صدا</td><td>✓</td><td></td><td>✓</td><td></td><td></td><td>✓</td></tr>
-                            <tr><td>جریان</td><td></td><td>✓</td><td></td><td>✓</td><td></td><td></td></tr>
-                            <tr><td>رطوبت</td><td></td><td></td><td></td><td></td><td>✓</td><td></td></tr>
-                            <tr><td>فشار</td><td></td><td></td><td></td><td></td><td></td><td>✓</td></tr>
-                        </tbody>
-                    </table>
-                    <div class="table-caption">جدول ۴- جدول انتخاب سنسور بر اساس نوع تجهیز و پارامتر خرابی هدف</div>
+                <div style="margin-top:12px;font-size:14px;background:var(--bg-card);padding:12px 16px;border-radius:var(--radius-sm);border:1px solid var(--border-color);">
+                    <strong>خلاصه مالی سال اول:</strong>
+                    <ul style="margin-top:4px;">
+                        <li>کل صرفه‌جویی سالانه: <strong>۱/۵۶ میلیارد تومان</strong></li>
+                        <li>هزینه سرمایه‌گذاری اولیه: <strong>۷۲۰ میلیون تومان</strong></li>
+                        <li>بازگشت سرمایه خالص سال اول: <strong>۸۴۰ میلیون تومان</strong></li>
+                        <li>دوره بازگشت سرمایه (Payback Period): <strong>حدود ۵/۵ ماه</strong></li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- Figure 8 -->
-            <div class="figure-box">
-                <svg viewBox="0 0 700 130" style="max-width:100%;">
-                    <text x="350" y="22" text-anchor="middle" fill="#b0c8dd" font-size="14" font-weight="500">معماری یکپارچه لایه‌های IT/OT در سیستم نگهداری هوشمند</text>
-                    <rect x="30" y="34" width="200" height="40" rx="8" fill="rgba(59,201,219,0.06)" stroke="rgba(59,201,219,0.15)" stroke-width="1" />
-                    <text x="130" y="54" text-anchor="middle" fill="#7a96b0" font-size="10">لایه OT (عملیاتی)</text>
-                    <text x="130" y="68" text-anchor="middle" fill="#7a96b0" font-size="8">PLC / SCADA / سنسورها</text>
-                    <line x1="232" y1="54" x2="260" y2="54" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="260,50 270,54 260,58" fill="#4d8fc5" />
-                    <text x="265" y="44" text-anchor="middle" fill="#3bc9db" font-size="8">OPC-UA</text>
-                    <rect x="272" y="34" width="200" height="40" rx="8" fill="rgba(59,201,219,0.1)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="372" y="54" text-anchor="middle" fill="#3bc9db" font-size="10" font-weight="700">لایه یکپارچه‌سازی</text>
-                    <text x="372" y="68" text-anchor="middle" fill="#7a96b0" font-size="8">MES / CMMS / Historian</text>
-                    <line x1="474" y1="54" x2="502" y2="54" stroke="#4d8fc5" stroke-width="2" />
-                    <polygon points="502,50 512,54 502,58" fill="#4d8fc5" />
-                    <text x="507" y="44" text-anchor="middle" fill="#3bc9db" font-size="8">API/REST</text>
-                    <rect x="514" y="34" width="160" height="40" rx="8" fill="rgba(59,201,219,0.15)" stroke="#3bc9db" stroke-width="1.5" />
-                    <text x="594" y="54" text-anchor="middle" fill="#3bc9db" font-size="10" font-weight="700">لایه IT (مدیریتی)</text>
-                    <text x="594" y="68" text-anchor="middle" fill="#7a96b0" font-size="8">ERP / EAM / BI</text>
+            <div class="highlight-box mt-16">
+                <strong><i class="fas fa-triangle-exclamation" style="margin-left:8px;"></i>توجه:</strong> این مطالعه موردی بر اساس میانگین نتایج گزارش‌شده در صنایع فرآوری مواد غذایی و کشاورزی بین‌المللی و با احتیاط نسبت به شرایط ایران تنظیم شده است. حتی در سناریوی محافظه‌کارانه، دوره بازگشت سرمایه کمتر از یک سال برآورد می‌شود.
+            </div>
 
-                    <rect x="30" y="82" width="644" height="34" rx="8" fill="rgba(59,201,219,0.04)" stroke="rgba(59,201,219,0.08)" stroke-width="1" />
-                    <text x="350" y="100" text-anchor="middle" fill="#7a96b0" font-size="9">اتصال امن &amp; تبادل داده در زمان واقعی میان سطوح عملیاتی و مدیریتی</text>
-                    <text x="350" y="113" text-anchor="middle" fill="#4d8fc5" font-size="7">IoT / 5G / MQTT / OPC-UA / RESTful API</text>
-                </svg>
-                <div class="figure-caption">شکل ۸- معماری یکپارچه لایه‌های IT/OT در سیستم نگهداری هوشمند صنایع کشاورزی</div>
+            <h4 style="font-size:16px;font-weight:700;margin-top:20px;">۱۴.۶ چالش‌های عملیاتی، محدودیت‌ها و ملاحظات پیاده‌سازی</h4>
+            <ul>
+                <li><strong>توجیه‌پذیری اقتصادی و سرمایه‌گذاری اولیه:</strong> پیشنهاد الگوی پیاده‌سازی مرحله‌ای (Phased Rollout) و استفاده از مدل‌های SaaS.</li>
+                <li><strong>پایداری شبکه و ارتباطات:</strong> بهره‌گیری از رایانش لبه (Edge Computing) با قابلیت پردازش محلی و همگام‌سازی پس از اتصال مجدد.</li>
+                <li><strong>دوام سنسورها در شرایط سخت محیطی:</strong> استفاده از سنسورهای دارای استاندارد صنعتی (IP67/IP68) و فیلترهای نرم‌افزاری پیش‌پردازش داده.</li>
+                <li><strong>چالش‌های انسانی و پذیرش فناوری:</strong> طراحی رابط‌های کاربری ساده (User-Friendly)، برگزاری دوره‌های آموزشی کاربردی، تمرکز بر ارائه پیشنهادهای اقدام.</li>
+                <li><strong>امنیت سایبری و حریم خصوصی داده‌ها:</strong> پیاده‌سازی پروتکل‌های امنیتی، رمزنگاری داده‌ها، معماری Zero Trust و جداسازی شبکه OT از IT.</li>
+            </ul>
+        </section>
+
+        <!-- ===== 15. برنامه پیشنهادی ===== -->
+        <section class="section" id="conclusion">
+            <div class="section-header">
+                <span class="num">۱۵</span>
+                <h2>برنامه نگهداری و تعمیرات هوشمند پیشنهادی</h2>
+                <i class="fas fa-calendar-check section-icon"></i>
+            </div>
+            <p>با تجمیع تحلیل‌های بخش‌های سوم تا چهاردهم، جدول‌های زیر یک برنامه نگهداری هوشمند مشخص برای ده گروه تجهیزاتی کلیدی صنایع کشاورزی ارائه می‌دهند.</p>
+
+            <!-- Table 9 -->
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۱۵.۱ بُعد اجرایی برنامه نگهداری</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr><th>تجهیز</th><th>نوع نگهداری پیشنهادی</th><th>دوره زمانی پایش/بازرسی</th><th>سنسور(های) کلیدی</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>کمباین / ادوات برداشت</td><td>PM فصلی + بازرسی خودمختار روزانه</td><td>پیش از فصل و روزانه در طول فصل برداشت</td><td>شتاب‌سنج، حسگر دما، GPS، داده CAN Bus</td></tr>
+                        <tr><td>خشک‌کن غلات</td><td>نگهداری پیش‌بینانه (PdM)</td><td>پیوسته در فصل خشک‌کردن</td><td>حسگر رطوبت و دما، حسگر جریان هوا</td></tr>
+                        <tr><td>آسیاب / خردکن اصلی</td><td>نگهداری مبتنی بر وضعیت (CBM)</td><td>پیوسته، تحلیل هفتگی روند</td><td>شتاب‌سنج، حسگر دما، حسگر آکوستیک، انکودر، حسگر جریان الکتریکی موتور</td></tr>
+                        <tr><td>نوار نقاله / الواتور اصلی</td><td>نگهداری مبتنی بر وضعیت (CBM)</td><td>پیوسته، بازرسی بصری هفتگی</td><td>حسگر فشار، حسگر جریان سیال، شتاب‌سنج</td></tr>
+                        <tr><td>پمپ فرآوری مایعات</td><td>نگهداری پیش‌بینانه (PdM)</td><td>پیوسته با بازرسی فراصوتی سالانه</td><td>حسگر دما، حسگر فشار دیفرانسیل</td></tr>
+                        <tr><td>مبدل حرارتی / پاستوریزاتور</td><td>نگهداری پیش‌بینانه (PdM)</td><td>پیوسته، تحلیل شیفتی نرخ رد بسته</td><td>دوربین بینایی ماشین، انکودر سروو، حسگر فشار مبرد، حسگر دما، حسگر جریان</td></tr>
+                        <tr><td>خط بسته‌بندی</td><td>نگهداری پیش‌بینانه (PdM)</td><td>پیوسته و بدون وقفه (۲۴ ساعته)</td><td>حسگر دما و رطوبت چندنقطه‌ای</td></tr>
+                        <tr><td>سیستم برودتی / سردخانه</td><td>نگهداری پیش‌بینانه (PdM)</td><td>پیوسته در طول دوره انبارداری</td><td>حسگر دما و رطوبت چندنقطه‌ای</td></tr>
+                        <tr><td>سیستم تهویه سیلو</td><td>اجرا تا خرابی (Run To Failure)</td><td>بازرسی بصری فصلی</td><td>بدون سنسور اختصاصی</td></tr>
+                        <tr><td>تجهیزات جانبی غیربحرانی</td><td>اجرا تا خرابی (Run To Failure)</td><td>بازرسی بصری فصلی</td><td>بدون سنسور اختصاصی</td></tr>
+                    </tbody>
+                </table>
+                <div class="table-caption">جدول ۹ – بُعد اجرایی برنامه نگهداری</div>
+            </div>
+
+            <!-- Table 10 -->
+            <h4 style="font-size:15px;font-weight:600;margin-top:16px;">۱۵.۲ بُعد تحلیلی و ارزیابی عملکرد</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr><th>تجهیز</th><th>داده‌های جمع‌آوری‌شده</th><th>الگوریتم هوش مصنوعی پیشنهادی</th><th>شاخص عملکردی کلیدی</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>کمباین / ادوات برداشت</td><td>ارتعاش، دما، موقعیت، کدهای CAN Bus خطا</td><td>Random Forest از ویژگی‌های استخراج‌شده برای طبقه‌بندی خرابی</td><td>Downtime، MTBF فصلی در فصل برداشت، انطباق رطوبت خروجی با مقدار هدف</td></tr>
+                        <tr><td>خشک‌کن غلات</td><td>رطوبت، دما، دبی هوا</td><td>برای پیش‌بینی روند انحراف رطوبت خروجی</td><td>Failure Rate، MTTR</td></tr>
+                        <tr><td>آسیاب / خردکن اصلی</td><td>ارتعاش خام، دما، صدا</td><td>CNN بر مبنای طیف‌نگاشت ارتعاش برای تشخیص نوع خرابی</td><td>Availability، Schedule Compliance</td></tr>
+                        <tr><td>نوار نقاله / الواتور اصلی</td><td>سرعت، جریان موتور</td><td>Isolation Forest برای تشخیص ناهنجاری</td><td>Downtime، MTBF</td></tr>
+                        <tr><td>پمپ فرآوری مایعات</td><td>فشار، دبی، ارتعاش</td><td>XGBoost برای طبقه‌بندی لغزش و اضافه‌بار</td><td>MTBF، Maintenance Cost</td></tr>
+                        <tr><td>مبدل حرارتی / پاستوریزاتور</td><td>دما، فشار دیفرانسیل</td><td>AutoEncoder برای تشخیص انحراف راندمان حرارتی بدون برچسب</td><td>Availability، Maintenance Cost</td></tr>
+                        <tr><td>خط بسته‌بندی</td><td>تصویر بسته، موقعیت سروو</td><td>YOLO برای تشخیص بلادرنگ بسته معیوب</td><td>OEE، نرخ ضایعات بسته‌بندی</td></tr>
+                        <tr><td>سیستم برودتی / سردخانه</td><td>فشار مبرد، دما، جریان موتور کمپرسور</td><td>Transformer برای پیش‌بینی عمر باقیمانده کمپرسور</td><td>Availability، Downtime، هزینه افت کیفیت محصول</td></tr>
+                        <tr><td>سیستم تهویه سیلو</td><td>دما و رطوبت چندنقطه‌ای در طول زمان</td><td>برای پیش‌بینی روند خودگرمایش زیستی محصول</td><td>Availability، هزینه افت کیفیت محصول</td></tr>
+                        <tr><td>تجهیزات جانبی غیربحرانی</td><td>سابقه خرابی ثبت‌شده در CMMS</td><td>بدون مدل پیش‌بینانه اختصاصی</td><td>Maintenance Cost</td></tr>
+                    </tbody>
+                </table>
+                <div class="table-caption">جدول ۱۰ – بُعد تحلیلی و ارزیابی عملکرد</div>
+            </div>
+
+            <div class="highlight-box">
+                <strong><i class="fas fa-sync-alt" style="margin-left:8px;"></i>نکته:</strong> این برنامه یک نقطه شروع مبتنی بر تحلیل مهندسی است. انتخاب نوع نگهداری، دوره پایش و الگوریتم برای هر تجهیز باید پس از هر دوره بهره‌برداری، بر مبنای داده واقعی خرابی ثبت‌شده در CMMS بازبینی و اصلاح شود.
+            </div>
+
+        </section>
+
+        <!-- ===== 16. محدودیت‌ها ===== -->
+        <section class="section" id="glossary">
+            <div class="section-header">
+                <span class="num">۱۶</span>
+                <h2>محدودیت‌های پژوهش و پیشنهادهای آینده</h2>
+                <i class="fas fa-flask section-icon"></i>
+            </div>
+            <p>علی‌رغم تلاش برای ارائه یک چارچوب یکپارچه و کاربردی، پژوهش حاضر با محدودیت‌هایی روبرو بوده است که شفاف‌سازی آن‌ها برای تفسیر صحیح نتایج و هدایت تحقیقات بعدی ضروری است.</p>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:8px;">۱۶.۱ محدودیت‌های پژوهش</h4>
+            <ul>
+                <li>تحلیل‌های ارائه‌شده عمدتاً بر پایه دانش مهندسی، ادبیات تخصصی و منطق فرآیندهای صنایع کشاورزی استوار است و فاقد داده‌های میدانی کمی از واحدهای واقعی فرآوری کشاورزی در ایران است.</li>
+                <li>پیشنهاد استقرار فناوری‌های انقلاب صنعتی چهارم بر فرض دسترسی نسبی به زیرساخت ارتباطی و توان محاسباتی بنا شده است.</li>
+                <li>طبقه‌بندی تجهیزات و انتخاب استراتژی نگهداری بر اساس بحرانیت و قابلیت پایش، یک مدل عمومی و تطبیق‌پذیر است؛ حساسیت دقیق آن به نوع محصول، مقیاس واحد و شرایط اقلیمی محلی نیازمند تنظیم موردی است.</li>
+                <li>تحلیل اقتصادی ارائه‌شده کیفی و مفهومی است و فاقد محاسبات دقیق هزینه-فایده برای سناریوهای مختلف مقیاس واحد است.</li>
+            </ul>
+
+            <h4 style="font-size:15px;font-weight:600;margin-top:12px;">۱۶.۲ پیشنهادهای آینده</h4>
+            <ul>
+                <li>اجرای مطالعه موردی در حداقل دو واحد فرآوری کشاورزی (غلات و لبنی یا سردخانه‌ای) برای جمع‌آوری داده واقعی سنسوری و ثبت خرابی‌ها طی یک فصل کامل عملیاتی.</li>
+                <li>توسعه و آموزش مدل‌های یادگیری ماشین با داده‌های میدانی ایرانی و مقایسه عملکرد الگوریتم‌های پیشنهادی در شرایط واقعی نویز و داده ناقص.</li>
+                <li>طراحی و آزمایش معماری ترکیبی Edge-Cloud با اولویت پردازش لبه برای ماشین‌آلات متحرک برداشت.</li>
+                <li>توسعه مدل اقتصادی کمی بازگشت سرمایه با در نظر گرفتن هزینه فرصت ناشی از فسادپذیری محصول و مقایسه سناریوهای استقرار مرحله‌ای.</li>
+                <li>بررسی امکان استفاده از مدل‌های زبانی بزرگ (LLM) برای تولید خودکار دستورالعمل‌های تعمیر و گزارش تحلیل ریشه خرابی.</li>
+            </ul>
+        </section>
+
+        <!-- ===== نتیجه‌گیری ===== -->
+        <section class="section" id="conclusion">
+            <div class="section-header">
+                <span class="num">نتیجه</span>
+                <h2>نتیجه‌گیری</h2>
+                <i class="fas fa-flag-checkered section-icon"></i>
+            </div>
+            <p>تحلیل ارائه‌شده در این گزارش نشان می‌دهد که طراحی سیستم نگهداری و تعمیرات در صنایع کشاورزی نمی‌تواند از یک الگوی یکسان برای کل کارخانه پیروی کند و باید نتیجه مستقیم شناخت مهندسی زنجیره ارزش، ماهیت هر دسته تجهیز و مکانیزم خرابی غالب آن باشد.</p>
+            <p>ویژگی‌های ساختاری این صنعت – فصلی بودن بار، فسادپذیری محصول، محیط عملیاتی ساینده و پراکندگی جغرافیایی تجهیزات متحرک – به طور مستقیم بر انتخاب استراتژی نگهداری، نوع سنسور و حتی معماری الگوریتم یادگیری ماشین اثر می‌گذارد و آن را از یک واحد صنعتی ثابت با بار یکنواخت متمایز می‌کند.</p>
+            <p>طبقه‌بندی تجهیزات بر مبنای بحرانیت و قابلیت پایش نشان داد که استقرار همگون یک استراتژی واحد (نظیر نگهداری پیش‌بینانه برای تمام تجهیزات) نه از نظر فنی ضروری و نه از نظر اقتصادی توجیه‌پذیر است؛ ترکیب هدفمند نگهداری پیش‌بینانه برای تجهیزات بحرانی گلوگاهی، نگهداری مبتنی بر وضعیت برای تجهیزات با پارامتر پایش مشخص، نگهداری پیشگیرانه برای اقلام مصرفی و اجرا تا خرابی برای تجهیزات کم‌اهمیت، ساختار اقتصادی‌ترین آرایش منابع نگهداری را تشکیل می‌دهد.</p>
+            <p>پشته فناوری انقلاب صنعتی چهارم، از حسگر میدانی تا الگوریتم یادگیری ماشین، تنها زمانی ارزش عملیاتی ایجاد می‌کند که هر لایه آن به یک نیاز مشخص شناسایی‌شده در تحلیل خرابی پیوند داده شود. برنامه پیشنهادی ارائه‌شده در بخش پانزدهم، این پیوند را برای ده گروه تجهیزاتی کلیدی به صورت مشخص و قابل اجرا تدوین کرده است و می‌تواند به عنوان نقطه شروع برای استقرار مرحله‌ای در یک واحد واقعی صنایع کشاورزی، با بازبینی دوره‌ای بر مبنای داده عملکرد واقعی، به کار گرفته شود.</p>
+        </section>
+
+        <!-- ===== Glossary ===== -->
+        <section class="section" id="glossary">
+            <div class="section-header">
+                <span class="num">واژه</span>
+                <h2>واژه‌نامه تخصصی و فهرست اختصارات</h2>
+                <i class="fas fa-book-open section-icon"></i>
+            </div>
+            <div class="glossary-grid">
+                <div class="glossary-item"><span class="term">PdM – Predictive Maintenance</span><span class="def">استراتژی پیش‌بینی زمان وقوع خرابی بر اساس تحلیل الگوی داده‌های سنسوری.</span></div>
+                <div class="glossary-item"><span class="term">CBM – Condition-Based Maintenance</span><span class="def">انجام اقدامات نگهداری تنها زمانی که شاخص‌های عملکردی از حد مجاز عبور کنند.</span></div>
+                <div class="glossary-item"><span class="term">RUL – Remaining Useful Life</span><span class="def">زمان یا میزان کارکرد تخمینی باقی‌مانده از قطعه پیش از بروز خرابی کامل.</span></div>
+                <div class="glossary-item"><span class="term">FMEA – Failure Mode &amp; Effects Analysis</span><span class="def">روش‌شناسی شناسایی حالت‌های مختلف خرابی، علل و پیامدهای آن بر سیستم.</span></div>
+                <div class="glossary-item"><span class="term">RPN – Risk Priority Number</span><span class="def">شاخص کمی حاصل ضرب شدت، احتمال وقوع و قابلیت کشف خرابی (RPN = S×O×D).</span></div>
+                <div class="glossary-item"><span class="term">IIoT – Industrial Internet of Things</span><span class="def">شبکه سنسورها و تجهیزات متصل جهت جمع‌آوری و تبادل داده‌های عملیاتی.</span></div>
+                <div class="glossary-item"><span class="term">OEE – Overall Equipment Effectiveness</span><span class="def">شاخص کلیدی ارزیابی بهره‌وری حاصل ضرب سه فاکتور دسترس‌پذیری، نرخ عملکرد و کیفیت.</span></div>
+                <div class="glossary-item"><span class="term">MTBF – Mean Time Between Failures</span><span class="def">متوسط زمان کارکرد مداوم سیستم یا قطعه بین دو خرابی متوالی.</span></div>
+                <div class="glossary-item"><span class="term">MTTR – Mean Time To Repair</span><span class="def">متوسط زمان مورد نیاز برای بازگرداندن سیستم خراب‌شده به حالت عملیاتی.</span></div>
+                <div class="glossary-item"><span class="term">KPI – Key Performance Indicator</span><span class="def">معیارهای ارزیابی میزان موفقیت سیستم در دستیابی به اهداف عملیاتی و اقتصادی.</span></div>
+                <div class="glossary-item"><span class="term">IT / OT – Info Tech / Operational Tech</span><span class="def">تلفیق سیستم‌های داده‌محور اداری با نرم‌افزارها و سخت‌افزارهای کنترل صنعتی.</span></div>
+                <div class="glossary-item"><span class="term">XGBoost – Extreme Gradient Boosting</span><span class="def">الگوریتم یادگیری ماشین فوق سریع برای طبقه‌بندی و پیش‌بینی سری‌های زمانی.</span></div>
+                <div class="glossary-item"><span class="term">YOLO – You Only Look Once</span><span class="def">مدل بینایی ماشین پیشرفته جهت شناسایی آنی عیوب تصویر ظاهری، انسدادها یا شکستگی‌ها.</span></div>
+                <div class="glossary-item"><span class="term">LLM – Large Language Model</span><span class="def">مدل‌های هوش مصنوعی مولد جهت تحلیل متون فنی، کدها و ایجاد راهنماهای خودکار.</span></div>
+                <div class="glossary-item"><span class="term">CAPEX – Capital Expenditure</span><span class="def">هزینه‌های سرمایه‌ای جهت خرید تجهیزات، سنسورها و ایجاد زیرساخت‌ها.</span></div>
+                <div class="glossary-item"><span class="term">OPEX – Operational Expenditure</span><span class="def">هزینه‌های جاری نگهداری، اشتراک ابری، مصرف انرژی و تعمیرات مداوم.</span></div>
+                <div class="glossary-item"><span class="term">ROI – Return on Investment</span><span class="def">شاخص ارزیابی سودآوری اقتصادی پروژه نسبت به هزینه‌های انجام‌شده.</span></div>
+                <div class="glossary-item"><span class="term">MQTT – Message Queuing Telemetry Transport</span><span class="def">پروتکل استاندارد انتقال داده‌های سنسوری با پهنای باند کم در IIoT.</span></div>
+                <div class="glossary-item"><span class="term">PLC – Programmable Logic Controller</span><span class="def">رایانه صنعتی جهت کنترل فرآیندهای مکانیکی و خودکارسازی تجهیزات.</span></div>
             </div>
         </section>
 
-        <!-- ====== SECTION 8 ====== -->
-        <section id="sec-data">
-            <h2 class="section-title"><span class="num">۸.</span> داده‌های موردنیاز برای پایش وضعیت تجهیزات</h2>
-            <div class="card">
-                <p>انتخاب پارامتر داده برای پایش نباید بر مبنای در دسترس بودن سنسور بلکه بر مبنای پیوند مستقیم آن پارامتر با مکانیزم خرابی هدف صورت گیرد؛ در غیر این صورت، حجم بالای داده جمع‌آوری‌شده بدون افزایش متناظر در قابلیت تشخیص، صرفاً هزینه زیرساخت را افزایش می‌دهد (Hassan et al., 2024). جدول ۵ چهارده پارامتر کلیدی و پیوند فنی آن‌ها با تشخیص خرابی را ارائه می‌دهد.</p>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>پارامتر داده</th><th>تجهیز هدف</th><th>کاربرد اصلی در تشخیص خرابی</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>ارتعاش</td><td>یاتاقان‌ها، روتور آسیاب و فن‌ها</td><td>تشخیص عدم توازن، ناهم‌ترازی و فرسودگی یاتاقان از طریق آنالیز طیفی</td></tr>
-                            <tr><td>دما</td><td>یاتاقان، موتور، مبدل حرارتی</td><td>شناسایی اصطکاک غیرعادی، اضافه بار الکتریکی و افت راندمان حرارتی</td></tr>
-                            <tr><td>فشار</td><td>پمپ‌ها، خطوط هیدرولیک، فیلترها</td><td>تشخیص کاویتاسیون، نشتی و انسداد فیلتر از طریق افت فشار دیفرانسیل</td></tr>
-                            <tr><td>جریان الکتریکی</td><td>موتورهای محرکه</td><td>آنالیز امضای جریان موتور برای تشخیص لغزش، اضافه بار و خرابی سیم‌پیچی</td></tr>
-                            <tr><td>ولتاژ</td><td>تابلوهای برق و موتورها</td><td>شناسایی نوسان و عدم تقارن فاز که به سیم‌پیچی موتور آسیب می‌زند</td></tr>
-                            <tr><td>رطوبت</td><td>خشک‌کن‌ها و انبار سیلو</td><td>کنترل رطوبت محصول خروجی و تشخیص انحراف عملکرد سیستم خشک‌کن</td></tr>
-                            <tr><td>سرعت دورانی</td><td>موتورها، الواتور، آسیاب</td><td>پایش لغزش تسمه و انطباق سرعت واقعی با سرعت فرمان کنترلی</td></tr>
-                            <tr><td>گشتاور</td><td>جعبه دنده و محورهای انتقال قدرت</td><td>شناسایی اضافه بار مکانیکی ناشی از گرفتگی یا خستگی دنده</td></tr>
-                            <tr><td>کیفیت روغن</td><td>گیربکس‌ها و یاتاقان‌های روغن‌کاری‌شده</td><td>پایش افت خواص روان‌کاری و آلودگی رطوبتی روغن</td></tr>
-                            <tr><td>ذرات فلزی در روغن</td><td>گیربکس‌ها و یاتاقان‌های بحرانی</td><td>شناسایی زودهنگام سایش داخلی پیش از قابل مشاهده شدن علائم بیرونی</td></tr>
-                            <tr><td>صدا</td><td>آسیاب‌ها، کمپرسورها، فن‌ها</td><td>تشخیص ناهنجاری آکوستیک ناشی از سایش یا برخورد اجسام خارجی</td></tr>
-                            <tr><td>مصرف سوخت</td><td>ماشین‌آلات برداشت دیزلی</td><td>شناسایی افت راندمان احتراق و نیاز به سرویس موتور احتراق داخلی</td></tr>
-                            <tr><td>موقعیت مکانی (GPS)</td><td>ماشین‌آلات متحرک برداشت</td><td>ردیابی الگوی مسیر و همبستگی آن با شرایط زمین در تحلیل بار مکانیکی</td></tr>
-                            <tr><td>داده گذرگاه CAN Bus</td><td>تراکتور و کمپاین‌های مدرن</td><td>استخراج کدهای خطای داخلی واحد کنترل موتور و انتقال قدرت</td></tr>
-                        </tbody>
-                    </table>
-                    <div class="table-caption">جدول ۵- داده‌های موردنیاز برای پایش وضعیت تجهیزات</div>
-                </div>
-                <p class="text-muted" style="margin-top:0.8rem;">نکته مهم در طراحی سیستم جمع‌آوری، انتخاب نرخ نمونه‌برداری متناسب با نوع خرابی هدف است؛ برای مثال، تشخیص ضربه ناگهانی وارد بر کوبنده کمپاین نیازمند نمونه‌برداری با فرکانس چند کیلوهرتز است، در حالی که پایش رطوبت انبار با نمونه‌برداری هر چند دقیقه یک بار کاملاً کافی است؛ یکسان‌سازی نرخ نمونه‌برداری برای تمام پارامترها، که در طراحی‌های ابتدایی متداول است، منجر به اتلاف پهنای باند یا از دست رفتن اطلاعات بحرانی می‌شود.</p>
-            </div>
-        </section>
+        <!-- ===== Footer ===== -->
+        <div style="text-align:center;padding:20px 0 10px;color:var(--text-muted);font-size:12px;border-top:1px solid var(--border-color);margin-top:20px;">
+            <i class="fas fa-industry" style="margin-left:8px;"></i>
+            گزارش فنی و مهندسی – برنامه‌ریزی نگهداری و تعمیرات در صنایع کشاورزی
+            <span style="display:block;font-size:11px;margin-top:4px;opacity:0.6;">چارچوب یکپارچه نسل چهارم صنعت | متین نوروزی – ۸۱۰۹۰۲۸۲</span>
+        </div>
 
-        <!-- ====== SECTION 9 ====== -->
-        <section id="sec-systems">
-            <h2 class="section-title"><span class="num">۹.</span> سیستم‌های جمع‌آوری و مدیریت داده</h2>
-            <div class="card">
-                <p>سیستم‌های نرم‌افزاری درگیر در نگهداری هوشمند را می‌توان در قالب هرم اتوماسیون سنتی، از لایه کنترل میدانی تا لایه مدیریت کسب و کار، مرتب کرد. هر لایه داده را با سطح تجمیع متفاوتی پردازش می‌کند و پروتکل‌های ارتباطی، پل میان این لایه‌ها را برقرار می‌سازند (Kliestik et al., 2023a).</p>
-            </div>
+    </main>
 
-            <h3 class="subsection-title">۹.۱ سامانه‌های کنترل و نظارت</h3>
-            <div class="card">
-                <p><strong>کنترل‌کننده منطقی برنامه‌پذیر (PLC)</strong><br />
-                در پایین‌ترین لایه، منطق کنترل بلادرنگ تجهیز (نظیر توالی راه‌اندازی موتورها یا قفل ایمنی) را اجرا می‌کند. از منظر نگهداری، PLC منبع اولیه بسیاری از سیگنال‌های دیجیتال وضعیت (نظیر وضعیت روشن/خاموش یا خطای حفاظتی) است که بدون نیاز به سنسور اضافی، مستقیماً برای تشخیص خرابی‌های الکتریکی و توقف‌های ایمنی قابل استخراج است.</p>
-                <p style="margin-top:0.8rem;"><strong>سامانه کنترل نظارتی و کسب داده (SCADA)</strong><br />
-                SCADA داده چندین PLC را در سطح واحد یا کارخانه تجمیع کرده و امکان نمایش و هشداردهی متمرکز فراهم می‌کند. در نگهداری، SCADA بستر اصلی تعریف آستانه‌های هشدار برای استراتژی نگهداری مبتنی بر وضعیت (بخش ۵.۴) است، زیرا امکان مشاهده هم‌زمان روند چند پارامتر از چند تجهیز را در یک محیط واحد فراهم می‌کند.</p>
-            </div>
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        (function() {
+            'use strict';
 
-            <h3 class="subsection-title">۹.۲ سامانه‌های مدیریت سطح کارخانه و سازمان</h3>
-            <div class="card">
-                <p><strong>سامانه اجرای تولید (MES)</strong><br />
-                MES رویدادهای تولید (نظیر تغییر پیکربندی خط، توقف و نرخ تولید لحظه‌ای) را ثبت و با دستورات تولید تطبیق می‌دهد. پیوند آن با نگهداری در امکان محاسبه خودکار شاخص‌های عملکردی نظیر OEE است، زیرا MES تنها سامانه‌ای است که هم‌زمان به داده برنامه تولید و داده توقف واقعی دسترسی دارد.</p>
-                <p style="margin-top:0.8rem;"><strong>برنامه‌ریزی منابع سازمانی (ERP)</strong><br />
-                ERP لایه مدیریت مالی، تدارکات و منابع انسانی سازمان را پوشش می‌دهد. ارتباط آن با نگهداری از طریق تبادل داده هزینه تعمیرات، سفارش قطعه یدکی و برنامه‌ریزی نیروی انسانی تکنسین برقرار می‌شود؛ بدون این پیوند، تحلیل اقتصادی نگهداری معرفی‌شده در بخش چهاردهم امکان‌پذیر نیست.</p>
-                <p style="margin-top:0.8rem;"><strong>سامانه مدیریت نگهداری و تعمیرات رایانه‌ای (CMMS)</strong><br />
-                CMMS به‌طور اختصاصی برای مدیریت دستور کار تعمیرات، تاریخچه خرابی و موجودی قطعه یدکی طراحی شده است. این سامانه عملاً هسته مرکزی اجرای عملیاتی هر یک از استراتژی‌های معرفی‌شده در بخش پنجم است، زیرا هشدار تولیدشده توسط لایه پایش باید در نهایت به یک دستور کار مشخص در CMMS تبدیل شود تا به اقدام واقعی منجر شود.</p>
-                <p style="margin-top:0.8rem;"><strong>مدیریت دارایی‌های سازمانی (EAM)</strong><br />
-                EAM را می‌توان گسترش CMMS در سطح کل چرخه عمر دارایی، از خرید تا از رده خارج‌سازی، در نظر گرفت. برای صنایع کشاورزی با ناوگان تجهیزات متحرک و پراکنده، EAM امکان تحلیل هزینه کل مالکیت (نظیر مقایسه هزینه نگهداری کمباین‌های مختلف در طول عمر آن‌ها) را فراهم می‌کند که تصمیمات جایگزینی تجهیز را پشتیبانی می‌کند.</p>
-                <p style="margin-top:0.8rem;"><strong>بایگانی تاریخی داده (Data Historian)</strong><br />
-                Data Historian برای ذخیره‌سازی بلندمدت و با حجم بالای داده سری زمانی با نرخ نمونه‌برداری بالا (نظیر داده ارتعاشی خام) بهینه‌شده است و برخلاف پایگاه داده‌های رابطه‌ای متعارف، فشرده‌سازی و بازیابی سریع داده زمانی را پشتیبانی می‌کند. این سامانه منبع اصلی داده آموزشی برای مدل‌های یادگیری ماشین معرفی‌شده در بخش دوازدهم است.</p>
-            </div>
+            // --- Theme Toggle ---
+            const themeToggle = document.getElementById('themeToggle');
+            const icon = themeToggle.querySelector('i');
 
-            <h3 class="subsection-title">۹.۳ پروتکل‌های ارتباطی میان‌لایه‌ای</h3>
-            <div class="card">
-                <p>پروتکل‌های ارتباطی پل میان لایه‌های فوق را برقرار می‌کنند و هرکدام برای سناریوی متفاوتی بهینه شده‌اند. OPC-UA به عنوان استاندارد صنعتی مستقل از پلتفرم، ارتباط ایمن و ساختاریافته میان PLC، SCADA و MES را برقرار می‌کند و برای تبادل داده در سطح کارخانه با نیاز به مدل‌سازی معنایی داده مناسب است. Modbus به دلیل سادگی و عمر طولانی در صنعت، همچنان پروتکل غالب برای ارتباط با تجهیزات قدیمی‌تر (نظیر کنترلرهای خشک‌کن یا واحد برودتی نصب‌شده در دهه گذشته) است که ارتقای کامل آن‌ها از نظر اقتصادی توجیه‌پذیر نیست. MQTT با سربار پایین و معماری انتشار-اشتراک (Publish-Subscribe)، برای انتقال داده از گره‌های IoT با پهنای باند محدود روی ماشین‌آلات متحرک برداشت مناسب‌ترین گزینه است، زیرا در شرایط قطعی موقت ارتباط، پیام‌ها را با اولویت‌بندی کیفیت مدیریت می‌کند.</p>
-            </div>
-        </section>
+            function setTheme(dark) {
+                if (dark) {
+                    document.documentElement.classList.add('dark-mode');
+                    icon.className = 'fas fa-sun';
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                    icon.className = 'fas fa-moon';
+                }
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+            }
 
-        <!-- ====== SECTION 10 ====== -->
-        <section id="sec-sensors">
-            <h2 class="section-title"><span class="num">۱۰.</span> سنسورهای مورد استفاده در پایش تجهیزات</h2>
-            <div class="card">
-                <p>انتخاب نوع سنسور برای هر تجهیز باید متناسب با مکانیزم خرابی هدف (بخش ۴) و در شرایط محیطی واقعی صنایع کشاورزی (گردوغبار، رطوبت و ارتعاش محیطی بالا) صورت گیرد. جدول ۶ میان نه نوع سنسور رایج، تجهیز محل نصب و هدف اندازه‌گیری را نشان می‌دهد.</p>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>سنسور</th><th>تجهیز محل نصب</th><th>هدف اندازه‌گیری</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>شتاب‌سنج (Accelerometer)</td><td>پوسته یاتاقان موتور، آسیاب و فن</td><td>ثبت طیف ارتعاش برای تشخیص عدم توازن، ناهم‌ترازی و فرسودگی یاتاقان</td></tr>
-                            <tr><td>حسگر دما</td><td>بدنه موتور، یاتاقان، مبدل حرارتی</td><td>پایش گرمای غیرعادی ناشی از اصطکاک یا اضافه‌بار الکتریکی</td></tr>
-                            <tr><td>حسگر فشار</td><td>خطوط هیدرولیک، ورودی و خروجی پمپ</td><td>شناسایی افت فشار ناشی از نشتی یا انسداد مسیر</td></tr>
-                            <tr><td>حسگر جریان الکتریکی</td><td>تابلوی برق موتورهای محرکه</td><td>استخراج امضای جریان برای تشخیص لغزش و خرابی سیم‌پیچی</td></tr>
-                            <tr><td>انکودر (Encoder)</td><td>محور موتور و غلتک‌های نقاله</td><td>اندازه‌گیری دقیق سرعت و موقعیت زاویه‌ای برای تشخیص لغزش</td></tr>
-                            <tr><td>حسگر جریان سیال (Flow)</td><td>خطوط لوله سیستم برودتی و فرآوری</td><td>تشخیص کاهش دبی ناشی از انسداد یا خرابی پمپ</td></tr>
-                            <tr><td>حسگر کیفیت روغن</td><td>کارتر گیربکس‌های بحرانی</td><td>پایش ویسکوزیته، رطوبت و آلودگی ذره‌ای روغن روان‌کار</td></tr>
-                            <tr><td>دوربین مادون‌قرمز (حرارتی)</td><td>تابلو برق، یاتاقان، مبدل حرارتی</td><td>ترموگرافی برای شناسایی نقاط داغ غیرعادی بدون تماس فیزیکی</td></tr>
-                            <tr><td>حسگر آکوستیک</td><td>کمپرسور، آسیاب و واحدهای پرسروصدا</td><td>تشخیص ناهنجاری صوتی با فرکانس بالا پیش از قابل شنیده شدن توسط گوش انسان</td></tr>
-                        </tbody>
-                    </table>
-                    <div class="table-caption">جدول ۶- سنسورهای مورد استفاده در پایش تجهیزات</div>
-                </div>
-                <p class="text-muted" style="margin-top:0.8rem;">در ماشین‌آلات متحرک برداشت، انتخاب سنسور علاوه بر معیار فوق باید مقاومت در برابر ضربه، گردوغبار و رطوبت (حداقل استاندارد حفاظتی IP65) را نیز پوشش دهد (Nti et al., 2022a). سنسورهای صنعتی استاندارد طراحی‌شده برای محیط ثابت کارخانه معمولاً برای نصب مستقیم روی کمپاین یا تراکتور مناسب نیستند و باید نسخه تقویت‌شده مکانیکی آن‌ها انتخاب شود.</p>
-            </div>
-        </section>
+            // Load saved theme
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                setTheme(true);
+            } else if (saved === 'light') {
+                setTheme(false);
+            } else {
+                // System preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    setTheme(true);
+                } else {
+                    setTheme(false);
+                }
+            }
 
-        <!-- ====== SECTION 11 ====== -->
-        <section id="sec-inspection">
-            <h2 class="section-title"><span class="num">۱۱.</span> بازرسی‌های فنی و روش‌های ارزیابی وضعیت</h2>
-            <div class="card">
-                <p>روش‌های بازرسی فنی زیر مکمل پایش پیوسته حسگری هستند و عمدتاً برای تجهیزاتی به کار می‌روند که پایش دائمی آن‌ها از نظر اقتصادی توجیه‌پذیر نیست یا نیازمند تحلیل تخصصی دوره‌ای فراتر از قابلیت حسگر ثابت است (M.-K. Liu et al., 2019).</p>
-            </div>
+            themeToggle.addEventListener('click', function() {
+                const isDark = document.documentElement.classList.contains('dark-mode');
+                setTheme(!isDark);
+            });
 
-            <h3 class="subsection-title">۱۱.۱ بازرسی بصری (Visual Inspection)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>تجهیز هدف:</strong> تمام تجهیزات، با اولویت بر ماشین‌آلات برداشت و نوار نقاله‌ها</li>
-                    <li><strong>ابزار مورد استفاده:</strong> چک‌لیست استاندارد و در موارد پیشرفته دوربین ثابت با تحلیل بینایی ماشین</li>
-                    <li><strong>بازه زمانی توصیه‌شده:</strong> روزانه یا در ابتدای هر شیفت کاری، به ویژه در فصل برداشت</li>
-                    <li><strong>هدف بازرسی:</strong> شناسایی زودهنگام نشتی، ترک سطحی، صدای غیرعادی و اتصالات شل پیش از تشدید به خرابی جدی</li>
-                </ul>
-            </div>
+            // --- Mobile Menu Toggle ---
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
 
-            <h3 class="subsection-title">۱۱.۲ ترموگرافی (Thermography)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>تجهیز هدف:</strong> تابلوهای برق، اتصالات الکتریکی، یاتاقان‌ها و مبدل‌های حرارتی</li>
-                    <li><strong>ابزار مورد استفاده:</strong> دوربین حرارتی مادون‌قرمز دستی یا ثابت</li>
-                    <li><strong>بازه زمانی توصیه‌شده:</strong> ماهانه برای تجهیزات عمومی، هفتگی برای تجهیزات بحرانی در فصل عملیاتی</li>
-                    <li><strong>هدف بازرسی:</strong> شناسایی نقاط داغ غیرعادی ناشی از اتصال شل، اضافه‌بار یا اصطکاک بدون نیاز به تماس فیزیکی (Y. Liu et al., 2022)</li>
-                </ul>
-            </div>
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                const iconMenu = menuToggle.querySelector('i');
+                if (sidebar.classList.contains('open')) {
+                    iconMenu.className = 'fas fa-times';
+                } else {
+                    iconMenu.className = 'fas fa-bars';
+                }
+            });
 
-            <h3 class="subsection-title">۱۱.۳ آنالیز ارتعاش (Vibration Analysis)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>تجهیز هدف:</strong> یاتاقان‌های پرسرعت، روتور آسیاب و خردکن، فن‌های دمنده</li>
-                    <li><strong>ابزار مورد استفاده:</strong> شتاب‌سنج و تحلیل‌گر طیف FFT</li>
-                    <li><strong>بازه زمانی توصیه‌شده:</strong> پیوسته برای تجهیزات بحرانی، ماهانه برای تجهیزات با اولویت متوسط</li>
-                    <li><strong>هدف بازرسی:</strong> تشخیص عدم توازن، ناهم‌ترازی، فرسودگی یاتاقان و آسیب دندانه دنده در مراحل اولیه توسعه خرابی (Gangsar et al., 2022c)</li>
-                </ul>
-            </div>
+            // Close sidebar on link click (mobile)
+            document.querySelectorAll('.sidebar a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('open');
+                        const iconMenu = menuToggle.querySelector('i');
+                        iconMenu.className = 'fas fa-bars';
+                    }
+                    // Highlight active
+                    document.querySelectorAll('.sidebar a').forEach(function(el) {
+                        el.classList.remove('active');
+                    });
+                    link.classList.add('active');
+                });
+            });
 
-            <h3 class="subsection-title">۱۱.۴ آنالیز روغن (Oil Analysis)</h3>
-            <div class="card">
-                <ul class="bullet-list">
-                    <li><strong>تجهیز هدف:</strong> گیربکس‌های اصلی و یاتاقان‌های روغن‌کاری
+            // Highlight active on scroll (basic)
+            const sections = document.querySelectorAll('.section, .hero-section');
+            const navLinks = document.querySelectorAll('.sidebar a');
+
+            function highlightNav() {
+                let current = '';
+                sections.forEach(function(section) {
+                    const top = section.offsetTop - 120;
+                    if (window.scrollY >= top) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', highlightNav);
+            window.addEventListener('load', highlightNav);
+
+        })();
+    </script>
+</body>
+</html>

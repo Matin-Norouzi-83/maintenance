@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گزارش جامع نگهداری و تعمیرات پیشبینانه (PdM) - متین نوروزی</title>
+    <!-- Vazirmatn Font -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-body: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-card-hover: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.15);
+            --accent: #818cf8;
+            --border: #1e293b;
+            --success: #34d399;
+            --warning: #fbbf24;
+            --danger: #f87171;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #0284c7;
+            --primary-glow: rgba(2, 132, 199, 0.1);
+            --accent: #4f46e5;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --warning: #d97706;
+            --danger: #dc2626;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 4rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Navigation */
+        header {
+            background: rgba(21, 28, 44, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-title h1 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .brand-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+        }
+
+        /* Hero / Overview Section */
+        .hero {
+            background: radial-gradient(circle at top right, var(--primary-glow), transparent 60%);
+            padding: 3rem 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0 auto 1.5rem auto;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-author {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        /* KPI Dashboard Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .kpi-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .kpi-card h3 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-card .value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .kpi-card .subtext {
+            font-size: 0.85rem;
+            color: var(--success);
+            margin-top: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Content Sections */
+        .section-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.8rem;
+        }
+
+        .section-header i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            color: var(--text-main);
+        }
+
+        /* Tables Styling */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            text-align: right;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        tr:hover td {
+            background-color: var(--bg-card-hover);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .badge-danger { background: rgba(248, 113, 113, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+        .badge-warning { background: rgba(251, 191, 36, 0.15); color: var(--warning); border: 1px solid var(--warning); }
+        .badge-success { background: rgba(52, 211, 153, 0.15); color: var(--success); border: 1px solid var(--success); }
+
+        /* Grid Cards inside sections */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem;
+        }
+
+        .info-box h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-right: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-right: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        ul li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            right: 0;
+            top: -2px;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        footer strong {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container nav-wrapper">
+        <div class="brand-title">
+            <h1>طرح جامع نگهداری و تعمیرات پیشبینانه (PdM)</h1>
+            <p>تطبیق صنعت ۴.۰ در صنایع کشاورزی و پردازش مواد</p>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <i class="fa-solid fa-moon"></i>
+            <span id="theme-text">حالت شب</span>
+        </button>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- Hero / Author Info -->
+    <section class="hero">
+        <div class="badge-author">
+            <i class="fa-solid fa-user-gear"></i>
+            طراح و پژوهشگر: متین نوروزی
+        </div>
+        <h2>سیستم هوشمند پایش وضعیت و نگهداری خودمختار (TPM + IIoT)</h2>
+        <p>
+            پروژه تخصصی ارزیابی ریسک، پیاده‌سازی معماری اینترنت اشیاء صنعتی (IIoT)، مدل‌سازی یادگیری ماشین جهت پیش‌بینی عمر مفید (RUL) و تحلیل کامل توجیه‌پذیری اقتصادی.
+        </p>
+    </section>
+
+    <!-- Key Performance Indicators (KPIs) -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <h3>سرمایه‌گذاری اولیه (CAPEX)</h3>
+            <div class="value">۷۲۰ م.ت</div>
+            <div class="subtext"><i class="fa-solid fa-microchip"></i> تجهیز سنسورینگ و شبکه IIoT</div>
+        </div>
+        <div class="kpi-card">
+            <h3>دوره بازگشت سرمایه</h3>
+            <div class="value">۵.۵ ماه</div>
+            <div class="subtext"><i class="fa-solid fa-bolt"></i> بازگشت سریع سرمایه گذاری</div>
+        </div>
+        <div class="kpi-card">
+            <h3>نرخ بازگشت سرمایه (ROI)</h3>
+            <div class="value">۲۱۵٪</div>
+            <div class="subtext"><i class="fa-solid fa-arrow-up"></i> در سال اول بهره‌برداری</div>
+        </div>
+        <div class="kpi-card">
+            <h3>کاهش توقفات اضطراری</h3>
+            <div class="value">۳۵٪</div>
+            <div class="subtext"><i class="fa-solid fa-check-double"></i> بهبود پایداری خط تولید</div>
+        </div>
+    </div>
+
+    <!-- Section 1: Industry Assumptions & Value Chain -->
+    <div class="section-card">
+        <div class="section-header">
+            <i class="fa-solid fa-industry"></i>
+            <h2>۱. مفروضات ساختاری و نگاشت زنجیره ارزش</h2>
+        </div>
+        <div class="grid-2">
+            <div class="info-box">
+                <h4><i class="fa-solid fa-wheat-awn"></i> ویژگی‌های محیط عملیاتی کشاورزی</h4>
+                <ul>
+                    <li>بار کاری شدید فصلی و حساسیت بالا به زمان برداشت</li>
+                    <li>محیط عملیاتی گرد و غبار، لرزش بالا و خوردگی شیمیایی</li>
+                    <li>پراکنش جغرافیایی تجهیزات و ضرورت پایش از راه دور</li>
+                    <li>فسادپذیری سریع مواد اولیه در صورت توقف خطوط processing</li>
+                </ul>
+            </div>
+            <div class="info-box">
+                <h4><i class="fa-solid fa-link"></i> تجهیزات کلیدی زنجیره ارزش</h4>
+                <ul>
+                    <li><strong>برداشت:</strong> کمباین و تراکتورهای سنگین (لرزش و موتور)</li>
+                    <li><strong>فرآوری اولیه:</strong> آسیاب اصلی و سرندها (سایش و ارتعاش)</li>
+                    <li><strong>عمل‌آوری:</strong> خشک‌کن‌های صنعتی (دما و سیستم‌های حرارتی)</li>
+                    <li><strong>نگهداری:</strong> سیستم‌های برودتی و بسته‌بندی (پایش آنلاین)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2: FMEA Analysis Table -->
+    <div class="section-card">
+        <div class="section-header">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <h2>۲. ارزیابی کیفی و کمی حالات خرابی (FMEA)</h2>
+        </div>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">
+            تحلیل حالات خرابی و محاسبه عدد اولویت ریسک (RPN = S × O × D) برای تجهیزات اصلی:
+        </p>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>تجهیز اصلی</th>
+                        <th>حالت خرابی</th>
+                        <th>علت ریشه‌ای خرابی</th>
+                        <th>شدت (S)</th>
+                        <th>وقوع (O)</th>
+                        <th>کشف (D)</th>
+                        <th>RPN</th>
+                        <th>سطح ریسک</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>آسیاب اصلی (Main Mill)</strong></td>
+                        <td>سایش شدید یاتاقان و خرابی شفت</td>
+                        <td>عدم توازن، نویز ارتعاشی، روغن‌کاری ناکافی</td>
+                        <td>۸</td>
+                        <td>۷</td>
+                        <td>۵</td>
+                        <td><strong>۲۸۰</strong></td>
+                        <td><span class="status-badge badge-danger">بحرانی</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>خشک‌کن صنعتی</strong></td>
+                        <td>افت بازده حرارتی و انسداد نازل</td>
+                        <td>رسوب‌گذاری مواد و خرابی مشعل</td>
+                        <td>۸</td>
+                        <td>۶</td>
+                        <td>۴</td>
+                        <td><strong>۱۹۲</strong></td>
+                        <td><span class="status-badge badge-warning">متوسط</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>کمباین برداشت</strong></td>
+                        <td>داغ شدن بیش از حد گیربکس</td>
+                        <td>سایش دنده‌ها و افت سطح روغن هیدرولیک</td>
+                        <td>۷</td>
+                        <td>۵</td>
+                        <td>۴</td>
+                        <td><strong>۱۴۰</strong></td>
+                        <td><span class="status-badge badge-warning">متوسط</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>خط بسته‌بندی اتوماتیک</strong></td>
+                        <td>خطای سنسور نوری و توقف نوار نقاله</td>
+                        <td>تجمع گرد و غبار شدید محیطی</td>
+                        <td>۶</td>
+                        <td>۶</td>
+                        <td>۳</td>
+                        <td><strong>۱۰۸</strong></td>
+                        <td><span class="status-badge badge-success">پایین</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Section 3: Machine Learning & AI Models -->
+    <div class="section-card">
+        <div class="section-header">
+            <i class="fa-solid fa-brain"></i>
+            <h2>۳. مدل‌سازی هوش مصنوعی و انتخاب الگوریتم‌ها</h2>
+        </div>
+        <div class="grid-2">
+            <div class="info-box">
+                <h4><i class="fa-solid fa-chart-line"></i> پیش‌بینی عمر مفید (RUL)</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    استفاده از مدل‌های **Transformer** و **LSTM** برای تحلیل سری‌های زمانی سیگنال‌های ارتعاش و دما جهت پیش‌بینی زمان دقیق خرابی قبل از وقوع.
+                </p>
+            </div>
+            <div class="info-box">
+                <h4><i class="fa-solid fa-shield-cat"></i> تشخیص ناهنجاری (Anomaly Detection)</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    پیاده‌سازی الگوریتم **Isolation Forest** و **Autoencoders** جهت شناسایی رفتارهای غیرعادی تجهیزات بدون نیاز به داده‌های برچسب‌خورده قبلی.
+                </p>
+            </div>
+            <div class="info-box">
+                <h4><i class="fa-solid fa-eye"></i> بازرسی بصری کیفیت (Computer Vision)</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    استفاده از مدل **YOLOv8** جهت بازرسی کیفی آنی و تشخیص ترک، خوردگی و دفرمه شدن قطعات در نوار نقاله‌ها و بسته‌بندی.
+                </p>
+            </div>
+            <div class="info-box">
+                <h4><i class="fa-solid fa-diagram-project"></i> تحلیل داده‌های ساختاریافته</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    بکارگیری **XGBoost** و **LightGBM** جهت طبقه‌بندی حالات خرابی بر اساس داده‌های سوابق تعمیراتی و پارامترهای عملیاتی.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: IT/OT Architecture -->
+    <div class="section-card">
+        <div class="section-header">
+            <i class="fa-solid fa-network-wired"></i>
+            <h2>۴. معماری لایه‌ای IT/OT و پشته فناوری</h2>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>لایه</th>
+                        <th>تکنولوژی / ابزار</th>
+                        <th>پروتکل ارتباطی</th>
+                        <th>وظیفه اصلی</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Field Layer (حسگرها)</strong></td>
+                        <td>شتاب‌سنج MEMS، سنسور دما IR، MCSA</td>
+                        <td>Analog / IO-Link</td>
+                        <td>جمع‌آوری سیگنال‌های ارتعاش، دما و جریان</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Control Layer (کنترل)</strong></td>
+                        <td>Siemens S7-1500 / Edge Computing</td>
+                        <td>Modbus RTU / Profinet</td>
+                        <td>پردازش محلی آنی و کنترل توقف ایمن</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Operations (عملیات)</strong></td>
+                        <td>SCADA / Historian System</td>
+                        <td>OPC-UA / MQTT</td>
+                        <td>پایش بصری آنی و ذخیره‌سازی سری زمانی</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Enterprise (مدیریت)</strong></td>
+                        <td>CMMS / ERP Integration</td>
+                        <td>REST API / HTTPS</td>
+                        <td>صدور خودکار دستور کار (Work Order) و تامین قطعه</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Section 5: Economic & Financial Analysis -->
+    <div class="section-card">
+        <div class="section-header">
+            <i class="fa-solid fa-coins"></i>
+            <h2>۵. تحلیل اقتصادی و ارزیابی توجیه‌پذیری (Financial Evaluation)</h2>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>شاخص ارزیابی</th>
+                        <th>قبل از اجرای PdM</th>
+                        <th>پس از اجرای PdM</th>
+                        <th>دستاورد / بهبود</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>هزینه سالانه توقفات اضطراری</strong></td>
+                        <td>۱,۸۰۰ میلیون تومان</td>
+                        <td>۵۵۰ میلیون تومان</td>
+                        <td><span class="status-badge badge-success">۶۹٪ کاهش هزینه</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>اثربخشی کلی تجهیزات (OEE)</strong></td>
+                        <td>۶۲٪</td>
+                        <td>۸۱٪</td>
+                        <td><span class="status-badge badge-success">۱۹٪ افزایش OEE</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>میانگین زمان بین خرابی‌ها (MTBF)</strong></td>
+                        <td>۱۲۰ ساعت</td>
+                        <td>۳۴۰ ساعت</td>
+                        <td><span class="status-badge badge-success">۱۸۳٪ بهبود پایداری</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>هزینه قطعات یدکی مصرفی</strong></td>
+                        <td>۴۵۰ میلیون تومان</td>
+                        <td>۲۸۰ میلیون تومان</td>
+                        <td><span class="status-badge badge-success">۳۷٪ صرفه‌جویی</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        توسعه یافته جهت ارائه وب آنلاین | <strong>متین نوروزی - گزارش جامع نگهداری و تعمیرات پیشبینانه (PdM)</strong>
+    </footer>
+
+</div>
+
+<script>
+    function toggleTheme() {
+        const body = document.body;
+        const themeText = document.getElementById('theme-text');
+        const themeIcon = document.querySelector('.theme-toggle i');
+        
+        if (body.getAttribute('data-theme') === 'light') {
+            body.removeAttribute('data-theme');
+            themeText.innerText = 'حالت شب';
+            themeIcon.className = 'fa-solid fa-moon';
+        } else {
+            body.setAttribute('data-theme', 'light');
+            themeText.innerText = 'حالت روز';
+            themeIcon.className = 'fa-solid fa-sun';
+        }
+    }
+</script>
+
+</body>
+</html>
